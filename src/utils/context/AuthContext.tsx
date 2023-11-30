@@ -95,7 +95,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       updateToken();
     }
 
-    let fourMins = 1000 * 1 * 30;
+    let fourMins = 1000 * 4 * 60;
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken();
