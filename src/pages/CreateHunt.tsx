@@ -43,19 +43,17 @@ const CreateHunt: React.FC = () => {
 		};
 	}, [imgFile]);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
-		const formData = {
-			name: huntName,
-			description,
-			start_date: startDate?.toJSON(),
-			end_date: endDate?.toJSON(),
-			poster_img: imgFile,
-			number_of_skips_for_each_team: skips,
-		};
+		const formData = new FormData();
 
-		console.log(formData);
+		formData.append("name", huntName);
+		formData.append("description", description);
+		if (startDate) formData.append("start_date", startDate?.toJSON());
+		if (endDate) formData.append("end_date", endDate?.toJSON());
+		formData.append("poster_img", imgFile as Blob);
+		formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
 			const response = await axios.post("hunts/", formData);
@@ -76,43 +74,52 @@ const CreateHunt: React.FC = () => {
 	if (!contextData) {
 		return null;
 	}
-	const { user, loginUser }: AuthContextProps = contextData;
+	const { user }: AuthContextProps = contextData;
 
 	return (
 		<div>
-			{user && <Navigate to="/" />}
+			{!user && <Navigate to="/" />}
 			<p>Create A Hunt</p>
 			{message && <p>{message}</p>}
 			<form id="createHuntForm" onSubmit={handleSubmit}>
 				<input
 					type="text"
-					name="huntName"
+					name="name"
 					placeholder="Hunt Name"
 					value={huntName}
 					onChange={(e) => setHuntName(e.target.value)}
 				/>
+
 				<textarea
 					name="description"
 					placeholder="Description"
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 				/>
+
 				<DatePicker
+					placeholderText="Hunt Duration"
 					selected={startDate}
 					onChange={onDateChange}
 					startDate={startDate}
 					endDate={endDate}
 					selectsRange
 				/>
-				<input type="number" value={skips} onChange={onSkipsChange} />
+
+				<label htmlFor="skips">Number of Skips</label>
+				<input type="number" id="skips" name="number_of_skips_for_each_team" value={skips} onChange={onSkipsChange} />
+
+				<label htmlFor="posterImg">Poster Image</label>
 				<input
 					type="file"
-					name="posterImg"
+					id="posterImg"
+					name="poster_image"
 					onChange={(e) => {
 						setImgFile(e.target.files ? e.target.files.item(0) : null);
 					}}
 				/>
 				{imgPreview && <img src={imgPreview} />}
+
 				<button type="submit">Create</button>
 			</form>
 		</div>
