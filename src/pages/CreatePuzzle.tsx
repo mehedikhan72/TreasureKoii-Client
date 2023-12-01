@@ -77,7 +77,7 @@ const CreatePuzzle: React.FC = () => {
 
 	return (
 		<div>
-			{!user && <Navigate to="/" />}
+			{!user && <Navigate to="/login" />}
 			<p>Create A Puzzle</p>
 			{message && <p>{message}</p>}
 			<form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>

@@ -6,10 +6,11 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import CreateHunt from "./pages/CreateHunt";
 import CreatePuzzle from "./pages/CreatePuzzle";
+import CurrentPuzzle from "./pages/CurrentPuzzle";
 
 const App: React.FC = () => {
 	return (
-		<div className="App">
+		<div className="App my-font">
 			<AuthProvider>
 				<Routes>
 					<Route path="/" element={<Home />} />
@@ -18,6 +19,7 @@ const App: React.FC = () => {
 					<Route path="/create-hunt" element={<CreateHunt />} />
 					<Route path="/create-puzzle" element={<CreatePuzzle />} />
 					<Route path="/create-team" element={<CreatePuzzle />} />
+					<Route path="/:slug/current-puzzle" element={<CurrentPuzzle />} />
 				</Routes>
 			</AuthProvider>
 		</div>
