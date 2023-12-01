@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import CreateHunt from "./pages/CreateHunt";
 import CreatePuzzle from "./pages/CreatePuzzle";
+import CreateTeam from "./pages/CreateTeam";
+import JoinTeam from "./pages/JoinTeam";
 
 const App: React.FC = () => {
 	return (
@@ -17,7 +19,8 @@ const App: React.FC = () => {
 					<Route path="/register" element={<Register />} />
 					<Route path="/create-hunt" element={<CreateHunt />} />
 					<Route path="/create-puzzle" element={<CreatePuzzle />} />
-					<Route path="/create-team" element={<CreatePuzzle />} />
+					<Route path="/create-team" element={<CreateTeam />} />
+					<Route path="/join-team" element={<JoinTeam />} />
 				</Routes>
 			</AuthProvider>
 		</div>

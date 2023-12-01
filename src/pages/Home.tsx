@@ -21,6 +21,7 @@ const Home: React.FC = () => {
 			</div>
 			<div className="cta">
 				<Link to={{ pathname: `/create-hunt/` }}>Create A Hunt</Link>
+				<Link to={{ pathname: `/join-team/` }}>Join A Hunt</Link>
 			</div>
 			<footer>info info</footer>
 		</>
