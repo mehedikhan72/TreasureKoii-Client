@@ -78,7 +78,7 @@ const CreateHunt: React.FC = () => {
 
 	return (
 		<div>
-			{!user && <Navigate to="/" />}
+			{!user && <Navigate to="/login" />}
 			<p>Create A Hunt</p>
 			{message && <p>{message}</p>}
 			<form id="createHuntForm" onSubmit={handleSubmit}>
@@ -118,7 +118,7 @@ const CreateHunt: React.FC = () => {
 						setImgFile(e.target.files ? e.target.files.item(0) : null);
 					}}
 				/>
-				{imgPreview && <img src={imgPreview} />}
+				{imgPreview && <img src={imgPreview} alt="Poster" />}
 
 				<button type="submit">Create</button>
 			</form>

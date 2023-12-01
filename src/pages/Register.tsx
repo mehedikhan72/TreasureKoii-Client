@@ -18,7 +18,6 @@ const Register: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    // use axios for the post req
     if (password !== confirmedPassword) {
       setMessage("Passwords do not match");
       return;
@@ -53,7 +52,7 @@ const Register: React.FC = () => {
     return null;
   }
   const { user, loginUser }: AuthContextProps = contextData;
-
+  // TODO: user was not being logged in properly after reg, look into that.
   return (
     <div>
       {user && <Navigate to="/" />}
