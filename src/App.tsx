@@ -12,7 +12,7 @@ import JoinTeam from "./pages/JoinTeam";
 
 const App: React.FC = () => {
 	return (
-		<div className="App my-font">
+		<div className="App my-font overflow-x-hidden min-h-screen">
 			<AuthProvider>
 				<Routes>
 					<Route path="/" element={<Home />} />
