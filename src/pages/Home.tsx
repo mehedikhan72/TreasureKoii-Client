@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../utils/context/AuthContext";
+import HomeFooter from "../components/HomeFooter";
 
 const Home: React.FC = () => {
   let constextData = useContext(AuthContext);
@@ -11,11 +12,6 @@ const Home: React.FC = () => {
   console.log(user);
   return (
     <div>
-      {/* <img
-        src="https://escapetrails.co/wp-content/uploads/2020/03/Treasure-hunt.jpg"
-        className="w-full"
-        alt="treasure hunt"
-      /> */}
       <div className="">
         <p className="text-6">TreasureKoii</p>
         <p className="text-3">
@@ -27,11 +23,23 @@ const Home: React.FC = () => {
         </p>
       </div>
 
-      <div className="flex justify-center items-center m-5">
-        <Link to={{ pathname: `/create-hunt/` }}><button className="my-btn-1">Create A Hunt</button></Link>
-		<Link to={{ pathname: `/join-hunt/` }}><button className="my-btn-1">Join A Hunt</button></Link>
+      <div className="flex justify-center items-center p-5">
+        <img
+          src="https://escapetrails.co/wp-content/uploads/2020/03/Treasure-hunt.jpg"
+          className="w-5/6 md:w-1/2 rounded-xl"
+          alt="treasure hunt"
+        />
       </div>
-      <footer>info info</footer>
+
+      <div className="flex justify-center items-center m-5">
+        <Link to={{ pathname: `/create-hunt/` }}>
+          <button className="my-btn-1">Create A Hunt</button>
+        </Link>
+        <Link to={{ pathname: `/join-hunt/` }}>
+          <button className="my-btn-1">Join A Hunt</button>
+        </Link>
+      </div>
+      <HomeFooter />
     </div>
   );
 };
