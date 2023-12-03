@@ -20,7 +20,7 @@ const App: React.FC = () => {
 					<Route path="/register" element={<Register />} />
 					<Route path="/create-hunt" element={<CreateHunt />} />
 					<Route path="/create-puzzle" element={<CreatePuzzle />} />
-					<Route path="/create-team" element={<CreatePuzzle />} />
+					<Route path="/:slug/create-team" element={<CreatePuzzle />} />
 					<Route path="/:slug/current-puzzle" element={<CurrentPuzzle />} />
 					<Route path="/create-team" element={<CreateTeam />} />
 					<Route path="/join-team" element={<JoinTeam />} />
