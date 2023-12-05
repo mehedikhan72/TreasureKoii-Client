@@ -11,20 +11,21 @@ const Login: React.FC = () => {
     return null;
   }
 
-  const { loginUser, user, message } : AuthContextProps = contextData;
+  const { loginUser, user, message }: AuthContextProps = contextData;
   console.log(user);
-  return <div>
-    {user && <Navigate to="/" />}
-    <p>LOGIN</p>
-    {message && <p>{message}</p>}
-    <form onSubmit={loginUser}>
-      <input type="email" name="email" placeholder="Email"/>
-      <input type="password" name="password" placeholder="Password"/>
-      <button type="submit">Login</button>
-    </form>
-    <Link to={{ pathname: `/register/` }}>Register</Link>
-
-  </div>;
+  return (
+    <div>
+      {user && <Navigate to="/" />}
+      <p>LOGIN</p>
+      {message && <p>{message}</p>}
+      <form onSubmit={loginUser}>
+        <input type="email" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <button type="submit">Login</button>
+      </form>
+      <Link to={{ pathname: `/register/` }}>Register</Link>
+    </div>
+  );
 };
 
 export default Login;

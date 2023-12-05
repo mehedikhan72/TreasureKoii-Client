@@ -42,5 +42,13 @@
     .link-1 {
         @apply hover:underline hover:text-green-700 hover:font-bold px-8 py-2
     }
+
+    .warning-text {
+        @apply text-white bg-yellow-500 p-2 rounded-md text-xl font-bold
+    }
+
+    .my-input-field {
+        @apply border-2 border-gray-400 rounded-md p-2 m-2 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px]
+    }
 }
 

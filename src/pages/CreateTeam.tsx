@@ -1,13 +1,12 @@
 import React, { useState, useContext } from "react";
 import AuthContext from "../utils/context/AuthContext";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
-import { AuthContextProps } from "../types";
-
-// TODO
-// dynamic hunt slug
+import TreasureKoiiImg from "../components/TreasureKoiiImg";
 
 const CreateTeam: React.FC = () => {
+  const contextData = useContext(AuthContext);
+  const user = contextData?.user;
   const { slug } = useParams();
 
   const [name, setName] = useState<string>("");
@@ -37,30 +36,34 @@ const CreateTeam: React.FC = () => {
     }
   };
 
-  let contextData = useContext(AuthContext);
-  if (!contextData) {
-    return null;
-  }
-
-  const { user }: AuthContextProps = contextData;
-  console.log(user);
-
   return (
     <div>
-      {!user && <Navigate to="/" />}
-      <p>Create A Team</p>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Team Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <TreasureKoiiImg />
+      {!user && (
+        <div>
+          <p className="warning-text">You need to log in create a team.</p>
+          <Link to={{ pathname: `/login` }}>
+            <button className="my-btn-1">Login</button>
+          </Link>
+        </div>
+      )}
+      {user && (
+        <div>
+          <p>Create A Team</p>
+          {message && <p>{message}</p>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Team Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-        <button type="submit">Create Team</button>
-      </form>
+            <button type="submit">Create Team</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

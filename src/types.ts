@@ -55,3 +55,10 @@ export interface Announcement {
   created_at: string;
   creator: User;
 }
+
+export interface Image {
+  id: number;
+  puzzle: Puzzle | null;
+  hunt: Hunt | null;
+  image: string;
+}
