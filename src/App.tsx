@@ -15,27 +15,27 @@ import Rules from "./pages/Rules";
 import Announcements from "./pages/Announcements";
 
 const App: React.FC = () => {
-  return (
-    <div className="App my-font overflow-x-hidden min-h-screen">
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/create-hunt" element={<CreateHunt />} />
-          <Route path="/:slug/create-puzzle" element={<CreatePuzzle />} />
-          <Route path="/:slug" element={<HuntHome />} />
-          <Route path="/:slug/create-team" element={<CreateTeam />} />
-          <Route path="/:slug/join-team" element={<JoinTeam />} />
-          <Route path="/join-hunt" element={<JoinHunt />} />
+	return (
+		<div className="App my-font overflow-x-hidden min-h-screen">
+			<AuthProvider>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/create-hunt" element={<CreateHunt />} />
+					<Route path="/:slug/create-puzzle" element={<CreatePuzzle />} />
+					<Route path="/:slug" element={<HuntHome />} />
+					<Route path="/:slug/create-team" element={<CreateTeam />} />
+					<Route path="/:slug/join-team" element={<JoinTeam />} />
+					<Route path="/join-hunt" element={<JoinHunt />} />
 
-          <Route path="/:slug/leaderboard" element={<Leaderboard />} />
-          <Route path="/:slug/rules" element={<Rules />} />
-          <Route path="/:slug/announcements" element={<Announcements />} />
-        </Routes>
-      </AuthProvider>
-    </div>
-  );
+					<Route path="/:slug/leaderboard" element={<Leaderboard />} />
+					<Route path="/:slug/rules" element={<Rules />} />
+					<Route path="/:slug/announcements" element={<Announcements />} />
+				</Routes>
+			</AuthProvider>
+		</div>
+	);
 };
 
 export default App;

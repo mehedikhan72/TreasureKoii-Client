@@ -3,60 +3,63 @@
 @tailwind utilities;
 
 @layer base {
-    .my-font {
-        font-family: 'Caveat', 'cursive', 'Playpen Sans', 'cursive', sans-serif;
-    }
+	.my-font {
+		font-family: "Caveat", "cursive", "Playpen Sans", "cursive", sans-serif;
+	}
 
-    .dark {
-        @apply bg-gray-900 text-white
-    }
-    
-    .text-1 {
-        @apply text-xl font-bold text-center p-2
-    }
-    
-    .text-2 {
-        @apply text-2xl font-bold text-center p-2
-    }
-    
-    .text-3 {
-        @apply text-3xl font-bold text-center p-2
-    }
-    
-    .text-4 {
-        @apply text-4xl font-bold text-center p-2
-    }
+	.dark {
+		@apply bg-gray-900 text-white;
+	}
 
-    .text-5 {
-        @apply text-5xl font-bold text-center p-2
-    }
+	.text-1 {
+		@apply text-xl font-bold text-center p-2;
+	}
 
-    .text-6 {
-        @apply text-6xl font-bold text-center p-2
-    }
+	.text-2 {
+		@apply text-2xl font-bold text-center p-2;
+	}
 
-    .my-btn-1 {
-        @apply bg-blue-500 hover:bg-blue-700 text-white text-2xl font-bold py-2 px-4 rounded-md m-2 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px]
-    }
+	.text-3 {
+		@apply text-3xl font-bold text-center p-2;
+	}
 
-    .link-1 {
-        @apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 hover:scale-125
-    }
+	.text-4 {
+		@apply text-4xl font-bold text-center p-2;
+	}
 
-    .link-2 {
-        @apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 text-2xl hover:scale-125
-    }
+	.text-5 {
+		@apply text-5xl font-bold text-center p-2;
+	}
 
-    .warning-text {
-        @apply text-white bg-yellow-500 p-2 rounded-md text-xl font-bold
-    }
+	.text-6 {
+		@apply text-6xl font-bold text-center p-2;
+	}
 
-    .success-text {
-        @apply text-white bg-green-500 p-2 rounded-md text-xl font-bold
-    }
+	.my-btn-1 {
+		@apply bg-blue-500 hover:bg-blue-700 text-white text-2xl font-bold py-2 px-4 rounded-md m-2 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px];
+	}
 
-    .my-input-field {
-        @apply border-2 border-gray-400 rounded-md p-2 m-2 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px]
-    }
+	.my-btn-sm {
+		@apply bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-4 rounded-md m-1;
+	}
+
+	.link-1 {
+		@apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 hover:scale-125;
+	}
+
+	.link-2 {
+		@apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 text-2xl hover:scale-125;
+	}
+
+	.warning-text {
+		@apply text-white bg-yellow-500 p-2 rounded-md text-xl font-bold;
+	}
+
+	.success-text {
+		@apply text-white bg-green-500 p-2 rounded-md text-xl font-bold;
+	}
+
+	.my-input-field {
+		@apply border-2 border-gray-400 rounded-md p-2 m-2 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px];
+	}
 }
-
