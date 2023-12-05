@@ -4,6 +4,7 @@ import { Navigate, useParams } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import { AxiosError } from "axios";
 
 const CreatePuzzle: React.FC = () => {
 	const contextData = useContext(AuthContext);
@@ -48,7 +49,7 @@ const CreatePuzzle: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
-			setMessage("An error occured during hunt creation. Please try again.");
+			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
 	};
 

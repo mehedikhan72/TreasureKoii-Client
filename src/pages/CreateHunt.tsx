@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import HomeFooter from "../components/HomeFooter";
+import { AxiosError } from "axios";
 
 const CreateHunt: React.FC = () => {
 	const [huntName, setHuntName] = useState<string>("");
@@ -68,7 +69,7 @@ const CreateHunt: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
-			setMessage("An error occured during hunt creation. Please try again.");
+			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
 	};
 

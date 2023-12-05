@@ -3,6 +3,7 @@ import AuthContext from "../utils/context/AuthContext";
 import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import { AxiosError } from "axios";
 
 const CreateTeam: React.FC = () => {
 	const contextData = useContext(AuthContext);
@@ -30,7 +31,7 @@ const CreateTeam: React.FC = () => {
 			}
 		} catch (error: unknown) {
 			console.log(error);
-			setMessage("An error occured during Team creation. Please try again.");
+			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
 	};
 
