@@ -2,12 +2,12 @@ import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../utils/context/AuthContext";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
-import { AuthContextProps } from "../types";
-
-// TODO
-// dynamic hunt slug
+import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 
 const CreatePuzzle: React.FC = () => {
+  const contextData = useContext(AuthContext);
+  const user = contextData?.user;
+
   const { slug } = useParams();
 
   const [name, setName] = useState<string>("");
@@ -70,81 +70,83 @@ const CreatePuzzle: React.FC = () => {
     }
   };
 
-  let contextData = useContext(AuthContext);
-  if (!contextData) {
-    return null;
-  }
-
-  const { user }: AuthContextProps = contextData;
-
   return (
     <div>
-      {!user && <Navigate to="/login" />}
-      <p>Create A Puzzle</p>
-      {message && <p>{message}</p>}
-      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
-        <label>
-          <input
-            type="text"
-            name="puzzleName"
-            placeholder="Puzzle Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
+      {!user && <YouNeedToBeLoggedIn />}
+      {/* todo: make sure user is admin */}
+      {user && (
+        <div>
+          <p>Create A Puzzle</p>
+          {message && <p>{message}</p>}
+          <form
+            method="post"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+            <label>
+              <input
+                type="text"
+                name="puzzleName"
+                placeholder="Puzzle Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
 
-        <input
-          type="text"
-          name="puzzleAnswer"
-          placeholder="Answer"
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value.toLowerCase())}
-        />
+            <input
+              type="text"
+              name="puzzleAnswer"
+              placeholder="Answer"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value.toLowerCase())}
+            />
 
-        <label htmlFor="type">Difficulty</label>
-        <select
-          value={type}
-          name="type"
-          onChange={(e) => {
-            setType(e.target.value);
-          }}
-        >
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
+            <label htmlFor="type">Difficulty</label>
+            <select
+              value={type}
+              name="type"
+              onChange={(e) => {
+                setType(e.target.value);
+              }}
+            >
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
 
-        <label htmlFor="points">Puzzle Points</label>
-        <input
-          type="number"
-          name="points"
-          value={points}
-          onChange={onPointsChange}
-        />
+            <label htmlFor="points">Puzzle Points</label>
+            <input
+              type="number"
+              name="points"
+              value={points}
+              onChange={onPointsChange}
+            />
 
-        <label htmlFor="puzzleImage">Puzzle Image</label>
-        <input
-          type="file"
-          name="images"
-          multiple
-          onChange={(e) => {
-            setImgFiles(e.target.files ? Array.from(e.target.files) : null);
-          }}
-        />
-        {imgPreviews &&
-          imgPreviews.map((url, ind) => (
-            <img alt="puzzle" src={url} key={ind} />
-          ))}
+            <label htmlFor="puzzleImage">Puzzle Image</label>
+            <input
+              type="file"
+              name="images"
+              multiple
+              onChange={(e) => {
+                setImgFiles(e.target.files ? Array.from(e.target.files) : null);
+              }}
+            />
+            {imgPreviews &&
+              imgPreviews.map((url, ind) => (
+                <img alt="puzzle" src={url} key={ind} />
+              ))}
 
-        <button type="submit">Create</button>
-      </form>
+            <button type="submit">Create</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
