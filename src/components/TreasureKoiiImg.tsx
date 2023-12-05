@@ -5,7 +5,7 @@ const TreasureKoiiImg: React.FC = () => {
     <div className="flex justify-center items-center">
       <img
         className="w-5/6 md:w-[400px] p-2 m-2"
-        src="treasure-koii-logo.png"
+        src="/treasure-koii-logo.png"
         alt="TreasureKoii"
       />
     </div>

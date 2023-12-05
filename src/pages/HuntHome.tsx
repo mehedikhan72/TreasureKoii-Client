@@ -15,6 +15,7 @@ import { AxiosError } from "axios";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import HuntNav from "../components/HuntNav";
+import Custom404 from "../utils/Custom404";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -38,6 +39,9 @@ const HuntHome: React.FC = () => {
 
   const { width, height } = useWindowSize();
 
+  // for custom404
+  const [huntLoaded, setHuntLoaded] = useState<boolean>(false);
+
   useEffect(() => {
     const getHuntDetails = async (): Promise<void> => {
       try {
@@ -46,9 +50,11 @@ const HuntHome: React.FC = () => {
         if (response.status === 200) {
           console.log(data);
           setHunt(data);
+          setHuntLoaded(true);
         }
       } catch (error) {
         console.log(error);
+        setHuntLoaded(true);
       }
     };
 
@@ -149,70 +155,75 @@ const HuntHome: React.FC = () => {
   return (
     // todo: add other links n confetti
     <div className="m-4 md:m-2">
-      <HuntNav slug={slug} huntName={hunt?.name} />
-
-      {beforeHunt && <BeforeHunt />}
-      {afterHunt && <AfterHunt />}
-
-      {duringHunt && !user && (
+      {huntLoaded && !hunt && <Custom404 />}
+      {huntLoaded && hunt && (
         <div>
-          The hunt is on going. Please login if you have registered for this
-          hunt. Visit later to the leaderboards and other stats. Have a good
-          one!
-        </div>
-      )}
+          <HuntNav slug={slug} huntName={hunt?.name} />
 
-      {duringHunt && user && (
-        <div>
-          {didNotGetPuzzle && (
-            <div className="flex flex-col justify-center items-center p-4">
-              <p className="text-2 warning-text">
-                No more puzzles left. Looks like you solved 'em all.
-              </p>
-              <p className="text-1">Refresh this page to verify again.</p>
+          {beforeHunt && <BeforeHunt />}
+          {afterHunt && <AfterHunt />}
+
+          {duringHunt && !user && (
+            <div>
+              The hunt is on going. Please login if you have registered for this
+              hunt. Visit later to the leaderboards and other stats. Have a good
+              one!
             </div>
           )}
 
-          {!didNotGetPuzzle && !correctAnswerGiven && (
-            <div className="p-4">
-              <p className="text-3">Your Current Puzzle</p>
-              <p className="text-2">{puzzle?.name}</p>
-              <p className="text-1">{puzzle?.description}</p>
-              <ShowImages key={imageUrl} url={imageUrl} />
-            </div>
-          )}
-          {!correctAnswerGiven && !didNotGetPuzzle && (
-            <div className="p-4 border-t-4 m-2">
-              <p className="text-3">Submit Answer</p>
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col justify-center items-center"
-              >
-                <input
-                  type="text"
-                  name="answer"
-                  placeholder="Answer"
-                  className="my-input-field"
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-                {wrongAnswerGiven && (
-                  <p className="text-1 text-red-500">{message}</p>
-                )}
-                <button className="my-btn-1" type="submit">
-                  Submit
-                </button>
-              </form>
-            </div>
-          )}
+          {duringHunt && user && (
+            <div>
+              {didNotGetPuzzle && (
+                <div className="flex flex-col justify-center items-center p-4">
+                  <p className="text-2 warning-text">
+                    No more puzzles left. Looks like you solved 'em all.
+                  </p>
+                  <p className="text-1">Refresh this page to verify again.</p>
+                </div>
+              )}
 
-          {correctAnswerGiven && !didNotGetPuzzle && (
-            <div className="flex flex-col justify-center items-center p-4">
-              <p className="text-2 success-text">{message}</p>
-              <button className="my-btn-1" onClick={() => fetchNewPuzzle()}>
-                Next Puzzle
-              </button>
-              <Confetti width={width} height={height} />
+              {!didNotGetPuzzle && !correctAnswerGiven && (
+                <div className="p-4">
+                  <p className="text-3">Your Current Puzzle</p>
+                  <p className="text-2">{puzzle?.name}</p>
+                  <p className="text-1">{puzzle?.description}</p>
+                  <ShowImages key={imageUrl} url={imageUrl} />
+                </div>
+              )}
+              {!correctAnswerGiven && !didNotGetPuzzle && (
+                <div className="p-4 border-t-4 m-2">
+                  <p className="text-3">Submit Answer</p>
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col justify-center items-center"
+                  >
+                    <input
+                      type="text"
+                      name="answer"
+                      placeholder="Answer"
+                      className="my-input-field"
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                    />
+                    {wrongAnswerGiven && (
+                      <p className="text-1 text-red-500">{message}</p>
+                    )}
+                    <button className="my-btn-1" type="submit">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {correctAnswerGiven && !didNotGetPuzzle && (
+                <div className="flex flex-col justify-center items-center p-4">
+                  <p className="text-2 success-text">{message}</p>
+                  <button className="my-btn-1" onClick={() => fetchNewPuzzle()}>
+                    Next Puzzle
+                  </button>
+                  <Confetti width={width} height={height} />
+                </div>
+              )}
             </div>
           )}
         </div>

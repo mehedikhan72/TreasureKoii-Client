@@ -13,6 +13,7 @@ import JoinHunt from "./pages/JoinHunt";
 import Leaderboard from "./pages/Leaderboard";
 import Rules from "./pages/Rules";
 import Announcements from "./pages/Announcements";
+import Custom404 from "./utils/Custom404";
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
           <Route path="/:slug/leaderboard" element={<Leaderboard />} />
           <Route path="/:slug/rules" element={<Rules />} />
           <Route path="/:slug/announcements" element={<Announcements />} />
+          <Route path="*" element={<Custom404 />} />
         </Routes>
       </AuthProvider>
     </div>
