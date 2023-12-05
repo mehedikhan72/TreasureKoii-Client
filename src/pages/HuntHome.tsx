@@ -4,12 +4,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../utils/context/AuthContext";
 import { useParams, Link } from "react-router-dom";
-import { AuthContextProps, Puzzle, Hunt } from "../types";
+import { Puzzle, Hunt } from "../types";
 import axios from "../utils/axios/AxiosSetup";
 import { Navigate } from "react-router-dom";
 import BeforeHunt from "../components/BeforeHunt";
 import AfterHunt from "../components/AfterHunt";
 import ShowImages from "../components/ShowImages";
+import { AxiosError } from "axios";
+
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
+import HuntNav from "../components/HuntNav";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -24,10 +29,14 @@ const HuntHome: React.FC = () => {
   const [wrongAnswerGiven, setWrongAnswerGiven] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
 
+  const [didNotGetPuzzle, setDidNotGetPuzzle] = useState<boolean>(false);
+
   const contextData = useContext(AuthContext);
   const user = contextData?.user;
 
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     const getHuntDetails = async (): Promise<void> => {
@@ -53,6 +62,7 @@ const HuntHome: React.FC = () => {
         }
       } catch (error) {
         console.log(error);
+        setDidNotGetPuzzle(true);
       }
     };
     getHuntDetails();
@@ -60,6 +70,10 @@ const HuntHome: React.FC = () => {
       getPuzzle();
     }
   }, [slug, user, duringHunt]);
+
+  useEffect(() => {
+    setImageUrl(puzzle?.id + "/get-puzzle-images/");
+  }, [puzzle]);
 
   // TODO: Fix getting new puzzle
 
@@ -100,14 +114,17 @@ const HuntHome: React.FC = () => {
       if (response.status === 200) {
         if (data.success) {
           setCorrectAnswerGiven(true);
-          setMessage(data.message);
+          console.log(data);
+          setMessage(data.success);
         } else {
           setWrongAnswerGiven(true);
-          setMessage(data.message);
+          setMessage(data.error);
         }
       }
     } catch (error) {
-      console.log(error);
+      const axiosError = error as AxiosError;
+      setMessage((axiosError.response?.data as { error: string })?.error);
+      setWrongAnswerGiven(true);
     }
   };
 
@@ -120,14 +137,20 @@ const HuntHome: React.FC = () => {
       if (response.status === 200) {
         setPuzzle(data);
         setAnswer("");
+        setCorrectAnswerGiven(false);
+        setWrongAnswerGiven(false);
       }
     } catch (error) {
       console.log(error);
+      setDidNotGetPuzzle(true);
     }
   };
 
   return (
-    <div>
+    // todo: add other links n confetti
+    <div className="m-4 md:m-2">
+      <HuntNav slug={slug} huntName={hunt?.name} />
+
       {beforeHunt && <BeforeHunt />}
       {afterHunt && <AfterHunt />}
 
@@ -141,39 +164,55 @@ const HuntHome: React.FC = () => {
 
       {duringHunt && user && (
         <div>
-          <p className="text-4">{hunt?.name}</p>
+          {didNotGetPuzzle && (
+            <div className="flex flex-col justify-center items-center p-4">
+              <p className="text-2 warning-text">
+                No more puzzles left. Looks like you solved 'em all.
+              </p>
+              <p className="text-1">Refresh this page to verify again.</p>
+            </div>
+          )}
 
-          <div className="p-2">
-            <p className="text-3">Your Current Puzzle</p>
-            <p className="text-2">{puzzle?.name}</p>
-            <p className="text-1">{puzzle?.description}</p>
-            <ShowImages url={imageUrl} />
-          </div>
-          <div className="p-2">
-            <p className="text-3">Submit Answer</p>
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col justify-center items-center"
-            >
-              <input
-                type="text"
-                name="answer"
-                placeholder="Answer"
-                className="my-input-field"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-              />
-              <button className="my-btn-1" type="submit">
-                Submit
+          {!didNotGetPuzzle && !correctAnswerGiven && (
+            <div className="p-4">
+              <p className="text-3">Your Current Puzzle</p>
+              <p className="text-2">{puzzle?.name}</p>
+              <p className="text-1">{puzzle?.description}</p>
+              <ShowImages key={imageUrl} url={imageUrl} />
+            </div>
+          )}
+          {!correctAnswerGiven && !didNotGetPuzzle && (
+            <div className="p-4 border-t-4 m-2">
+              <p className="text-3">Submit Answer</p>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col justify-center items-center"
+              >
+                <input
+                  type="text"
+                  name="answer"
+                  placeholder="Answer"
+                  className="my-input-field"
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                />
+                {wrongAnswerGiven && (
+                  <p className="text-1 text-red-500">{message}</p>
+                )}
+                <button className="my-btn-1" type="submit">
+                  Submit
+                </button>
+              </form>
+            </div>
+          )}
+
+          {correctAnswerGiven && !didNotGetPuzzle && (
+            <div className="flex flex-col justify-center items-center p-4">
+              <p className="text-2 success-text">{message}</p>
+              <button className="my-btn-1" onClick={() => fetchNewPuzzle()}>
+                Next Puzzle
               </button>
-            </form>
-          </div>
-
-          {wrongAnswerGiven && <p>{message}</p>}
-          {correctAnswerGiven && (
-            <div>
-              <p>{message}</p>
-              <button onClick={() => fetchNewPuzzle()}>Next Puzzle</button>
+              <Confetti width={width} height={height} />
             </div>
           )}
         </div>

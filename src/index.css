@@ -40,11 +40,19 @@
     }
 
     .link-1 {
-        @apply hover:underline hover:text-green-700 hover:font-bold px-8 py-2
+        @apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 hover:scale-125
+    }
+
+    .link-2 {
+        @apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 text-2xl hover:scale-125
     }
 
     .warning-text {
         @apply text-white bg-yellow-500 p-2 rounded-md text-xl font-bold
+    }
+
+    .success-text {
+        @apply text-white bg-green-500 p-2 rounded-md text-xl font-bold
     }
 
     .my-input-field {
