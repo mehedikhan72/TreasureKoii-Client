@@ -9,7 +9,6 @@ const JoinHunt: React.FC = () => {
 
   const [huntName, setHuntName] = useState<string>("");
   const [huntSlug, setHuntSlug] = useState<string>("");
-  const [huntExists, setHuntExists] = useState<boolean>(false);
   const [inputGiven, setInputGiven] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
@@ -26,10 +25,6 @@ const JoinHunt: React.FC = () => {
     setInputGiven(huntName.trim() !== "");
   }, [huntName]);
 
-  const checkIfHuntExists = async () => {
-    if (huntSlug === "") return;
-  };
-
   const createTeamClicked = async () => {
     if (huntSlug === "") {
       setMessage("Please enter a valid hunt name.");
@@ -39,10 +34,8 @@ const JoinHunt: React.FC = () => {
       const response = await axios.get(`${huntSlug}/hunt-exists/`);
       if (response.status === 200) {
         if (response.data.hunt_exists === true) {
-          setHuntExists(true);
           navigate(`/${huntSlug}/create-team`);
         } else {
-          setHuntExists(false);
           setMessage("Hunt does not exist. Please try again.");
         }
       }
@@ -60,10 +53,8 @@ const JoinHunt: React.FC = () => {
       const response = await axios.get(`${huntSlug}/hunt-exists/`);
       if (response.status === 200) {
         if (response.data.hunt_exists === true) {
-          setHuntExists(true);
           navigate(`/${huntSlug}/join-team`);
         } else {
-          setHuntExists(false);
           setMessage("Hunt does not exist. Please try again.");
         }
       }
