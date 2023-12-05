@@ -183,7 +183,7 @@ const HuntHome: React.FC = () => {
               )}
 
               {!didNotGetPuzzle && !correctAnswerGiven && (
-                <div className="p-4">
+                <div className="p-4 bg-slate-200 rounded-md">
                   <p className="text-3">Your Current Puzzle</p>
                   <p className="text-2">{puzzle?.name}</p>
                   <p className="text-1">{puzzle?.description}</p>
@@ -191,7 +191,7 @@ const HuntHome: React.FC = () => {
                 </div>
               )}
               {!correctAnswerGiven && !didNotGetPuzzle && (
-                <div className="p-4 border-t-4 m-2">
+                <div className="p-4 m-2">
                   <p className="text-3">Submit Answer</p>
                   <form
                     onSubmit={handleSubmit}
