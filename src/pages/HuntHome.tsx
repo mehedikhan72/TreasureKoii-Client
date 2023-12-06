@@ -115,9 +115,9 @@ const HuntHome: React.FC = () => {
       const huntEnd = new Date(hunt.end_date);
 
       if (currentTime < huntStart) {
-        // setBeforeHunt(true);
+        setBeforeHunt(true);
         setDuringHunt(false);
-        setAfterHunt(true);
+        setAfterHunt(false);
       } else if (currentTime >= huntStart && currentTime <= huntEnd) {
         setBeforeHunt(false);
         setDuringHunt(true);

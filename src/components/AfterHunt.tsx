@@ -37,15 +37,15 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 			{hunt && (
 				<>
 					<div className="flex flex-col justify-center items-center mt-16 mx-10">
-						<div className="text-3 text-center">Here is a summary for this hunt</div>
-						<div className="text-4xl">{hunt.name}</div>
-						<div className="text-lg my-2">{`${new Date(hunt.start_date).toDateString()} - ${new Date(
+						<div className="text-2 text-center">Hunt has ended. Here's a summary!</div>
+						<div className="text-5">{hunt.name}</div>
+						<div className="text-1 my-2">{`${new Date(hunt.start_date).toDateString()} - ${new Date(
 							hunt.end_date
 						).toDateString()}`}</div>
 						<img src={hunt.poster_img} alt="Hunt" className="w-4/5 max-h-72 object-contain my-5" />
-						<div className="text-xl">{hunt.description}</div>
+						<div className="text-1">{hunt.description}</div>
 					</div>
-					<div className="text-3 text-center mt-16">Look back at the memories : </div>
+					<div className="text-3 text-center mt-16">Look back at the memories! </div>
 					<ShowImages url={`${slug}/get-hunt-images/`} />
 					<LeaderboardTable leaderBoard={leaderBoard} />
 				</>
