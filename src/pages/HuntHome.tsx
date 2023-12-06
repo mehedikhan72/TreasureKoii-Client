@@ -46,6 +46,8 @@ const HuntHome: React.FC = () => {
 	const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
 
 	useEffect(() => {
+		document.title = `${puzzle ? `${puzzle.name} | ` : ""}${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
+
 		const getHuntDetails = async (): Promise<void> => {
 			try {
 				const response = await axios.get(`hunt/${slug}/`);
@@ -100,6 +102,8 @@ const HuntHome: React.FC = () => {
 	// TODO: Fix getting new puzzle
 
 	useEffect(() => {
+		document.title = `${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
+
 		const currentTime = new Date();
 
 		if (hunt) {
@@ -120,6 +124,10 @@ const HuntHome: React.FC = () => {
 				setAfterHunt(true);
 			}
 		}
+
+		return () => {
+			document.title = "TreasureKoii";
+		};
 	}, [hunt]);
 
 	const [answer, setAnswer] = useState<string>("");
