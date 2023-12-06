@@ -15,6 +15,7 @@ import Rules from "./pages/Rules";
 import Announcements from "./pages/Announcements";
 import Custom404 from "./utils/Custom404";
 import Dashboard from "./pages/OrganizerDashboard/Dashboard";
+import PuzzleOrder from "./pages/OrganizerDashboard/PuzzleOrder";
 
 const App: React.FC = () => {
 	return (
@@ -31,15 +32,16 @@ const App: React.FC = () => {
 					<Route path="/:slug/join-team" element={<JoinTeam />} />
 					<Route path="/join-hunt" element={<JoinHunt />} />
 
-					<Route path="/:slug/leaderboard" element={<Leaderboard />} />
-					<Route path="/:slug/rules" element={<Rules />} />
-					<Route path="/:slug/announcements" element={<Announcements />} />
-					<Route path="/:slug/organizer-dashboard" element={<Dashboard />} />
-					<Route path="*" element={<Custom404 />} />
-				</Routes>
-			</AuthProvider>
-		</div>
-	);
+          <Route path="/:slug/leaderboard" element={<Leaderboard />} />
+          <Route path="/:slug/rules" element={<Rules />} />
+          <Route path="/:slug/announcements" element={<Announcements />} />
+          <Route path="/:slug/organizer-dashboard" element={<Dashboard />} />
+          <Route path="/:slug/puzzle-order" element={<PuzzleOrder />} />
+          <Route path="*" element={<Custom404 />} />
+        </Routes>
+      </AuthProvider>
+    </div>
+  );
 };
 
 export default App;

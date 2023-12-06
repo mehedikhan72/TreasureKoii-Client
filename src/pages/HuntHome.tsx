@@ -43,10 +43,25 @@ const HuntHome: React.FC = () => {
 	// for custom404
 	const [huntLoaded, setHuntLoaded] = useState<boolean>(false);
 
-	const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
+  const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
+  // TODO: Skip puzzle.
+  useEffect(() => {
+    document.title = `${puzzle ? `${puzzle.name} | ` : ""}${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
+    const getHuntDetails = async (): Promise<void> => {
+      try {
+        const response = await axios.get(`hunt/${slug}/`);
+        const data = response.data;
+        if (response.status === 200) {
+          console.log(data);
+          setHunt(data);
+          setHuntLoaded(true);
+        }
+      } catch (error) {
+        console.log(error);
+        setHuntLoaded(true);
+      }
+    };
 
-	useEffect(() => {
-		document.title = `${puzzle ? `${puzzle.name} | ` : ""}${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
 
 		const getHuntDetails = async (): Promise<void> => {
 			try {
