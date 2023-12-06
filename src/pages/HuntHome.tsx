@@ -44,7 +44,7 @@ const HuntHome: React.FC = () => {
   const [huntLoaded, setHuntLoaded] = useState<boolean>(false);
 
   const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
-
+  // TODO: Skip puzzle.
   useEffect(() => {
     const getHuntDetails = async (): Promise<void> => {
       try {

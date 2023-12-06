@@ -131,9 +131,14 @@ const Dashboard: React.FC = () => {
             dashboard.
           </p>
           <div className="flex flex-col justify-center items-center">
-            <Link to={{ pathname: `${slug}/create-puzzle` }}>
-              <button className="my-btn-1">Create New Puzzle</button>
-            </Link>
+            <div className="flex justify-center items-center">
+              <Link to={{ pathname: `/${slug}/create-puzzle` }}>
+                <button className="my-btn-1">Create New Puzzle</button>
+              </Link>
+              <Link to={{ pathname: `/${slug}/puzzle-order` }}>
+                <button className="my-btn-1">Update Puzzle Order</button>
+              </Link>
+            </div>
 
             {/* Add announcements Div */}
             <div className="m-10">

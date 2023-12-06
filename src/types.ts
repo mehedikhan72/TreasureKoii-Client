@@ -69,3 +69,17 @@ export interface Rule {
   rule: string;
   created_at: string;
 }
+
+interface UserData1 {
+  name: string;
+  email: string;
+}
+
+export interface TeamData {
+  team_id: number;
+  team_name: string;
+  team_leader: string;
+  team_members: UserData1[];
+  team_points: number;
+  team_puzzle_order: number[];
+}
