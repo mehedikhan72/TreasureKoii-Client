@@ -1,3 +1,5 @@
+// this nav is only available during the hunt.
+
 import React from "react";
 import { Link } from "react-router-dom";
 
