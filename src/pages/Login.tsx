@@ -21,6 +21,8 @@ const Login: React.FC = () => {
 	}
 	const { loginUser, user, message }: AuthContextProps = contextData;
 	console.log(user);
+
+	// todo: validate client errors with messages
 	return (
 		<div className="flex flex-col min-h-screen">
 			{user && <Navigate to="/" />}

@@ -31,6 +31,14 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+
+    // console.log(e.target?.email?.value);
+
+    if (!e.currentTarget || !e.currentTarget.email) {
+      console.error("Invalid form event. Unable to retrieve email.");
+      return;
+    }
+
     const formData = {
       email: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
@@ -58,7 +66,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
     localStorage.removeItem("authTokens");
     if (user) {
-      navigate("/login/");
+      navigate("/");
     }
   };
 

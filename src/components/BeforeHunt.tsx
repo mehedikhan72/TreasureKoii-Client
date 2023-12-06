@@ -99,6 +99,14 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 
             <div className="text-1">{hunt.description}</div>
           </div>
+          <div className="flex justify-center m-4">
+            <Link to={{ pathname: `/${slug}/create-team/` }}>
+              <button className="my-btn-1">Create A Team</button>
+            </Link>
+            <Link to={{ pathname: `/${slug}/join-team/` }}>
+              <button className="my-btn-1">Join A Team</button>
+            </Link>
+          </div>
           {rules?.length !== 0 && (
             <div>
               <p className="text-2 my-5 ">
@@ -118,14 +126,6 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
             </div>
           )}
           {rules?.length === 0 && <p className="text-4 p-4">No rules yet.</p>}
-          <div className="flex justify-center m-4">
-            <Link to={{ pathname: `/${slug}/create-team/` }}>
-              <button className="my-btn-1">Create A Team</button>
-            </Link>
-            <Link to={{ pathname: `/${slug}/join-team/` }}>
-              <button className="my-btn-1">Join A Team</button>
-            </Link>
-          </div>
         </>
       )}
 
