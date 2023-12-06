@@ -16,6 +16,7 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import HuntNav from "../components/HuntNav";
 import Custom404 from "../utils/Custom404";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import Loading from "../utils/Loading";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -41,6 +42,7 @@ const HuntHome: React.FC = () => {
 
   // for custom404
   const [huntLoaded, setHuntLoaded] = useState<boolean>(false);
+  const [puzzleLoaded, setPuzzleLoaded] = useState<boolean>(false);
 
   const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
   // TODO: Skip puzzle.
@@ -71,9 +73,11 @@ const HuntHome: React.FC = () => {
           setPuzzle(data);
           setImageUrl(data.id + "/get-puzzle-images/");
         }
+        setPuzzleLoaded(true);
       } catch (error) {
         console.log(error);
         setDidNotGetPuzzle(true);
+        setPuzzleLoaded(true);
       }
     };
 
@@ -132,10 +136,13 @@ const HuntHome: React.FC = () => {
 
   const [answer, setAnswer] = useState<string>("");
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`${puzzle?.id}/submit-answer/`, {
         answer: answer,
@@ -151,15 +158,17 @@ const HuntHome: React.FC = () => {
           setMessage(data.error);
         }
       }
+      setLoading(false);
     } catch (error) {
       const axiosError = error as AxiosError;
       setMessage((axiosError.response?.data as { error: string })?.error);
       setWrongAnswerGiven(true);
+      setLoading(false);
     }
   };
 
   const fetchNewPuzzle = async (): Promise<void> => {
-    console.log("fetching new puzzle");
+    setLoading(true);
     const type_param = "next";
     try {
       const response = await axios.get(`${slug}/puzzle/${type_param}/`);
@@ -170,15 +179,19 @@ const HuntHome: React.FC = () => {
         setCorrectAnswerGiven(false);
         setWrongAnswerGiven(false);
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
       setDidNotGetPuzzle(true);
+      setLoading(false);
     }
   };
 
   return (
     // todo: add other links n confetti
-    <>
+    <div>
+      {loading && <Loading />}
+      {!huntLoaded && !puzzleLoaded && <Loading />}
       {huntLoaded && !hunt && <Custom404 />}
       {huntLoaded && hunt && (
         <div>
@@ -269,7 +282,7 @@ const HuntHome: React.FC = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

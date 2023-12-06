@@ -5,17 +5,21 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import axios from "../utils/axios/AxiosSetup";
 import { Image } from "../types";
+import Loading from "../utils/Loading"
 
 const ShowImages: React.FC<{ url: string | null }> = ({ url }) => {
   const [images, setImages] = useState<Image[]>([]);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(`${url}`);
         setImages(response.data);
         console.log(response.data);
+        setImageLoaded(true);
       } catch (error) {
         console.log(error);
+        setImageLoaded(true);
       }
     };
 
@@ -61,6 +65,7 @@ const ShowImages: React.FC<{ url: string | null }> = ({ url }) => {
   console.log(images);
   return (
     <div>
+      {!imageLoaded && <Loading />}
       {images.length !== 0 && (
         <div className="max-w-[350px] sm:max-w-[500px] xl:max-w-[450px] h-[500px] sm:h-[600px] md:h-[600px] w-full m-auto py-8 px-4 relative group">
           <div

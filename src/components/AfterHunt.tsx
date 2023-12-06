@@ -42,7 +42,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 						<div className="text-lg my-2">{`${new Date(hunt.start_date).toDateString()} - ${new Date(
 							hunt.end_date
 						).toDateString()}`}</div>
-						<img src={hunt.poster_img} alt="Hunt Image" className="w-4/5 max-h-72 object-contain my-5" />
+						<img src={hunt.poster_img} alt="Hunt" className="w-4/5 max-h-72 object-contain my-5" />
 						<div className="text-xl">{hunt.description}</div>
 					</div>
 					<div className="text-3 text-center mt-16">Look back at the memories : </div>
