@@ -39,7 +39,7 @@ const Leaderboard: React.FC = () => {
     <div className="overflow-x-hidden">
       <HuntNav slug={slug} huntName={hunt?.name} />
       <p className="text-3">Leaderboard</p>
-      <div className="w-full">
+      <div className="w-full px-4">
         <div className="flex flex-col">
           <div className="flex justify-between p-2">
             <p className="flex-1 text-2">Team Name</p>

@@ -49,7 +49,7 @@ const CreateTeam: React.FC = () => {
 
 			{user && (
 				<div className="flex flex-col justify-center items-center gap-10 flex-1 my-10">
-					<div className="text-6xl font-extrabold">Create A Team</div>
+					<div className="text-4xl font-extrabold">Create A Team</div>
 					{message && <p>{message}</p>}
 					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-2 w-1/2">
 						<input

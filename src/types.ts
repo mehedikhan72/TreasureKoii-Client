@@ -62,3 +62,10 @@ export interface Image {
   hunt: Hunt | null;
   image: string;
 }
+
+export interface Rule {
+  id: number;
+  hunt: Hunt;
+  rule: string;
+  created_at: string;
+}

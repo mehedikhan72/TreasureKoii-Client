@@ -16,6 +16,7 @@ import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import HuntNav from "../components/HuntNav";
 import Custom404 from "../utils/Custom404";
+import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -165,9 +166,7 @@ const HuntHome: React.FC = () => {
 
           {duringHunt && !user && (
             <div>
-              The hunt is on going. Please login if you have registered for this
-              hunt. Visit later to the leaderboards and other stats. Have a good
-              one!
+              <YouNeedToBeLoggedIn message="Please Log in if you are registered in this hunt."/>
             </div>
           )}
 

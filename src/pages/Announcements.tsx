@@ -39,16 +39,31 @@ const Announcements: React.FC = () => {
   return (
     <div>
       <HuntNav slug={slug} huntName={hunt?.name} />
-      <p>Announcements </p>
-      {announcements.map((announcement: Announcement) => (
-        <div key={announcement.id}>
-          <p>
-            {announcement.creator.first_name} {announcement.creator.last_name}
-          </p>
-          <p>{announcement.text}</p>
-          <br />
+      {announcements && announcements.length !== 0 &&
+        <div>
+          <p className="text-4">Announcements </p>
+          {announcements.map((announcement: Announcement) => (
+            <div
+              key={announcement.id}
+              className="p-4 bg-slate-200 rounded-md m-2"
+            >
+              <p className="text-3 text-left">
+                {announcement.creator.first_name}{" "}
+                {announcement.creator.last_name}
+              </p>
+              <p className="text-2 text-left">{announcement.text}</p>
+              {/* TODO: improve this time */}
+              <p className="text-1 text-left">{announcement.created_at}</p>
+              <br />
+            </div>
+          ))}
         </div>
-      ))}
+      }
+      {announcements && announcements.length === 0 &&
+        <div>
+          <p className="text-3">No Announcements yet. Please check after a while.</p>
+        </div>
+      }
     </div>
   );
 };
