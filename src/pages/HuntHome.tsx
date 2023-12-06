@@ -185,11 +185,10 @@ const HuntHome: React.FC = () => {
 					)}
 					{!userAnOrganizer && (
 						<div>
-							<HuntNav slug={slug} huntName={hunt?.name} />
-
 							{beforeHunt && <BeforeHunt hunt={hunt} />}
 							{afterHunt && <AfterHunt hunt={hunt} />}
 
+							{duringHunt && <HuntNav slug={slug} huntName={hunt?.name} />}
 							{duringHunt && !user && (
 								<div>
 									<YouNeedToBeLoggedIn message="Please Log in if you are registered in this hunt." />
