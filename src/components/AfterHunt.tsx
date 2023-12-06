@@ -7,30 +7,12 @@ import HomeFooter from "./HomeFooter";
 import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
 
-const AfterHunt: React.FC = () => {
+const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 	const { slug } = useParams();
 
 	const [leaderBoard, setLeaderBoard] = useState<[]>([]);
-	const [hunt, setHunt] = useState<Hunt>();
 
 	const [message, setMessage] = useState<string | null>();
-
-	const fetchHuntData = async (): Promise<void> => {
-		try {
-			const response = await axios.get(`/hunt/${slug}`);
-			const data = response.data;
-
-			if (response.status === 200) {
-				setHunt(data as Hunt);
-			} else {
-				setMessage(data.error);
-			}
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				setMessage(error.response?.data.error);
-			}
-		}
-	};
 
 	const getLeaderBoard = async (): Promise<void> => {
 		try {
@@ -45,7 +27,7 @@ const AfterHunt: React.FC = () => {
 	};
 
 	useEffect(() => {
-		Promise.all([fetchHuntData(), getLeaderBoard()]);
+		getLeaderBoard();
 	}, []);
 
 	return (

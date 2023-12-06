@@ -14,6 +14,7 @@ import Leaderboard from "./pages/Leaderboard";
 import Rules from "./pages/Rules";
 import Announcements from "./pages/Announcements";
 import Custom404 from "./utils/Custom404";
+import BeforeHunt from "./components/BeforeHunt";
 
 const App: React.FC = () => {
 	return (
@@ -29,7 +30,6 @@ const App: React.FC = () => {
 					<Route path="/:slug/create-team" element={<CreateTeam />} />
 					<Route path="/:slug/join-team" element={<JoinTeam />} />
 					<Route path="/join-hunt" element={<JoinHunt />} />
-
 					<Route path="/:slug/leaderboard" element={<Leaderboard />} />
 					<Route path="/:slug/rules" element={<Rules />} />
 					<Route path="/:slug/announcements" element={<Announcements />} />
