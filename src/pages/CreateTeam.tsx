@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../utils/context/AuthContext";
-import { Navigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import { AxiosError } from "axios";
@@ -11,6 +11,8 @@ const CreateTeam: React.FC = () => {
 	const { slug } = useParams();
 
 	const [name, setName] = useState<string>("");
+	const [teamPassword, setTeampassword] = useState<string>("");
+	const [copied, setCopied] = useState<boolean>(false);
 
 	const [message, setMessage] = useState<string | null>(null);
 
@@ -24,8 +26,12 @@ const CreateTeam: React.FC = () => {
 			const response = await axios.post(`${slug}/create-team/`, formData);
 			const data = response.data;
 
+			console.log(data);
+
 			if (response.status === 201) {
-				setMessage(data.success);
+				console.log(data.success);
+				let str = data.success;
+				setTeampassword(str.match(/password: (.+?)\./)[1]);
 			} else {
 				setMessage(data.error);
 			}
@@ -34,6 +40,14 @@ const CreateTeam: React.FC = () => {
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
 	};
+
+	useEffect(() => {
+		document.title = "Create Team | TreasureKoii";
+
+		return () => {
+			document.title = "TreasureKoii";
+		};
+	}, [slug]);
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -48,8 +62,8 @@ const CreateTeam: React.FC = () => {
 			)}
 
 			{user && (
-				<div className="flex flex-col justify-center items-center gap-10 flex-1 my-10">
-					<div className="text-4xl font-extrabold">Create A Team</div>
+				<div className="flex flex-col my-28 items-center gap-10 flex-1">
+					<div className="text-4">Create A Team</div>
 					{message && <p>{message}</p>}
 					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-2 w-1/2">
 						<input
@@ -60,6 +74,22 @@ const CreateTeam: React.FC = () => {
 							onChange={(e) => setName(e.target.value)}
 							className="my-input-field w-full"
 						/>
+						{Boolean(teamPassword) && (
+							<>
+								<p className="text-xl">Team Password:</p>
+								<input
+									type="text"
+									name="name"
+									value={`${teamPassword}${copied ? " (Copied)" : " (Click To Copy)"}`}
+									readOnly
+									onClick={() => {
+										navigator.clipboard.writeText(teamPassword);
+										setCopied(true);
+									}}
+									className="my-input-field w-full"
+								/>
+							</>
+						)}
 
 						<button type="submit" className="my-btn-1 w-full">
 							Create Team

@@ -11,6 +11,8 @@ const Leaderboard: React.FC = () => {
 	const [leaderBoard, setLeaderBoard] = useState<[]>([]);
 	const [hunt, setHunt] = useState<Hunt>();
 	useEffect(() => {
+		document.title = `Leaderboard | TreasureKoii`;
+
 		const getLeaderBoard = async (): Promise<void> => {
 			try {
 				const response = await axios.get(`${slug}/leaderboard/`);
@@ -35,6 +37,10 @@ const Leaderboard: React.FC = () => {
 		};
 		getLeaderBoard();
 		getHuntDetails();
+
+		return () => {
+			document.title = "TreasureKoii";
+		};
 	}, [slug]);
 	return (
 		<div className="overflow-x-hidden">

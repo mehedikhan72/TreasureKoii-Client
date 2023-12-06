@@ -11,167 +11,166 @@ import HuntHome from "./HuntHome";
 import HuntNav from "../components/HuntNav";
 
 const CreatePuzzle: React.FC = () => {
-  const contextData = useContext(AuthContext);
-  const user = contextData?.user;
+	const contextData = useContext(AuthContext);
+	const user = contextData?.user;
 
-  const { slug } = useParams();
+	const { slug } = useParams();
 
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [answer, setAnswer] = useState<string>("");
-  const [type, setType] = useState<string>("easy");
-  const [points, setPoints] = useState<number>(0);
+	const [name, setName] = useState<string>("");
+	const [description, setDescription] = useState<string>("");
+	const [answer, setAnswer] = useState<string>("");
+	const [type, setType] = useState<string>("easy");
+	const [points, setPoints] = useState<number>(0);
 
-  const [imgFiles, setImgFiles] = useState<File[] | null>(null);
+	const [imgFiles, setImgFiles] = useState<File[] | null>(null);
 
-  const [message, setMessage] = useState<string | null>(null);
+	const [message, setMessage] = useState<string | null>(null);
 
-  const onPointsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const val: string = e.target.value;
-    if (/^\d+$/.test(val)) setPoints(parseInt(val));
-  };
+	const onPointsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		const val: string = e.target.value;
+		if (/^\d+$/.test(val)) setPoints(parseInt(val));
+	};
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    e.preventDefault();
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+		e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("type", type);
-    formData.append("answer", answer);
-    formData.append("points", points.toString());
-    imgFiles?.forEach((file) => formData.append("images", file));
+		const formData = new FormData();
+		formData.append("name", name);
+		formData.append("description", description);
+		formData.append("type", type);
+		formData.append("answer", answer);
+		formData.append("points", points.toString());
+		imgFiles?.forEach((file) => formData.append("images", file));
 
-    try {
-      const response = await axios.post(`${slug}/create-puzzle/`, formData);
-      const data = response.data;
+		try {
+			const response = await axios.post(`${slug}/create-puzzle/`, formData);
+			const data = response.data;
 
-      if (response.status === 201) {
-        console.log("Hunt Created");
-      } else {
-        setMessage(data.error);
-      }
-    } catch (error) {
-      console.log(error);
-      if (error instanceof AxiosError) setMessage(error.response?.data.error);
-    }
-  };
+			if (response.status === 201) {
+				console.log("Hunt Created");
+			} else {
+				setMessage(data.error);
+			}
+		} catch (error) {
+			console.log(error);
+			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+		}
+	};
 
-  const [hunt, setHunt] = useState<Hunt>();
-  useEffect(() => {
-    const getHuntDetails = async (): Promise<void> => {
-      try {
-        const response = await axios.get(`hunt/${slug}/`);
-        const data = response.data;
-        if (response.status === 200) {
-          setHunt(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (slug) {
-      getHuntDetails();
-    }
-  }, [slug]);
+	const [hunt, setHunt] = useState<Hunt>();
+	useEffect(() => {
+		document.title = "Create Puzzle | TreasureKoii";
+		const getHuntDetails = async (): Promise<void> => {
+			try {
+				const response = await axios.get(`hunt/${slug}/`);
+				const data = response.data;
+				if (response.status === 200) {
+					setHunt(data);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		if (slug) {
+			getHuntDetails();
+		}
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <HuntNav slug={slug} huntName={hunt?.name} />
+		return () => {
+			document.title = "TreasureKoii";
+		};
+	}, [slug]);
 
-      {!user && (
-        <YouNeedToBeLoggedIn message="Please Log in to create puzzles." />
-      )}
-      {/* todo: make sure user is admin */}
+	return (
+		<div className="flex flex-col min-h-screen">
+			<HuntNav slug={slug} huntName={hunt?.name} />
 
-      {user && (
-        <div className="flex flex-col m-4 items-center gap-10 flex-1">
-          <div className="text-4xl font-extrabold">Create A Puzzle</div>
-          {message && <p>{message}</p>}
-          <form
-            method="post"
-            encType="multipart/form-data"
-            onSubmit={handleSubmit}
-            className="flex flex-col items-center"
-          >
-            <input
-              type="text"
-              name="puzzleName"
-              placeholder="Puzzle Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="my-input-field w-full"
-            />
+			{!user && <YouNeedToBeLoggedIn message="Please Log in to create puzzles." />}
+			{/* todo: make sure user is admin */}
 
-            <textarea
-              name="description"
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="my-input-field w-full h-16 resize-none"
-            />
+			{user && (
+				<div className="flex flex-col m-4 items-center gap-10 flex-1">
+					<div className="text-4xl font-extrabold">Create A Puzzle</div>
+					{message && <p>{message}</p>}
+					<form
+						method="post"
+						encType="multipart/form-data"
+						onSubmit={handleSubmit}
+						className="flex flex-col items-center"
+					>
+						<input
+							type="text"
+							name="puzzleName"
+							placeholder="Puzzle Name"
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+							className="my-input-field w-full"
+						/>
 
-            <input
-              type="text"
-              name="puzzleAnswer"
-              placeholder="Answer"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value.toLowerCase())}
-              className="my-input-field w-full"
-            />
+						<textarea
+							name="description"
+							placeholder="Description"
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+							className="my-input-field w-full h-16 resize-none"
+						/>
 
-            <label className="w-full flex items-center">
-              <span className="w-24">Difficulty : </span>
-              <select
-                value={type}
-                name="type"
-                onChange={(e) => {
-                  setType(e.target.value);
-                }}
-                className="my-input-field w-full flex-1 mr-0"
-              >
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </label>
+						<input
+							type="text"
+							name="puzzleAnswer"
+							placeholder="Answer"
+							value={answer}
+							onChange={(e) => setAnswer(e.target.value.toLowerCase())}
+							className="my-input-field w-full"
+						/>
 
-            <label className="w-full flex items-center">
-              <span className="w-24">Puzzle Points : </span>
-              <input
-                type="number"
-                name="points"
-                value={points}
-                onChange={onPointsChange}
-                className="my-input-field w-full flex-1 mr-0"
-              />
-            </label>
+						<label className="w-full flex items-center">
+							<span className="w-24">Difficulty : </span>
+							<select
+								value={type}
+								name="type"
+								onChange={(e) => {
+									setType(e.target.value);
+								}}
+								className="my-input-field w-full flex-1 mr-0"
+							>
+								<option value="easy">Easy</option>
+								<option value="medium">Medium</option>
+								<option value="hard">Hard</option>
+							</select>
+						</label>
 
-            <label className="w-full flex items-center">
-              <span className="w-24">Puzzle Images :</span>
-              <input
-                type="file"
-                name="images"
-                multiple
-                onChange={(e) => {
-                  setImgFiles(
-                    e.target.files ? Array.from(e.target.files) : null
-                  );
-                }}
-                className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:border-0 text-slate-500 w-52"
-              />
-            </label>
+						<label className="w-full flex items-center">
+							<span className="w-24">Puzzle Points : </span>
+							<input
+								type="number"
+								name="points"
+								value={points}
+								onChange={onPointsChange}
+								className="my-input-field w-full flex-1 mr-0"
+							/>
+						</label>
 
-            <button type="submit" className="my-btn-1 mt-4">
-              Create
-            </button>
-          </form>
-        </div>
-      )}
-    </div>
-  );
+						<label className="w-full flex items-center">
+							<span className="w-24">Puzzle Images :</span>
+							<input
+								type="file"
+								name="images"
+								multiple
+								onChange={(e) => {
+									setImgFiles(e.target.files ? Array.from(e.target.files) : null);
+								}}
+								className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:border-0 text-slate-500 w-52"
+							/>
+						</label>
+
+						<button type="submit" className="my-btn-1 mt-4">
+							Create
+						</button>
+					</form>
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default CreatePuzzle;
