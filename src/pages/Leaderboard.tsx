@@ -11,7 +11,7 @@ const Leaderboard: React.FC = () => {
 	const [leaderBoard, setLeaderBoard] = useState<[]>([]);
 	const [hunt, setHunt] = useState<Hunt>();
 	useEffect(() => {
-		document.title = `Leaderboard | TreasureKoii`;
+		document.title = `Leaderboard | ${hunt ? hunt?.name : "TreasureKoii"}`;
 
 		const getLeaderBoard = async (): Promise<void> => {
 			try {

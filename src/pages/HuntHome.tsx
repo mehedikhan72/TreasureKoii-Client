@@ -102,7 +102,7 @@ const HuntHome: React.FC = () => {
   // TODO: Fix getting new puzzle
 
   useEffect(() => {
-    document.title = `${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
+    document.title = `${hunt ? `${hunt.name} ` : "TreasureKoii"}`;
 
     const currentTime = new Date();
 
