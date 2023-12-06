@@ -43,6 +43,8 @@ const HuntHome: React.FC = () => {
 	// for custom404
 	const [huntLoaded, setHuntLoaded] = useState<boolean>(false);
 
+	const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
+
 	useEffect(() => {
 		const getHuntDetails = async (): Promise<void> => {
 			try {
@@ -72,7 +74,20 @@ const HuntHome: React.FC = () => {
 				setDidNotGetPuzzle(true);
 			}
 		};
+
+		const checkIfUserAnOrganizer = async (): Promise<void> => {
+			try {
+				const response = await axios.get(`${slug}/is-user-an-organizer/`);
+				const data = response.data;
+				if (response.status === 200) {
+					setUserAnOrganizer(data.is_organizer);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
 		getHuntDetails();
+		checkIfUserAnOrganizer();
 		if (user && duringHunt) {
 			getPuzzle();
 		}
@@ -153,72 +168,87 @@ const HuntHome: React.FC = () => {
 
 	return (
 		// todo: add other links n confetti
-		<div>
+		<>
 			{huntLoaded && !hunt && <Custom404 />}
 			{huntLoaded && hunt && (
 				<div>
-					{beforeHunt && <BeforeHunt hunt={hunt} />}
-					{afterHunt && <AfterHunt hunt={hunt} />}
-
-					{duringHunt && <HuntNav slug={slug} huntName={hunt?.name} />}
-
-					{duringHunt && !user && (
+					{userAnOrganizer && (
 						<div>
-							<YouNeedToBeLoggedIn message="Please Log in if you are registered in this hunt." />
+							<HuntNav slug={slug} huntName={hunt?.name} />
+							<div className="flex justify-center items-center flex-col">
+								<p className="text-3">You are an organizer of this hunt.</p>
+								<Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
+									<button className="my-btn-1">Organizer Dashboard</button>
+								</Link>
+							</div>
 						</div>
 					)}
-
-					{duringHunt && user && (
+					{!userAnOrganizer && (
 						<div>
-							{didNotGetPuzzle && (
-								<div className="flex flex-col justify-center items-center p-4">
-									<p className="text-2 warning-text">No more puzzles left. Looks like you solved 'em all.</p>
-									<p className="text-1">Refresh this page to verify again.</p>
+							<HuntNav slug={slug} huntName={hunt?.name} />
+
+							{beforeHunt && <BeforeHunt hunt={hunt} />}
+							{afterHunt && <AfterHunt hunt={hunt} />}
+
+							{duringHunt && !user && (
+								<div>
+									<YouNeedToBeLoggedIn message="Please Log in if you are registered in this hunt." />
 								</div>
 							)}
 
-							{!didNotGetPuzzle && !correctAnswerGiven && (
-								<div className="p-4 bg-slate-200 rounded-md">
-									<p className="text-3">Your Current Puzzle</p>
-									<p className="text-2">{puzzle?.name}</p>
-									<p className="text-1">{puzzle?.description}</p>
-									<ShowImages key={imageUrl} url={imageUrl} />
-								</div>
-							)}
-							{!correctAnswerGiven && !didNotGetPuzzle && (
-								<div className="p-4 m-2">
-									<p className="text-3">Submit Answer</p>
-									<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
-										<input
-											type="text"
-											name="answer"
-											placeholder="Answer"
-											className="my-input-field"
-											value={answer}
-											onChange={(e) => setAnswer(e.target.value)}
-										/>
-										{wrongAnswerGiven && <p className="text-1 text-red-500">{message}</p>}
-										<button className="my-btn-1" type="submit">
-											Submit
-										</button>
-									</form>
-								</div>
-							)}
+							{duringHunt && user && (
+								<div>
+									{didNotGetPuzzle && (
+										<div className="flex flex-col justify-center items-center p-4">
+											<p className="text-2 warning-text">No more puzzles left. Looks like you solved 'em all.</p>
+											<p className="text-1">Refresh this page to verify again.</p>
+										</div>
+									)}
 
-							{correctAnswerGiven && !didNotGetPuzzle && (
-								<div className="flex flex-col justify-center items-center p-4">
-									<p className="text-2 success-text">{message}</p>
-									<button className="my-btn-1" onClick={() => fetchNewPuzzle()}>
-										Next Puzzle
-									</button>
-									<Confetti width={width} height={height} />
+									{!didNotGetPuzzle && !correctAnswerGiven && (
+										<div className="p-4 bg-slate-200 rounded-md">
+											<p className="text-3">Your Current Puzzle</p>
+											<p className="text-2">{puzzle?.name}</p>
+											<p className="text-1">{puzzle?.description}</p>
+											<ShowImages key={imageUrl} url={imageUrl} />
+										</div>
+									)}
+									{!correctAnswerGiven && !didNotGetPuzzle && (
+										<div className="p-4 m-2">
+											<p className="text-3">Submit Answer</p>
+											<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
+												<input
+													type="text"
+													name="answer"
+													placeholder="Answer"
+													className="my-input-field"
+													value={answer}
+													onChange={(e) => setAnswer(e.target.value)}
+												/>
+												{wrongAnswerGiven && <p className="text-1 text-red-500">{message}</p>}
+												<button className="my-btn-1" type="submit">
+													Submit
+												</button>
+											</form>
+										</div>
+									)}
+
+									{correctAnswerGiven && !didNotGetPuzzle && (
+										<div className="flex flex-col justify-center items-center p-4">
+											<p className="text-2 success-text">{message}</p>
+											<button className="my-btn-1" onClick={() => fetchNewPuzzle()}>
+												Next Puzzle
+											</button>
+											<Confetti width={width} height={height} />
+										</div>
+									)}
 								</div>
 							)}
 						</div>
 					)}
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 
