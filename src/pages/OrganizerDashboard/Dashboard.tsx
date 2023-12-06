@@ -15,6 +15,7 @@ const Dashboard: React.FC = () => {
   const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
   const [userDataLoaded, setUserDataLoaded] = useState<boolean>(false);
   useEffect(() => {
+      document.title = "Organizer Dashboard | ${hunt?.name}";
     const getHuntDetails = async (): Promise<void> => {
       try {
         const response = await axios.get(`hunt/${slug}/`);
