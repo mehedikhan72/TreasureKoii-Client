@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../utils/context/AuthContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import { AxiosError } from "axios";
@@ -97,7 +97,10 @@ const CreateTeam: React.FC = () => {
 						/>
 						{Boolean(teamPassword) && (
 							<>
-								<p className="text-lg font-bold text-green-600">Team Successfully Created.</p>
+								<p className="text-lg font-bold text-green-600 text-center">Team Successfully Created.</p>
+								<Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold mb-4">
+									Go To <span className="text-blue-600 underline">Hunt Page</span>
+								</Link>
 								<p className="text-2xl ">Team Password:</p>
 								<input
 									type="text"

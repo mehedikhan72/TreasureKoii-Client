@@ -36,6 +36,7 @@ export interface Hunt {
   poster_img: string;
   organizers: User[];
   participants: User[];
+  slug: string;
 }
 
 export interface Puzzle {

@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import axios from "../utils/axios/AxiosSetup";
@@ -87,7 +87,14 @@ const JoinTeam: React.FC = () => {
 					{hunt && <div className="text-3xl">{hunt.name}</div>}
 					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-2 w-1/2">
 						{messageError && <p className="text-1 text-red-500 text-center">{messageError}</p>}
-						{messageSuccess && <p className="text-lg font-bold text-green-600 text-center">{messageSuccess}</p>}
+						{messageSuccess && (
+							<>
+								<p className="text-lg font-bold text-green-600 text-center">{messageSuccess}</p>
+								<Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold mb-4">
+									Go To <span className="text-blue-600 underline">Hunt Page</span>
+								</Link>
+							</>
+						)}
 
 						<input
 							type="text"
