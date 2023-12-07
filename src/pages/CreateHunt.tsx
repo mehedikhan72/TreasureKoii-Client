@@ -11,6 +11,7 @@ import { AxiosError } from "axios";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
 import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CreateHunt: React.FC = () => {
 	const [huntName, setHuntName] = useState<string>("");
@@ -20,6 +21,8 @@ const CreateHunt: React.FC = () => {
 	const [imgFile, setImgFile] = useState<File | null>(null);
 	const [imgPreview, setImgPreview] = useState<string | undefined>(undefined);
 	const [skips, setSkips] = useState<number>(0);
+
+	const [huntSlug, setHuntSlug] = useState<string>("");
 
 	const [huntSlug, setHuntSlug] = useState<string>("");
 
@@ -35,6 +38,14 @@ const CreateHunt: React.FC = () => {
 	const onSkipsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		const val: string = e.target.value;
 		if (/^\d+$/.test(val)) setSkips(parseInt(val));
+	};
+
+	const sluggifyHuntName = () => {
+		const slug = huntName
+			.toLowerCase()
+			.replace(/ /g, "-")
+			.replace(/[^\w-]+/g, "");
+		setHuntSlug(slug);
 	};
 
 	const sluggifyHuntName = () => {
@@ -88,6 +99,7 @@ const CreateHunt: React.FC = () => {
 				setSkips(0);
 				setMessage(null);
 				sluggifyHuntName();
+				sluggifyHuntName();
 				(document.getElementById("posterImg") as HTMLInputElement).value = "";
 			} else {
 				setMessage(data.error);
@@ -121,6 +133,7 @@ const CreateHunt: React.FC = () => {
 			{!user && <YouNeedToBeLoggedIn message="Please log in to create hunts." />}
 
 			{user && (
+				<div className="flex flex-col justify-center items-center gap-5 flex-1 my-10">
 				<div className="flex flex-col justify-center items-center gap-5 flex-1 my-10">
 					<div className="text-4xl font-extrabold">Create A Hunt</div>
 					<form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center">
