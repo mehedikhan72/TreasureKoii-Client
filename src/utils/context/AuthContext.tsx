@@ -108,13 +108,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			updateToken();
 		}
 
-		let fourMins = 1000 * 4 * 60;
+		let refreshTime = 1000 * 55 * 60; // 55 minutes
 		let interval = setInterval(() => {
 			if (authTokens) {
 				updateToken();
 				console.log("Token refreshed");
 			}
-		}, fourMins);
+		}, refreshTime);
 		return () => clearInterval(interval);
 	}, [authTokens, loading]);
 
