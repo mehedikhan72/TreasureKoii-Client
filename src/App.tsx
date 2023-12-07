@@ -18,19 +18,19 @@ import Dashboard from "./pages/OrganizerDashboard/Dashboard";
 import PuzzleOrder from "./pages/OrganizerDashboard/PuzzleOrder";
 
 const App: React.FC = () => {
-	return (
-		<div className="App my-font overflow-x-hidden min-h-screen">
-			<AuthProvider>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/create-hunt" element={<CreateHunt />} />
-					<Route path="/:slug/create-puzzle" element={<CreatePuzzle />} />
-					<Route path="/:slug" element={<HuntHome />} />
-					<Route path="/:slug/create-team" element={<CreateTeam />} />
-					<Route path="/:slug/join-team" element={<JoinTeam />} />
-					<Route path="/join-hunt" element={<JoinHunt />} />
+  return (
+    <div className="App my-font overflow-x-hidden min-h-screen">
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/create-hunt" element={<CreateHunt />} />
+          <Route path="/:slug/create-puzzle" element={<CreatePuzzle />} />
+          <Route path="/:slug" element={<HuntHome />} />
+          <Route path="/:slug/create-team" element={<CreateTeam />} />
+          <Route path="/:slug/join-team" element={<JoinTeam />} />
+          <Route path="/join-hunt" element={<JoinHunt />} />
 
           <Route path="/:slug/leaderboard" element={<Leaderboard />} />
           <Route path="/:slug/rules" element={<Rules />} />
