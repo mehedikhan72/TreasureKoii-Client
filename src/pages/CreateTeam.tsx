@@ -100,7 +100,8 @@ const CreateTeam: React.FC = () => {
 						/>
 						{Boolean(teamPassword) && (
 							<>
-								<p className="text-xl">Team Password:</p>
+								<p className="text-lg font-bold text-green-600">Team Successfully Created.</p>
+								<p className="text-2xl ">Team Password:</p>
 								<input
 									type="text"
 									name="name"
@@ -110,7 +111,7 @@ const CreateTeam: React.FC = () => {
 										navigator.clipboard.writeText(teamPassword);
 										setCopied(true);
 									}}
-									className="my-input-field w-full"
+									className="my-input-field text-lg w-full"
 								/>
 							</>
 						)}

@@ -16,7 +16,8 @@ const JoinTeam: React.FC = () => {
 	const { slug } = useParams();
 	const [teamPassword, setTeamPassword] = useState<string>("");
 
-	const [message, setMessage] = useState<string | null>(null);
+	const [messageError, setMessageError] = useState<string | null>(null);
+	const [messageSuccess, setMessageSuccess] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const [hunt, setHunt] = useState<Hunt>();
@@ -33,13 +34,16 @@ const JoinTeam: React.FC = () => {
 			const data = response.data;
 
 			if (response.status === 201) {
-				setMessage(data.success);
+				setMessageError(null);
+				setMessageSuccess(data.success);
 			} else {
-				setMessage(data.error);
+				setMessageSuccess(null);
+				setMessageError(data.error);
 			}
 		} catch (error: unknown) {
 			console.log(error);
-			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+			setMessageSuccess(null);
+			if (error instanceof AxiosError) setMessageError(error.response?.data.error);
 		} finally {
 			setLoading(false);
 		}
@@ -80,10 +84,12 @@ const JoinTeam: React.FC = () => {
 			{!user && <YouNeedToBeLoggedIn message="You need to be logged in to join a team." />}
 			{user && (
 				<div className="flex flex-col my-28 items-center gap-5 flex-1">
-					<div className="text-4xl font-extrabold">Join A Team</div>
+					<div className="text-4xl font-extrabold">Join Team :</div>
 					{hunt && <div className="text-3xl">{hunt.name}</div>}
-					{message && <p>{message}</p>}
 					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-2 w-1/2">
+						{messageError && <p className="text-1 text-red-500 text-center">{messageError}</p>}
+						{messageSuccess && <p className="text-lg font-bold text-green-600 text-center">{messageSuccess}</p>}
+
 						<input
 							type="text"
 							name="team_passwprd"
