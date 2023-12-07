@@ -1,7 +1,11 @@
 import axios from 'axios'
 
+// const instance = axios.create({
+//     baseURL: 'https://api.treasurekoii.com/api/'
+// });
+
 const instance = axios.create({
-    baseURL: 'https://api.treasurekoii.com/api/'
+    baseURL: 'http://localhost:8000/api/'
 });
 
 // Add a request interceptor to add the access token to the request headers
