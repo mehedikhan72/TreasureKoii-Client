@@ -7,6 +7,7 @@ import AuthContext from "../utils/context/AuthContext";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import HomeFooter from "../components/HomeFooter";
 import Loading from "../utils/Loading";
+import RegisteredHunts from "../components/RegisteredHunts";
 
 const JoinHunt: React.FC = () => {
 	const navigate = useNavigate();
@@ -60,9 +61,9 @@ const JoinHunt: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-
-		setLoading(false);
 	};
 
 	const joinTeamClicked = async () => {
@@ -83,18 +84,18 @@ const JoinHunt: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
 		<div className="flex flex-col min-h-screen">
 			{loading && <Loading />}
-			{/* TODO: figure out why the image aint showing */}
 			<TreasureKoiiImg />
 			{!user && <YouNeedToBeLoggedIn message="Please log in to join hunts." />}
 			{user && (
-				<div className="flex flex-col my-28 items-center gap-10 flex-1">
+				<div className="flex flex-col mt-28 items-center gap-5 flex-1">
 					<p className="text-4">Join A Hunt</p>
 					<div className="flex justify-center items-center flex-col">
 						<input
@@ -105,34 +106,35 @@ const JoinHunt: React.FC = () => {
 						/>
 						{!message && <p className="text-1 w-5/6 md:w-[200px] text-center">Enter a valid hunt name to continue.</p>}
 						{message && <p className="text-1 text-red-500 w-5/6 md:w-[200px] text-center">{message}</p>}
-					</div>
-					{/* TODO: Add a loading spinner in this text */}
 
-					{inputGiven && (
-						<div className="flex justify-center items-center">
-							<button onClick={createTeamClicked} className="my-btn-1">
-								Create a Team
-							</button>
+						{inputGiven && (
+							<div className="flex justify-center items-center">
+								<button onClick={createTeamClicked} className="my-btn-1">
+									Create a Team
+								</button>
 
-							<button onClick={joinTeamClicked} className="my-btn-1 ">
-								Join a Team
-							</button>
-						</div>
-					)}
-					{!inputGiven && (
-						<div>
-							<div className="flex justify-center items-center pointer-events-none opacity-50">
-								<Link to={{ pathname: `/${huntSlug}/create-team` }}>
-									<button className="my-btn-1">Create a Team</button>
-								</Link>
-								<Link to={{ pathname: `/${huntSlug}/join-team` }}>
-									<button className="my-btn-1 ">Join a Team</button>
-								</Link>
+								<button onClick={joinTeamClicked} className="my-btn-1 ">
+									Join a Team
+								</button>
 							</div>
-						</div>
-					)}
+						)}
+						{!inputGiven && (
+							<div>
+								<div className="flex justify-center items-center pointer-events-none opacity-50">
+									<Link to={{ pathname: `/${huntSlug}/create-team` }}>
+										<button className="my-btn-1">Create a Team</button>
+									</Link>
+									<Link to={{ pathname: `/${huntSlug}/join-team` }}>
+										<button className="my-btn-1 ">Join a Team</button>
+									</Link>
+								</div>
+							</div>
+						)}
+					</div>
 				</div>
 			)}
+
+			<RegisteredHunts />
 
 			<HomeFooter />
 		</div>

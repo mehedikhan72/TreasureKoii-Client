@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { AuthContextProps, AuthProviderProps, AuthTokens } from "../../types";
 import axios from "../axios/AxiosSetup";
+import { AxiosError } from "axios";
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
@@ -57,6 +58,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			}
 		} catch (error) {
 			console.log(error);
+			if (error instanceof AxiosError) setMessage(error.response?.data.detail);
 		}
 	};
 
@@ -70,9 +72,19 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	};
 
 	const updateToken = async (): Promise<void> => {
+		// Experimental fix for multiple token refreshes even before authToken is loaded
+		if (!authTokens) {
+			if (loading) {
+				setLoading(false);
+			}
+			return;
+		}
+
 		const formData = {
 			refresh: authTokens?.refresh,
 		};
+
+		console.log(formData);
 
 		try {
 			let response = await axios.post(`token/refresh/`, formData);
@@ -112,12 +124,17 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 		return () => clearInterval(interval);
 	}, [authTokens, loading]);
 
-	const contextData: AuthContextProps = {
-		message,
-		user,
-		loginUser,
-		logoutUser,
-	};
+	// const contextData: AuthContextProps = {
+	// 	message,
+	// 	user,
+	// 	loginUser,
+	// 	logoutUser,
+	// };
+
+	const [contextData, setContextData] = useState<AuthContextProps>({ message, user, loginUser, logoutUser });
+	useEffect(() => {
+		setContextData({ message, user, loginUser, logoutUser });
+	}, [message, user]);
 
 	return <AuthContext.Provider value={contextData}>{loading ? null : children}</AuthContext.Provider>;
 };

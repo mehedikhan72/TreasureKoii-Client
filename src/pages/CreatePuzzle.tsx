@@ -54,8 +54,9 @@ const CreatePuzzle: React.FC = () => {
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	const [hunt, setHunt] = useState<Hunt>();
@@ -71,8 +72,9 @@ const CreatePuzzle: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setLoading(false);
 			}
-			setLoading(false);
 		};
 		if (slug) {
 			getHuntDetails();

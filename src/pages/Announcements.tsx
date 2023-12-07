@@ -11,13 +11,14 @@ const Announcements: React.FC = () => {
 	const [hunt, setHunt] = useState<Hunt>();
 	const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
-	const [loading, setLoading] = useState<boolean>(false);
+	const [huntLoading, setHuntLoading] = useState<boolean>(false);
+	const [announcementsLoading, setAnnouncementsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		document.title = `Announcements | ${hunt ? hunt?.name : "TreasureKoii"}`;
 
 		const getAnnouncements = async (): Promise<void> => {
-			setLoading(true);
+			setAnnouncementsLoading(true);
 			try {
 				const response = await axios.get(`${slug}/announcements/`);
 				const data = response.data;
@@ -26,11 +27,12 @@ const Announcements: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setAnnouncementsLoading(false);
 			}
-			setLoading(false);
 		};
 		const getHuntDetails = async (): Promise<void> => {
-			setLoading(true);
+			setHuntLoading(true);
 			try {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
@@ -39,8 +41,9 @@ const Announcements: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setHuntLoading(false);
 			}
-			setLoading(false);
 		};
 		getAnnouncements();
 		getHuntDetails();
@@ -52,7 +55,7 @@ const Announcements: React.FC = () => {
 
 	return (
 		<div>
-			{loading && <Loading />}
+			{huntLoading && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
 			{announcements && announcements.length !== 0 && (
 				<div>

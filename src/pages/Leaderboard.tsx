@@ -9,15 +9,17 @@ import Loading from "../utils/Loading";
 const Leaderboard: React.FC = () => {
 	const { slug } = useParams();
 
-	const [leaderBoard, setLeaderBoard] = useState<[]>([]);
 	const [hunt, setHunt] = useState<Hunt>();
-	const [loading, setLoading] = useState<boolean>(false);
+	const [leaderBoard, setLeaderBoard] = useState<[]>([]);
+
+	const [huntLoading, setHuntLoading] = useState<boolean>(false);
+	const [leaderboardLoading, setLeaderboardLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		document.title = `Leaderboard | ${hunt ? hunt?.name : "TreasureKoii"}`;
 
 		const getLeaderBoard = async (): Promise<void> => {
-			setLoading(true);
+			setLeaderboardLoading(true);
 			try {
 				const response = await axios.get(`${slug}/leaderboard/`);
 				const data = response.data;
@@ -26,11 +28,12 @@ const Leaderboard: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setLeaderboardLoading(false);
 			}
-			setLoading(false);
 		};
 		const getHuntDetails = async (): Promise<void> => {
-			setLoading(true);
+			setHuntLoading(true);
 			try {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
@@ -39,8 +42,9 @@ const Leaderboard: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setHuntLoading(false);
 			}
-			setLoading(false);
 		};
 		getLeaderBoard();
 		getHuntDetails();
@@ -52,7 +56,7 @@ const Leaderboard: React.FC = () => {
 
 	return (
 		<div className="overflow-x-hidden">
-			{loading && <Loading />}
+			{(huntLoading || leaderboardLoading) && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
 			<LeaderboardTable leaderBoard={leaderBoard} />
 		</div>

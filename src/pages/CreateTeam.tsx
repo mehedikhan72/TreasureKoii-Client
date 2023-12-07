@@ -6,19 +6,22 @@ import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import { AxiosError } from "axios";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
+import { Hunt } from "../types";
+import HomeFooter from "../components/HomeFooter";
 
 const CreateTeam: React.FC = () => {
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;
 	const { slug } = useParams();
 
-	// TODO: add hunt name in create team and join team
 	const [name, setName] = useState<string>("");
 	const [teamPassword, setTeampassword] = useState<string>("");
 	const [copied, setCopied] = useState<boolean>(false);
 
 	const [message, setMessage] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
+
+	const [hunt, setHunt] = useState<Hunt>();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
@@ -43,13 +46,31 @@ const CreateTeam: React.FC = () => {
 		} catch (error: unknown) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+		} finally {
+			setLoading(false);
 		}
-
-		setLoading(false);
 	};
 
 	useEffect(() => {
 		document.title = "Create Team | TreasureKoii";
+
+		const getHuntDetails = async (): Promise<void> => {
+			setLoading(true);
+			try {
+				const response = await axios.get(`hunt/${slug}/`);
+				const data = response.data;
+				if (response.status === 200) {
+					console.log(data);
+					setHunt(data);
+					setLoading(false);
+				}
+			} catch (error) {
+				console.log(error);
+				setLoading(false);
+			}
+		};
+
+		getHuntDetails();
 
 		return () => {
 			document.title = "TreasureKoii";
@@ -63,8 +84,10 @@ const CreateTeam: React.FC = () => {
 			{!user && <YouNeedToBeLoggedIn message="You need to be logged in to create a team." />}
 
 			{user && (
-				<div className="flex flex-col my-28 items-center gap-10 flex-1">
+				<div className="flex flex-col my-28 items-center gap-5 flex-1">
 					<div className="text-4">Create A Team</div>
+					{hunt && <div className="text-3xl">{hunt.name}</div>}
+
 					{message && <p>{message}</p>}
 					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-2 w-1/2">
 						<input
@@ -98,6 +121,8 @@ const CreateTeam: React.FC = () => {
 					</form>
 				</div>
 			)}
+
+			<HomeFooter />
 		</div>
 	);
 };

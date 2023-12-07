@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../utils/context/AuthContext";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import RegisteredHunts from "../components/RegisteredHunts";
 
 const Home: React.FC = () => {
 	useEffect(() => {
@@ -50,6 +51,7 @@ const Home: React.FC = () => {
 					<button className="my-btn-1">Join A Hunt</button>
 				</Link>
 			</div>
+			<RegisteredHunts />
 			<HomeFooter />
 		</div>
 	);

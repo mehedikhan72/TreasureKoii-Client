@@ -17,11 +17,12 @@ const Dashboard: React.FC = () => {
 	const [userDataLoaded, setUserDataLoaded] = useState<boolean>(false);
 
 	const [loading, setLoading] = useState<boolean>(false);
+	const [huntLoading, setHuntLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		document.title = "Organizer Dashboard | ${hunt?.name}";
 		const getHuntDetails = async (): Promise<void> => {
-			setLoading(true);
+			setHuntLoading(true);
 			try {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
@@ -30,8 +31,9 @@ const Dashboard: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setHuntLoading(false);
 			}
-			setLoading(false);
 		};
 
 		const checkIfUserAnOrganizer = async (): Promise<void> => {
@@ -39,6 +41,7 @@ const Dashboard: React.FC = () => {
 			try {
 				const response = await axios.get(`${slug}/is-user-an-organizer/`);
 				const data = response.data;
+
 				if (response.status === 200) {
 					setUserAnOrganizer(data.is_organizer);
 					setUserDataLoaded(true);
@@ -46,8 +49,9 @@ const Dashboard: React.FC = () => {
 			} catch (error) {
 				console.log(error);
 				setUserDataLoaded(true);
+			} finally {
+				setLoading(false);
 			}
-			setLoading(false);
 		};
 
 		getHuntDetails();
@@ -74,8 +78,9 @@ const Dashboard: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	// rules
@@ -98,8 +103,9 @@ const Dashboard: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	// add more organizers
@@ -122,14 +128,15 @@ const Dashboard: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 	return (
 		<div>
-			{loading && <Loading />}
+			{(loading || huntLoading) && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
-			{/* TODO: bug fix - the bottom div is shown even when user is an organizer */}
+			{/* Experimental Fix bcause of fix in AuthContext - TODO: bug fix - the bottom div is shown even when user is an organizer */}
 			{!userAnOrganizer && userDataLoaded && (
 				<div className="flex flex-col justify-center items-center">
 					<p className="text-2">You are not an organizer of this hunt.</p>
