@@ -10,6 +10,7 @@ import HomeFooter from "../components/HomeFooter";
 import { AxiosError } from "axios";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
+import { Link } from "react-router-dom";
 
 const CreateHunt: React.FC = () => {
 	const [huntName, setHuntName] = useState<string>("");
@@ -19,6 +20,8 @@ const CreateHunt: React.FC = () => {
 	const [imgFile, setImgFile] = useState<File | null>(null);
 	const [imgPreview, setImgPreview] = useState<string | undefined>(undefined);
 	const [skips, setSkips] = useState<number>(0);
+
+	const [huntSlug, setHuntSlug] = useState<string>("");
 
 	const [message, setMessage] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
@@ -32,6 +35,14 @@ const CreateHunt: React.FC = () => {
 	const onSkipsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		const val: string = e.target.value;
 		if (/^\d+$/.test(val)) setSkips(parseInt(val));
+	};
+
+	const sluggifyHuntName = () => {
+		const slug = huntName
+			.toLowerCase()
+			.replace(/ /g, "-")
+			.replace(/[^\w-]+/g, "");
+		setHuntSlug(slug);
 	};
 
 	useEffect(() => {
@@ -58,7 +69,7 @@ const CreateHunt: React.FC = () => {
 		formData.append("description", description);
 		if (startDate) formData.append("start_date", startDate?.toJSON());
 		if (endDate) formData.append("end_date", endDate?.toJSON());
-		formData.append("poster_img", imgFile as Blob);
+		if (imgFile) formData.append("poster_img", imgFile as Blob);
 		formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
@@ -76,6 +87,7 @@ const CreateHunt: React.FC = () => {
 				setImgPreview(undefined);
 				setSkips(0);
 				setMessage(null);
+				sluggifyHuntName();
 				(document.getElementById("posterImg") as HTMLInputElement).value = "";
 			} else {
 				setMessage(data.error);
@@ -109,10 +121,18 @@ const CreateHunt: React.FC = () => {
 			{!user && <YouNeedToBeLoggedIn message="Please log in to create hunts." />}
 
 			{user && (
-				<div className="flex flex-col justify-center items-center gap-10 flex-1 my-10">
+				<div className="flex flex-col justify-center items-center gap-5 flex-1 my-10">
 					<div className="text-4xl font-extrabold">Create A Hunt</div>
 					<form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center">
-						{message && <p>{message}</p>}
+						{message && <p className="text-1 text-red-500">{message}</p>}
+						{huntSlug && (
+							<>
+								<p className="text-lg font-bold text-green-600">Hunt Successfully Created. </p>
+								<Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold mb-4">
+									Go To <span className="text-blue-600 underline">Hunt Page</span>
+								</Link>
+							</>
+						)}
 						<input
 							type="text"
 							name="name"
