@@ -11,118 +11,113 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export default AuthContext;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
-  const [user, setUser] = useState<JwtPayload | null>(null);
+	const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
+	const [user, setUser] = useState<JwtPayload | null>(null);
 
-  useEffect(() => {
-    const storedTokens = localStorage.getItem("authTokens");
+	useEffect(() => {
+		const storedTokens = localStorage.getItem("authTokens");
 
-    if (storedTokens) {
-      setAuthTokens(JSON.parse(storedTokens));
-      setUser(jwtDecode(storedTokens));
-    }
-  }, []);
-  const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState<string | null>(null);
+		if (storedTokens) {
+			setAuthTokens(JSON.parse(storedTokens));
+			setUser(jwtDecode(storedTokens));
+		}
+	}, []);
+	const [loading, setLoading] = useState(true);
+	const [message, setMessage] = useState<string | null>(null);
 
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const loginUser = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    e.preventDefault();
+	const loginUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+		e.preventDefault();
 
-    // console.log(e.target?.email?.value);
+		// console.log(e.target?.email?.value);
+		const formElem: HTMLFormElement = e.target as HTMLFormElement;
 
-    if (!e.currentTarget || !e.currentTarget.email) {
-      console.error("Invalid form event. Unable to retrieve email.");
-      return;
-    }
+		if (!formElem || !formElem.email) {
+			console.error("Invalid form event. Unable to retrieve email.");
+			return;
+		}
 
-    const formData = {
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
-    };
+		const formData = {
+			email: formElem.email.value,
+			password: formElem.password.value,
+		};
 
-    try {
-      let response = await axios.post(`token/`, formData);
-      console.log(response);
-      let data = response.data;
-      if (response.status === 200) {
-        setAuthTokens(data);
-        setUser(jwtDecode(data.access));
-        localStorage.setItem("authTokens", JSON.stringify(data));
-        navigate("/");
-      } else {
-        setMessage(data.detail);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+		try {
+			let response = await axios.post(`token/`, formData);
+			console.log(response);
+			let data = response.data;
+			if (response.status === 200) {
+				setAuthTokens(data);
+				setUser(jwtDecode(data.access));
+				localStorage.setItem("authTokens", JSON.stringify(data));
+				navigate("/");
+			} else {
+				setMessage(data.detail);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-  const logoutUser = (): void => {
-    setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem("authTokens");
-    if (user) {
-      navigate("/");
-    }
-  };
+	const logoutUser = (): void => {
+		setAuthTokens(null);
+		setUser(null);
+		localStorage.removeItem("authTokens");
+		if (user) {
+			navigate("/");
+		}
+	};
 
-  const updateToken = async (): Promise<void> => {
-    const formData = {
-      refresh: authTokens?.refresh,
-    };
+	const updateToken = async (): Promise<void> => {
+		const formData = {
+			refresh: authTokens?.refresh,
+		};
 
-    try {
-      let response = await axios.post(`token/refresh/`, formData);
-      console.log(response);
-      let data = response.data;
-      console.log(data);
+		try {
+			let response = await axios.post(`token/refresh/`, formData);
+			console.log(response);
+			let data = response.data;
+			console.log(data);
 
-      if (response.status === 200) {
-        setAuthTokens(data);
-        setUser(jwtDecode(data.access));
-        localStorage.setItem("authTokens", JSON.stringify(data));
-      } else {
-        logoutUser();
-      }
-    } catch (error) {
-      console.log(error);
-      logoutUser();
-    }
+			if (response.status === 200) {
+				setAuthTokens(data);
+				setUser(jwtDecode(data.access));
+				localStorage.setItem("authTokens", JSON.stringify(data));
+			} else {
+				logoutUser();
+			}
+		} catch (error) {
+			console.log(error);
+			logoutUser();
+		}
 
-    if (loading) {
-      setLoading(false);
-    }
-  };
+		if (loading) {
+			setLoading(false);
+		}
+	};
 
-  useEffect(() => {
-    if (loading) {
-      updateToken();
-    }
+	useEffect(() => {
+		if (loading) {
+			updateToken();
+		}
 
-    let fourMins = 1000 * 4 * 60;
-    let interval = setInterval(() => {
-      if (authTokens) {
-        updateToken();
-        console.log("Token refreshed");
-      }
-    }, fourMins);
-    return () => clearInterval(interval);
-  }, [authTokens, loading]);
+		let fourMins = 1000 * 4 * 60;
+		let interval = setInterval(() => {
+			if (authTokens) {
+				updateToken();
+				console.log("Token refreshed");
+			}
+		}, fourMins);
+		return () => clearInterval(interval);
+	}, [authTokens, loading]);
 
-  const contextData: AuthContextProps = {
-    message,
-    user,
-    loginUser,
-    logoutUser,
-  };
+	const contextData: AuthContextProps = {
+		message,
+		user,
+		loginUser,
+		logoutUser,
+	};
 
-  return (
-    <AuthContext.Provider value={contextData}>
-      {loading ? null : children}
-    </AuthContext.Provider>
-  );
+	return <AuthContext.Provider value={contextData}>{loading ? null : children}</AuthContext.Provider>;
 };

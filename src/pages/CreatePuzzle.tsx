@@ -1,14 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../utils/context/AuthContext";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
-import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import { AxiosError } from "axios";
-import HomeFooter from "../components/HomeFooter";
 import { Hunt } from "../types";
-import HuntHome from "./HuntHome";
 import HuntNav from "../components/HuntNav";
+import Loading from "../utils/Loading";
 
 const CreatePuzzle: React.FC = () => {
 	const contextData = useContext(AuthContext);
@@ -25,6 +23,7 @@ const CreatePuzzle: React.FC = () => {
 	const [imgFiles, setImgFiles] = useState<File[] | null>(null);
 
 	const [message, setMessage] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const onPointsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		const val: string = e.target.value;
@@ -33,6 +32,7 @@ const CreatePuzzle: React.FC = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
+		setLoading(true);
 
 		const formData = new FormData();
 		formData.append("name", name);
@@ -55,12 +55,14 @@ const CreatePuzzle: React.FC = () => {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
+		setLoading(false);
 	};
 
 	const [hunt, setHunt] = useState<Hunt>();
 	useEffect(() => {
 		document.title = "Create Puzzle | TreasureKoii";
 		const getHuntDetails = async (): Promise<void> => {
+			setLoading(true);
 			try {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
@@ -70,6 +72,7 @@ const CreatePuzzle: React.FC = () => {
 			} catch (error) {
 				console.log(error);
 			}
+			setLoading(false);
 		};
 		if (slug) {
 			getHuntDetails();
@@ -82,6 +85,7 @@ const CreatePuzzle: React.FC = () => {
 
 	return (
 		<div className="flex flex-col min-h-screen">
+			{loading && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
 
 			{!user && <YouNeedToBeLoggedIn message="Please Log in to create puzzles." />}

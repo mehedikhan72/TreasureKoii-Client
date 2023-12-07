@@ -5,6 +5,7 @@ import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import axios from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
+import Loading from "../utils/Loading";
 
 const JoinTeam: React.FC = () => {
 	const contextData = useContext(AuthContext);
@@ -14,10 +15,12 @@ const JoinTeam: React.FC = () => {
 	const [teamPassword, setTeamPassword] = useState<string>("");
 
 	const [message, setMessage] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
+		setLoading(true);
 		const formData = new FormData();
 		formData.append("team_password", teamPassword);
 
@@ -34,6 +37,7 @@ const JoinTeam: React.FC = () => {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -48,6 +52,7 @@ const JoinTeam: React.FC = () => {
 
 	return (
 		<div className="flex flex-col min-h-screen">
+			{loading && <Loading />}
 			<TreasureKoiiImg />
 			{!user && <YouNeedToBeLoggedIn message="You need to be logged in to join a team." />}
 			{user && (

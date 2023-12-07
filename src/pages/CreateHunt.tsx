@@ -9,6 +9,7 @@ import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import HomeFooter from "../components/HomeFooter";
 import { AxiosError } from "axios";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import Loading from "../utils/Loading";
 
 const CreateHunt: React.FC = () => {
 	const [huntName, setHuntName] = useState<string>("");
@@ -20,6 +21,7 @@ const CreateHunt: React.FC = () => {
 	const [skips, setSkips] = useState<number>(0);
 
 	const [message, setMessage] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const onDateChange = (dates: [Date | null, Date | null]): void => {
 		const [start, end] = dates;
@@ -48,6 +50,7 @@ const CreateHunt: React.FC = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
+		setLoading(true);
 
 		const formData = new FormData();
 
@@ -81,6 +84,7 @@ const CreateHunt: React.FC = () => {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
 		}
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -99,6 +103,7 @@ const CreateHunt: React.FC = () => {
 
 	return (
 		<div className="flex flex-col min-h-screen">
+			{loading && <Loading />}
 			<TreasureKoiiImg />
 			{!user && <YouNeedToBeLoggedIn message="Please log in to create hunts." />}
 

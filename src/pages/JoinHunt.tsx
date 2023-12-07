@@ -5,6 +5,8 @@ import axios from "../utils/axios/AxiosSetup";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../utils/context/AuthContext";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import HomeFooter from "../components/HomeFooter";
+import Loading from "../utils/Loading";
 
 const JoinHunt: React.FC = () => {
 	const navigate = useNavigate();
@@ -17,13 +19,7 @@ const JoinHunt: React.FC = () => {
 	const [inputGiven, setInputGiven] = useState<boolean>(false);
 	const [message, setMessage] = useState<string>("");
 
-	const sluggifyHuntName = () => {
-		const slug = huntName
-			.toLowerCase()
-			.replace(/ /g, "-")
-			.replace(/[^\w-]+/g, "");
-		setHuntSlug(slug);
-	};
+	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		document.title = "Join Hunt | TreasureKoii";
@@ -34,6 +30,14 @@ const JoinHunt: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
+		const sluggifyHuntName = () => {
+			const slug = huntName
+				.toLowerCase()
+				.replace(/ /g, "-")
+				.replace(/[^\w-]+/g, "");
+			setHuntSlug(slug);
+		};
+
 		sluggifyHuntName();
 		setInputGiven(huntName.trim() !== "");
 	}, [huntName]);
@@ -43,6 +47,8 @@ const JoinHunt: React.FC = () => {
 			setMessage("Please enter a valid hunt name.");
 			return;
 		}
+
+		setLoading(true);
 		try {
 			const response = await axios.get(`${huntSlug}/hunt-exists/`);
 			if (response.status === 200) {
@@ -55,6 +61,8 @@ const JoinHunt: React.FC = () => {
 		} catch (error) {
 			console.log(error);
 		}
+
+		setLoading(false);
 	};
 
 	const joinTeamClicked = async () => {
@@ -62,6 +70,8 @@ const JoinHunt: React.FC = () => {
 			setMessage("Please enter a valid hunt name.");
 			return;
 		}
+
+		setLoading(true);
 		try {
 			const response = await axios.get(`${huntSlug}/hunt-exists/`);
 			if (response.status === 200) {
@@ -74,10 +84,12 @@ const JoinHunt: React.FC = () => {
 		} catch (error) {
 			console.log(error);
 		}
+		setLoading(false);
 	};
 
 	return (
 		<div className="flex flex-col min-h-screen">
+			{loading && <Loading />}
 			{/* TODO: figure out why the image aint showing */}
 			<TreasureKoiiImg />
 			{!user && <YouNeedToBeLoggedIn message="Please log in to join hunts." />}
@@ -121,6 +133,8 @@ const JoinHunt: React.FC = () => {
 					)}
 				</div>
 			)}
+
+			<HomeFooter />
 		</div>
 	);
 };
