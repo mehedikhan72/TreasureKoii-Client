@@ -4,13 +4,13 @@ import Countdown from "react-countdown";
 import { Hunt } from "../types";
 import { Link } from "react-router-dom";
 
-const RegisteredHunts: React.FC = () => {
+const OrganizingHunts: React.FC = () => {
 	const [hunts, setHunts] = useState<(Hunt & { slug: string })[]>();
 
 	useEffect(() => {
 		const getRegisteredHunts = async () => {
 			try {
-				const response = await axios.get("get-users-hunts/");
+				const response = await axios.get("get-users-organizing-hunts/");
 				const data = response.data;
 
 				setHunts(data.hunts);
@@ -27,8 +27,8 @@ const RegisteredHunts: React.FC = () => {
 			{hunts?.length ? (
 				<div className="flex flex-col justify-center items-center my-10 mx-8">
 					<div className="text-4 my-5 leading-[3rem]">
-						You're <span className="bg-slate-700 rounded-lg text-white px-2 pt-2 pb-1">registered</span> for the
-						following hunt(s)
+						You're <span className="bg-slate-700 rounded-lg text-white px-2 py-1">organizing</span> the following
+						hunt(s)
 					</div>
 					{hunts.map((hunt, ind) => (
 						<div className="w-full flex justify-center items-center" key={hunt.id}>
@@ -51,4 +51,4 @@ const RegisteredHunts: React.FC = () => {
 	);
 };
 
-export default RegisteredHunts;
+export default OrganizingHunts;

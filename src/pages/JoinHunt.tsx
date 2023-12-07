@@ -8,6 +8,7 @@ import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import HomeFooter from "../components/HomeFooter";
 import Loading from "../utils/Loading";
 import RegisteredHunts from "../components/RegisteredHunts";
+import OrganizingHunts from "../components/OrganizingHunts";
 
 const JoinHunt: React.FC = () => {
 	const navigate = useNavigate();
@@ -134,6 +135,7 @@ const JoinHunt: React.FC = () => {
 				</div>
 			)}
 
+			<OrganizingHunts />
 			<RegisteredHunts />
 
 			<HomeFooter />

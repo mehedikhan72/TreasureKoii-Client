@@ -16,7 +16,7 @@ const Leaderboard: React.FC = () => {
 	const [leaderboardLoading, setLeaderboardLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		document.title = `Leaderboard | ${hunt ? hunt?.name : "TreasureKoii"}`;
+		document.title = `Leaderboard | ${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
 
 		const getLeaderBoard = async (): Promise<void> => {
 			setLeaderboardLoading(true);
