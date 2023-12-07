@@ -4,7 +4,7 @@
 
 @layer base {
 	.my-font {
-		font-family: "Caveat", "cursive", "Playpen Sans", "cursive", sans-serif;
+		font-family: "Josefin Sans", "cursive", sans-serif, "Playpen Sans";
 	}
 
 	.dark {
