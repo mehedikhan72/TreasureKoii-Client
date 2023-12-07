@@ -22,7 +22,8 @@ const CreatePuzzle: React.FC = () => {
 
 	const [imgFiles, setImgFiles] = useState<File[] | null>(null);
 
-	const [message, setMessage] = useState<string | null>(null);
+	const [messageError, setMessageError] = useState<string | null>(null);
+	const [messageSuccess, setMessageSuccess] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const onPointsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -47,13 +48,25 @@ const CreatePuzzle: React.FC = () => {
 			const data = response.data;
 
 			if (response.status === 201) {
-				console.log("Hunt Created");
+				console.log("Puzzle Created");
+
+				setName("");
+				setDescription("");
+				setAnswer("");
+				setType("Easy");
+				setPoints(0);
+				setImgFiles(null);
+				(document.getElementById("puzzleImages") as HTMLInputElement).value = "";
+				setMessageError(null);
+				setMessageSuccess("Puzzle Successfully Created");
 			} else {
-				setMessage(data.error);
+				setMessageSuccess(null);
+				setMessageError(data.error);
 			}
 		} catch (error) {
 			console.log(error);
-			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+			setMessageSuccess(null);
+			if (error instanceof AxiosError) setMessageError(error.response?.data.error);
 		} finally {
 			setLoading(false);
 		}
@@ -96,13 +109,14 @@ const CreatePuzzle: React.FC = () => {
 			{user && (
 				<div className="flex flex-col m-4 items-center gap-10 flex-1">
 					<div className="text-4xl font-extrabold">Create A Puzzle</div>
-					{message && <p>{message}</p>}
 					<form
 						method="post"
 						encType="multipart/form-data"
 						onSubmit={handleSubmit}
 						className="flex flex-col items-center"
 					>
+						{messageError && <p className="text-1 text-red-500">{messageError}</p>}
+						{messageSuccess && <p className="text-lg font-bold mb-5 text-green-600">{messageSuccess}</p>}
 						<input
 							type="text"
 							name="puzzleName"
@@ -160,6 +174,7 @@ const CreatePuzzle: React.FC = () => {
 							<span className="w-24">Puzzle Images :</span>
 							<input
 								type="file"
+								id="puzzleImages"
 								name="images"
 								multiple
 								onChange={(e) => {

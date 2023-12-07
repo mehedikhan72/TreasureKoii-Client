@@ -66,9 +66,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 		setAuthTokens(null);
 		setUser(null);
 		localStorage.removeItem("authTokens");
-		if (user) {
-			navigate("/");
-		}
+		// if (user) {
+		navigate(0);
+		// }
 	};
 
 	const updateToken = async (): Promise<void> => {
