@@ -208,7 +208,7 @@ const Dashboard: React.FC = () => {
 								/>
 								<p className="text-1">
 									(Note: The organizers must have an account on this website. Seperate the emails with a comma, only. no
-									other spaces. Example - alice@gmail.com,bob@gmail.com,johndoe@gmail.com)
+									other spaces. Example - a@gmail.com,b@gmail.com,c@gmail.com)
 								</p>
 								{organizerAddMessage && <p className="text-1 text-green-500">{organizerAddMessage}</p>}
 								<button className="my-btn-1 w-[300px] md:w-[500px]">Add Organizers</button>
