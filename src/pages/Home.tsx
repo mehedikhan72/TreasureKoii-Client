@@ -19,7 +19,6 @@ const Home: React.FC = () => {
 		return null;
 	}
 	const { user } = constextData;
-	console.log(user);
 	return (
 		<div>
 			<div className="">

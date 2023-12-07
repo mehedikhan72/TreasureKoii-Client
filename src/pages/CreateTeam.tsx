@@ -34,8 +34,6 @@ const CreateTeam: React.FC = () => {
 			const response = await axios.post(`${slug}/create-team/`, formData);
 			const data = response.data;
 
-			console.log(data);
-
 			if (response.status === 201) {
 				console.log(data.success);
 				let str = data.success;
@@ -60,7 +58,6 @@ const CreateTeam: React.FC = () => {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
 				if (response.status === 200) {
-					console.log(data);
 					setHunt(data);
 					setLoading(false);
 				}

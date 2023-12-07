@@ -31,7 +31,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	const loginUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
-		// console.log(e.target?.email?.value);
 		const formElem: HTMLFormElement = e.target as HTMLFormElement;
 
 		if (!formElem || !formElem.email) {
@@ -46,7 +45,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
 		try {
 			let response = await axios.post(`token/`, formData);
-			console.log(response);
 			let data = response.data;
 			if (response.status === 200) {
 				setAuthTokens(data);
@@ -84,13 +82,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			refresh: authTokens?.refresh,
 		};
 
-		console.log(formData);
-
 		try {
 			let response = await axios.post(`token/refresh/`, formData);
-			console.log(response);
 			let data = response.data;
-			console.log(data);
 
 			if (response.status === 200) {
 				setAuthTokens(data);

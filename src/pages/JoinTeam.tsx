@@ -58,7 +58,6 @@ const JoinTeam: React.FC = () => {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
 				if (response.status === 200) {
-					console.log(data);
 					setHunt(data);
 					setLoading(false);
 				}
