@@ -10,13 +10,15 @@ const Rules: React.FC = () => {
 
 	const [hunt, setHunt] = useState<Hunt>();
 	const [rules, setRules] = useState<Rule[]>();
-	const [loading, setLoading] = useState<boolean>(false);
+
+	const [rulesLoading, setRulesLoading] = useState<boolean>(false);
+	const [huntLoading, setHuntLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		document.title = `Rules | ${hunt ? hunt?.name : "TreasureKoii"}`;
 
 		const getHuntDetails = async (): Promise<void> => {
-			setLoading(true);
+			setRulesLoading(true);
 			try {
 				const response = await axios.get(`hunt/${slug}/`);
 				const data = response.data;
@@ -25,12 +27,13 @@ const Rules: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setRulesLoading(false);
 			}
-			setLoading(false);
 		};
 
 		const getRules = async (): Promise<void> => {
-			setLoading(true);
+			setHuntLoading(true);
 			try {
 				const response = await axios.get(`${slug}/get-rules/`);
 				const data = response.data;
@@ -39,8 +42,9 @@ const Rules: React.FC = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setHuntLoading(false);
 			}
-			setLoading(false);
 		};
 
 		getHuntDetails();
@@ -52,7 +56,7 @@ const Rules: React.FC = () => {
 	}, [slug]);
 	return (
 		<div>
-			{loading && <Loading />}
+			{(huntLoading || rulesLoading) && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
 
 			{rules?.length !== 0 && (

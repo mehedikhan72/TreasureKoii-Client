@@ -25,6 +25,9 @@ const PuzzleOrder = () => {
 	const [updatePuzzleOrderMessage, setUpdatePuzzleOrderMessage] = useState<string>("");
 
 	const [loading, setLoading] = useState<boolean>(false);
+	const [organizerCheckLoading, setOrganizerCheckLoading] = useState<boolean>(false);
+	const [teamsLoading, setTeamsLoading] = useState<boolean>(false);
+	const [puzzlesLoading, setPuzzlesLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		const getHuntDetails = async (): Promise<void> => {
@@ -38,12 +41,13 @@ const PuzzleOrder = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setLoading(false);
 			}
-			setLoading(false);
 		};
 
 		const checkIfUserAnOrganizer = async (): Promise<void> => {
-			setLoading(true);
+			setOrganizerCheckLoading(true);
 			try {
 				const response = await axios.get(`${slug}/is-user-an-organizer/`);
 				const data = response.data;
@@ -54,12 +58,13 @@ const PuzzleOrder = () => {
 			} catch (error) {
 				console.log(error);
 				setUserDataLoaded(true);
+			} finally {
+				setOrganizerCheckLoading(false);
 			}
-			setLoading(false);
 		};
 
 		const getAllTeamsData = async (): Promise<void> => {
-			setLoading(true);
+			setTeamsLoading(true);
 			try {
 				const response = await axios.get(`${slug}/get-all-teams-data/`);
 				const data = response.data;
@@ -69,12 +74,13 @@ const PuzzleOrder = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setTeamsLoading(false);
 			}
-			setLoading(false);
 		};
 
 		const getAllPuzzles = async (): Promise<void> => {
-			setLoading(true);
+			setPuzzlesLoading(true);
 			try {
 				const response = await axios.get(`${slug}/get-all-puzzles/`);
 				const data = response.data;
@@ -84,8 +90,9 @@ const PuzzleOrder = () => {
 				}
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setPuzzlesLoading(false);
 			}
-			setLoading(false);
 		};
 
 		getHuntDetails();
@@ -114,13 +121,14 @@ const PuzzleOrder = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
 		<div>
-			{loading && <Loading />}
+			{(loading || organizerCheckLoading || teamsLoading || puzzlesLoading) && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
 			{!userAnOrganizer && userDataLoaded && (
 				<div className="flex flex-col justify-center items-center">

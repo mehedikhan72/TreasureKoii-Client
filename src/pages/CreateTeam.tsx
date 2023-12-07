@@ -43,9 +43,9 @@ const CreateTeam: React.FC = () => {
 		} catch (error: unknown) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+		} finally {
+			setLoading(false);
 		}
-
-		setLoading(false);
 	};
 
 	useEffect(() => {

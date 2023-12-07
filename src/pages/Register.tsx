@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
@@ -18,8 +18,6 @@ const Register: React.FC = () => {
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;
 	const loginUser = contextData?.loginUser;
-
-	const navigate = useNavigate();
 
 	const [message, setMessage] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
@@ -57,8 +55,9 @@ const Register: React.FC = () => {
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	useEffect(() => {

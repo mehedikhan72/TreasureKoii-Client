@@ -70,9 +70,16 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	};
 
 	const updateToken = async (): Promise<void> => {
+		// Experimental fix for multiple token refreshes even before authToken is loaded
+		if (!authTokens) {
+			return;
+		}
+
 		const formData = {
 			refresh: authTokens?.refresh,
 		};
+
+		console.log(formData);
 
 		try {
 			let response = await axios.post(`token/refresh/`, formData);

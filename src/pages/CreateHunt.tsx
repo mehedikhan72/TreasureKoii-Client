@@ -83,8 +83,9 @@ const CreateHunt: React.FC = () => {
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	useEffect(() => {

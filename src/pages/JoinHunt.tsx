@@ -60,9 +60,9 @@ const JoinHunt: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-
-		setLoading(false);
 	};
 
 	const joinTeamClicked = async () => {
@@ -83,8 +83,9 @@ const JoinHunt: React.FC = () => {
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
