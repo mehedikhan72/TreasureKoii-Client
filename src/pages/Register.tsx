@@ -77,11 +77,11 @@ const Register: React.FC = () => {
 			</div>
 
 			<div className="flex flex-col justify-center items-center gap-10 flex-1">
-				<div className="text-6xl font-extrabold">Register</div>
+				<div className="text-6xl font-extrabold pt-8">Register</div>
 
 				<form onSubmit={handleSubmit} className="flex flex-col items-center">
 					{message && <p className="text-1 text-red-500">{message}</p>}
-					<div className="flex gap-2">
+					<div className="flex justify-between gap-2 w-full">
 						<input
 							type="text"
 							name="firstName"
@@ -100,7 +100,7 @@ const Register: React.FC = () => {
 						/>
 					</div>
 
-					<div className="flex gap-2">
+					<div className="flex justify-between w-full gap-2">
 						<input
 							type="email"
 							name="email"
