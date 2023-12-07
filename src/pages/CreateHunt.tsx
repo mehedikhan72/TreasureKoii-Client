@@ -88,6 +88,7 @@ const CreateHunt: React.FC = () => {
 				setSkips(0);
 				setMessage(null);
 				sluggifyHuntName();
+				sluggifyHuntName();
 				(document.getElementById("posterImg") as HTMLInputElement).value = "";
 			} else {
 				setMessage(data.error);
