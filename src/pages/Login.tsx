@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
@@ -20,9 +20,7 @@ const Login: React.FC = () => {
 		return null;
 	}
 	const { loginUser, user, message }: AuthContextProps = contextData;
-	console.log(user);
 
-	// todo: validate client errors with messages
 	return (
 		<div className="flex flex-col min-h-screen">
 			{user && <Navigate to="/" />}
@@ -34,7 +32,7 @@ const Login: React.FC = () => {
 				<div className="text-6xl font-extrabold">Login</div>
 
 				<form onSubmit={loginUser} className="flex flex-col justify-center items-center gap-2 w-4/6">
-					{message && <p>{message}</p>}
+					{message && <p className="text-1 text-red-500">{message}</p>}
 					<input type="email" name="email" placeholder="Email" className="my-input-field w-full" />
 					<input type="password" name="password" placeholder="Password" className="my-input-field w-full" />
 					<button type="submit" className="my-btn-1 w-full">

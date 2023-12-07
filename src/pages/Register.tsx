@@ -68,7 +68,6 @@ const Register: React.FC = () => {
 		};
 	}, []);
 
-	// TODO: user was not being logged in properly after reg, look into that.
 	return (
 		<div className="flex flex-col min-h-screen">
 			{loading && <Loading />}
