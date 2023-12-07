@@ -96,11 +96,8 @@ const CreateHunt: React.FC = () => {
 		};
 	}, []);
 
-	let contextData = useContext(AuthContext);
-	if (!contextData) {
-		return null;
-	}
-	const { user }: AuthContextProps = contextData;
+	const contextData = useContext(AuthContext);
+	const user = contextData?.user;
 
 	return (
 		<div className="flex flex-col min-h-screen">
