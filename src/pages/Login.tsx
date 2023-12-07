@@ -29,7 +29,7 @@ const Login: React.FC = () => {
 			</div>
 
 			<div className="flex flex-col justify-center items-center gap-10 flex-1">
-				<div className="text-6xl font-extrabold">Login</div>
+				<div className="text-6xl font-extrabold pt-8">Login</div>
 
 				<form onSubmit={loginUser} className="flex flex-col justify-center items-center gap-2 w-4/6">
 					{message && <p className="text-1 text-red-500">{message}</p>}

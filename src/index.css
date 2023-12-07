@@ -4,7 +4,7 @@
 
 @layer base {
 	.my-font {
-		font-family: "Caveat", "cursive", "Playpen Sans", "cursive", sans-serif;
+		font-family: "Josefin Sans", "cursive", sans-serif, "Playpen Sans";
 	}
 
 	.dark {
@@ -60,6 +60,6 @@
 	}
 
 	.my-input-field {
-		@apply border-2 border-gray-400 rounded-md p-2 m-2 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] font-bold text-2xl;
+		@apply border-2 border-gray-400 rounded-md p-2 m-2 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] font-bold text-2xl;
 	}
 }
