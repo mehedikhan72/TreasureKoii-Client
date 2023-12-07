@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
 	const [huntLoading, setHuntLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		document.title = "Organizer Dashboard | ${hunt?.name}";
+		document.title = `Organizer Dashboard | ${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
 		const getHuntDetails = async (): Promise<void> => {
 			setHuntLoading(true);
 			try {

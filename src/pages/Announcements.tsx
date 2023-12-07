@@ -15,7 +15,7 @@ const Announcements: React.FC = () => {
 	const [announcementsLoading, setAnnouncementsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		document.title = `Announcements | ${hunt ? hunt?.name : "TreasureKoii"}`;
+		document.title = `Announcements | ${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
 
 		const getAnnouncements = async (): Promise<void> => {
 			setAnnouncementsLoading(true);

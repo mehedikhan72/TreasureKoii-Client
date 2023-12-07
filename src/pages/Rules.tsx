@@ -15,7 +15,7 @@ const Rules: React.FC = () => {
 	const [huntLoading, setHuntLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		document.title = `Rules | ${hunt ? hunt?.name : "TreasureKoii"}`;
+		document.title = `Rules | ${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
 
 		const getHuntDetails = async (): Promise<void> => {
 			setRulesLoading(true);

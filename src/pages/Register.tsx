@@ -25,7 +25,6 @@ const Register: React.FC = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 		setLoading(true);
-		console.log(e.currentTarget);
 
 		if (password !== confirmedPassword) {
 			setMessage("Passwords do not match");

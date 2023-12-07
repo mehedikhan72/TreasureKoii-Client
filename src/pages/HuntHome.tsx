@@ -147,7 +147,6 @@ const HuntHome: React.FC = () => {
 			if (response.status === 200) {
 				if (data.success) {
 					setCorrectAnswerGiven(true);
-					console.log(data);
 					setMessage(data.success);
 				} else {
 					setWrongAnswerGiven(true);
