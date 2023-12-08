@@ -43,6 +43,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			password: formElem.password.value,
 		};
 
+		console.log(formData);
+
 		try {
 			let response = await axios.post(`token/`, formData);
 			let data = response.data;
@@ -54,6 +56,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			} else {
 				setMessage(data.detail);
 			}
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.detail);
@@ -82,9 +85,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			refresh: authTokens?.refresh,
 		};
 
+		console.log(formData);
+
 		try {
 			let response = await axios.post(`token/refresh/`, formData);
 			let data = response.data;
+
+			console.log(response);
 
 			if (response.status === 200) {
 				setAuthTokens(data);

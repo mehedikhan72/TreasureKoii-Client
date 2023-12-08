@@ -93,6 +93,7 @@ const CreateHunt: React.FC = () => {
 			} else {
 				setMessage(data.error);
 			}
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);

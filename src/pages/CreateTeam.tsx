@@ -41,6 +41,7 @@ const CreateTeam: React.FC = () => {
 			} else {
 				setMessage(data.error);
 			}
+			console.log(response);
 		} catch (error: unknown) {
 			console.log(error);
 			if (error instanceof AxiosError) setMessage(error.response?.data.error);
@@ -61,6 +62,7 @@ const CreateTeam: React.FC = () => {
 					setHunt(data);
 					setLoading(false);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 				setLoading(false);

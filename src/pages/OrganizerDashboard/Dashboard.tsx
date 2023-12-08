@@ -29,6 +29,7 @@ const Dashboard: React.FC = () => {
 				if (response.status === 200) {
 					setHunt(data);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -46,6 +47,7 @@ const Dashboard: React.FC = () => {
 					setUserAnOrganizer(data.is_organizer);
 					setUserDataLoaded(true);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 				setUserDataLoaded(true);
@@ -76,6 +78,7 @@ const Dashboard: React.FC = () => {
 			} else {
 				setAnnouncementMessage(data.error);
 			}
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -101,6 +104,7 @@ const Dashboard: React.FC = () => {
 			} else {
 				setRulesMessage(data.error);
 			}
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -126,6 +130,7 @@ const Dashboard: React.FC = () => {
 			} else {
 				setOrganizerAddMessage(data.error);
 			}
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 		} finally {

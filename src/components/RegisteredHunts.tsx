@@ -12,7 +12,7 @@ const RegisteredHunts: React.FC = () => {
 			try {
 				const response = await axios.get("get-users-hunts/");
 				const data = response.data;
-
+				console.log(response);
 				setHunts(data.hunts);
 			} catch (error) {
 				console.log(error);
