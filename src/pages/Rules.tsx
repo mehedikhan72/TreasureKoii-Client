@@ -25,6 +25,7 @@ const Rules: React.FC = () => {
 				if (response.status === 200) {
 					setHunt(data);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -40,6 +41,7 @@ const Rules: React.FC = () => {
 				if (response.status === 200) {
 					setRules(data);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 			} finally {

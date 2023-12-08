@@ -16,6 +16,7 @@ const ShowImages: React.FC<{ url: string | null }> = ({ url }) => {
 				const response = await axios.get(`${url}`);
 				setImages(response.data);
 				setImageLoaded(true);
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 				setImageLoaded(true);

@@ -25,6 +25,7 @@ const Announcements: React.FC = () => {
 				if (response.status === 200) {
 					setAnnouncements(data);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -39,6 +40,7 @@ const Announcements: React.FC = () => {
 				if (response.status === 200) {
 					setHunt(data);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 			} finally {

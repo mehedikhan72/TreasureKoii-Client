@@ -63,6 +63,7 @@ const CreatePuzzle: React.FC = () => {
 				setMessageSuccess(null);
 				setMessageError(data.error);
 			}
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 			setMessageSuccess(null);
@@ -83,6 +84,7 @@ const CreatePuzzle: React.FC = () => {
 				if (response.status === 200) {
 					setHunt(data);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 			} finally {

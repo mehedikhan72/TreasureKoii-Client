@@ -40,6 +40,7 @@ const JoinTeam: React.FC = () => {
 				setMessageSuccess(null);
 				setMessageError(data.error);
 			}
+			console.log(response);
 		} catch (error: unknown) {
 			console.log(error);
 			setMessageSuccess(null);
@@ -61,6 +62,7 @@ const JoinTeam: React.FC = () => {
 					setHunt(data);
 					setLoading(false);
 				}
+				console.log(response);
 			} catch (error) {
 				console.log(error);
 				setLoading(false);
