@@ -115,7 +115,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			updateToken();
 		}
 
-		let refreshTime = 1000 * 55 * 60; // 55 minutes
+		let refreshTime = 1000 * 5 * 60; // 5 minutes
 		let interval = setInterval(() => {
 			if (authTokens) {
 				updateToken();
