@@ -57,7 +57,7 @@ const ShowImages: React.FC<{ url: string | null }> = ({ url }) => {
 			if (images.length > 1) {
 				autoSlide();
 			}
-		}, 3000);
+		}, 10000);
 		return () => clearInterval(interval);
 	}, [currentIndex]);
 
@@ -65,12 +65,12 @@ const ShowImages: React.FC<{ url: string | null }> = ({ url }) => {
 		<div>
 			{!imageLoaded && <Loading />}
 			{images.length !== 0 && (
-				<div className="max-w-[350px] sm:max-w-[500px] xl:max-w-[450px] h-[500px] sm:h-[600px] md:h-[600px] w-full m-auto py-8 px-4 relative group">
+				<div className="max-w-[400px] sm:max-w-[500px] xl:max-w-[600px] h-[400px] sm:h-[500px] xl:h-[600px] w-full m-auto py-8 px-4 relative group">
 					<div
 						style={{
 							backgroundImage: `url(${`https://api.treasurekoii.com${images[currentIndex].image}`})`,
 						}}
-						className="w-full h-full rounded-2xl bg-center bg-cover duration-500"
+						className="w-full h-full rounded-md bg-center bg-cover duration-500 object-cover"
 					></div>
 					<div>
 						<BsChevronCompactLeft
