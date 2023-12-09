@@ -47,7 +47,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 						<div className="text-1">{hunt.description}</div>
 					</div>
 					<div className="text-3 text-center mt-16">Look back at the memories! </div>
-					<ShowImages url={`${slug}/get-hunt-images/`} />
+					<ShowImages url={`${slug}/get-hunt-images/`} imageInterval={2000}/>
 					<LeaderboardTable leaderBoard={leaderBoard} />
 				</>
 			)}
