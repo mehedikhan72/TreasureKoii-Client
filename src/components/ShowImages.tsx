@@ -68,7 +68,7 @@ const ShowImages: React.FC<{ url: string | null, imageInterval: number }> = ({ u
       {images.length !== 0 && (
         <div className="relative group duration-500">
           <div className="flex justify-center items-center">
-            <div className="flex justify-center items-center w-[400px] h-[300px] overflow-hidden transition-transform duration-500 ease-in-out transform scale-100 hover:scale-105">
+            <div className="flex justify-center items-center w-[350px] sm:w-[400px] md:w-[600px] lg:w-[800px] h-[280px] sm:h-[310px] md:h-[400px] lg:h-[520px] overflow-hidden transition-transform duration-500 ease-in-out transform scale-100 hover:scale-105">
               <img
                 src={`http://127.0.0.1:8000${images[currentIndex].image}`}
                 alt="puzzle img"

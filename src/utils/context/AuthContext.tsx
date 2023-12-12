@@ -12,130 +12,150 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export default AuthContext;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-	const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
-	const [user, setUser] = useState<JwtPayload | null>(null);
+  const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
+  const [user, setUser] = useState<JwtPayload | null>(null);
 
-	useEffect(() => {
-		const storedTokens = localStorage.getItem("authTokens");
+  useEffect(() => {
+    const storedTokens = localStorage.getItem("authTokens");
+    // console.log(storedTokens);
 
-		if (storedTokens) {
-			setAuthTokens(JSON.parse(storedTokens));
-			setUser(jwtDecode(storedTokens));
-		}
-	}, []);
-	const [loading, setLoading] = useState(true);
-	const [message, setMessage] = useState<string | null>(null);
+    if (storedTokens) {
+      const parsedTokens = JSON.parse(storedTokens);
+      setAuthTokens(parsedTokens);
+      setUser(jwtDecode(parsedTokens?.access));
+      console.log(jwtDecode(parsedTokens?.access));
+      console.log(user);
+    }
+  }, []);
 
-	const navigate = useNavigate();
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
-	const loginUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault();
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState<string | null>(null);
 
-		const formElem: HTMLFormElement = e.target as HTMLFormElement;
+  const navigate = useNavigate();
 
-		if (!formElem || !formElem.email) {
-			console.error("Invalid form event. Unable to retrieve email.");
-			return;
-		}
+  const loginUser = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
 
-		const formData = {
-			email: formElem.email.value,
-			password: formElem.password.value,
-		};
+    const formElem: HTMLFormElement = e.target as HTMLFormElement;
 
-		console.log(formData);
+    if (!formElem || !formElem.email) {
+      console.error("Invalid form event. Unable to retrieve email.");
+      return;
+    }
 
-		try {
-			let response = await axios.post(`token/`, formData);
-			let data = response.data;
-			if (response.status === 200) {
-				setAuthTokens(data);
-				setUser(jwtDecode(data.access));
-				localStorage.setItem("authTokens", JSON.stringify(data));
-				navigate("/");
-			} else {
-				setMessage(data.detail);
-			}
-			console.log(response);
-		} catch (error) {
-			console.log(error);
-			if (error instanceof AxiosError) setMessage(error.response?.data.detail);
-		}
-	};
+    const formData = {
+      email: formElem.email.value,
+      password: formElem.password.value,
+    };
 
-	const logoutUser = (): void => {
-		setAuthTokens(null);
-		setUser(null);
-		localStorage.removeItem("authTokens");
-		// if (user) {
-		navigate(0);
-		// }
-	};
+    console.log(formData);
 
-	const updateToken = async (): Promise<void> => {
-		// Experimental fix for multiple token refreshes even before authToken is loaded
-		if (!authTokens) {
-			if (loading) {
-				setLoading(false);
-			}
-			return;
-		}
+    try {
+      let response = await axios.post(`token/`, formData);
+      let data = response.data;
+      if (response.status === 200) {
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        navigate("/");
+      } else {
+        setMessage(data.detail);
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) setMessage(error.response?.data.detail);
+    }
+  };
 
-		const formData = {
-			refresh: authTokens?.refresh,
-		};
+  const logoutUser = (): void => {
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+    // if (user) {
+    navigate('/');
+    // }
+  };
 
-		console.log(formData);
+  const updateToken = async (): Promise<void> => {
+    // Experimental fix for multiple token refreshes even before authToken is loaded
+    if (!authTokens) {
+      if (loading) {
+        setLoading(false);
+      }
+      return;
+    }
 
-		try {
-			let response = await axios.post(`token/refresh/`, formData);
-			let data = response.data;
+    const formData = {
+      refresh: authTokens?.refresh,
+    };
 
-			console.log(response);
+    console.log(formData);
 
-			if (response.status === 200) {
-				setAuthTokens(data);
-				setUser(jwtDecode(data.access));
-				localStorage.setItem("authTokens", JSON.stringify(data));
-			} else {
-				logoutUser();
-			}
-		} catch (error) {
-			console.log(error);
-			logoutUser();
-		}
+    try {
+      let response = await axios.post(`token/refresh/`, formData);
+      let data = response.data;
 
-		if (loading) {
-			setLoading(false);
-		}
-	};
+      console.log(response);
 
-	useEffect(() => {
-		if (loading) {
-			updateToken();
-		}
+      if (response.status === 200) {
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+      } else {
+        logoutUser();
+      }
+    } catch (error) {
+      console.log(error);
+      logoutUser();
+    }
 
-		let refreshTime = 1000 * 5 * 60; // 5 minutes
-		let interval = setInterval(() => {
-			if (authTokens) {
-				updateToken();
-				console.log("Token refreshed");
-			}
-		}, refreshTime);
-		return () => clearInterval(interval);
-	}, [authTokens, loading]);
+    if (loading) {
+      setLoading(false);
+    }
+  };
 
-	// const contextData: AuthContextProps = {
-	// 	message,
-	// 	user,
-	// 	loginUser,
-	// 	logoutUser,
-	// };
+  useEffect(() => {
+    if (loading) {
+      updateToken();
+    }
 
-	const [contextData, setContextData] = useState<AuthContextProps>({ message, user, loginUser, logoutUser });
-	useEffect(() => {
-		setContextData({ message, user, loginUser, logoutUser });
-	}, [message, user]);
+    let refreshTime = 1000 * 4 * 60; // 4 minutes
+    let interval = setInterval(() => {
+      if (authTokens) {
+        updateToken();
+        console.log("Token refreshed");
+      }
+    }, refreshTime);
+    return () => clearInterval(interval);
+  }, [authTokens, loading]);
 
-	return <AuthContext.Provider value={contextData}>{loading ? null : children}</AuthContext.Provider>;
+  // const contextData: AuthContextProps = {
+  // 	message,
+  // 	user,
+  // 	loginUser,
+  // 	logoutUser,
+  // };
+
+  const [contextData, setContextData] = useState<AuthContextProps>({
+    message,
+    user,
+    loginUser,
+    logoutUser,
+  });
+  useEffect(() => {
+    setContextData({ message, user, loginUser, logoutUser });
+  }, [message, user]);
+
+  return (
+    <AuthContext.Provider value={contextData}>
+      {loading ? null : children}
+    </AuthContext.Provider>
+  );
 };

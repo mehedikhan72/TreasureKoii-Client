@@ -161,16 +161,17 @@ const PuzzleOrder = () => {
 							<div className="m-2 sm:m-8 bg-slate-200 rounded-md">
 								{allTeamsData.map((teamData, index) => {
 									return (
-										<div className="flex justify-left items-center border border-gray-500">
-											<p className="text-2">
-												Team : {teamData.team_name}, Team ID: {teamData.team_id}, Puzzle Order -
+										<div className="flex flex-col items-left border border-gray-500">
+											<p className="text-1 text-left">
+												Team : {teamData.team_name}, Team ID: {teamData.team_id}, Team leader : {teamData.team_leader}
 											</p>
 											<p>
 												{teamData.team_puzzle_order.length > 0 ? (
-													<div className="flex justify-center items-center">
+													<div className="flex flex-wrap items-left">
+														<p className="text-1">Puzzle Order - </p>
 														{teamData.team_puzzle_order.map((puzzleId) => {
 															return (
-																<p className="text-2">
+																<p className="text-1">
 																	{puzzleId}
 																	{","}
 																</p>
@@ -225,7 +226,7 @@ const PuzzleOrder = () => {
 									{puzzles.map((puzzle, index) => {
 										return (
 											<div className="flex justify-left items-center border border-gray-500">
-												<p className="text-2">
+												<p className="text-1">
 													Puzzle Name : {puzzle.name}, Puzzle ID: {puzzle.id}
 												</p>
 											</div>

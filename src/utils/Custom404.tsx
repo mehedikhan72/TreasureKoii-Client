@@ -1,17 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import HomeFooter from "../components/HomeFooter";
 
 const Custom404: React.FC = () => {
   return (
-    <div className="flex flex-col justity-center items-center p-4">
-      <TreasureKoiiImg />
-      <p className="text-3xl font-bold p-4">
-        Trying too hard to find puzzles? Looks like you're lost.
-      </p>
-      <Link to={{ pathname: `/` }}>
-        <button className="my-btn-1 p-4">Go Home</button>
-      </Link>
+    <div className="flex flex-col justity-center items-center mt-10 min-h-screen">
+      <div className="flex-grow flex items-center flex-col justify-center">
+        <TreasureKoiiImg />
+        <p className="text-2">
+          Trying too hard to find puzzles? Looks like you're lost.
+        </p>
+        <Link to={{ pathname: `/` }}>
+          <button className="my-btn-1 p-4">Go Home</button>
+        </Link>
+      </div>
+
+      <HomeFooter />
     </div>
   );
 };

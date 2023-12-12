@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const YouNeedToBeLoggedIn: React.FC<{message: string | null | undefined}> = ({message}) => {
   return (
-    <div className='flex flex-col justify-center items-center'>
+    <div className='flex flex-col justify-center items-center flex-grow'>
         <p className="text-3">{message}</p>
         <Link to={{ pathname: `/login` }}>
             <button className="my-btn-1">Login</button>

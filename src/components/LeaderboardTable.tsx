@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const LeaderboardTable: React.FC<{ leaderBoard: [] }> = ({ leaderBoard }) => {
 	return (
 		<div className="my-10">
-			<p className="text-3">Leaderboard</p>
+			<p className="text-4">Leaderboard</p>
 			<div className="w-full px-4">
 				<div className="flex flex-col">
 					<div className="flex justify-between p-2">

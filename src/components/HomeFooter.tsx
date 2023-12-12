@@ -7,7 +7,7 @@ const HomeFooter: React.FC = () => {
   const user = contextData?.user;
   const logoutUser = contextData?.logoutUser;
   return (
-    <div className="dark p-10 w-full bottom-0 mt-auto">
+    <div className="dark p-10 w-full bottom-0">
       <div className="flex justify-center items-center flex-wrap">
         <Link to={{ pathname: `/` }} className="text-2 link-1 flex-1">
           Home

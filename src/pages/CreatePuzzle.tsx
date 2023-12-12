@@ -146,7 +146,7 @@ const CreatePuzzle: React.FC = () => {
 						/>
 
 						<label className="w-full flex items-center">
-							<span className="w-24">Difficulty : </span>
+							<span className="w-24">Difficulty </span>
 							<select
 								value={type}
 								name="type"
@@ -162,7 +162,7 @@ const CreatePuzzle: React.FC = () => {
 						</label>
 
 						<label className="w-full flex items-center">
-							<span className="w-24">Puzzle Points : </span>
+							<span className="w-24">Puzzle Points </span>
 							<input
 								type="number"
 								name="points"
@@ -173,7 +173,7 @@ const CreatePuzzle: React.FC = () => {
 						</label>
 
 						<label className="w-full flex items-center">
-							<span className="w-24">Puzzle Images :</span>
+							<span className="w-24">Puzzle Images</span>
 							<input
 								type="file"
 								id="puzzleImages"

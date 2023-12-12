@@ -204,13 +204,19 @@ const HuntHome: React.FC = () => {
         <div>
           {userAnOrganizer && (
             <div>
-              <HuntNav slug={slug} huntName={hunt?.name} />
-              <div className="flex justify-center items-center flex-col">
-                <p className="text-3">You are an organizer of this hunt.</p>
-                <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
-                  <button className="my-btn-1">Organizer Dashboard</button>
-                </Link>
-              </div>
+              {afterHunt && <AfterHunt hunt={hunt} />}
+              {!afterHunt && (
+                <div>
+                  {" "}
+                  <HuntNav slug={slug} huntName={hunt?.name} />
+                  <div className="flex justify-center items-center flex-col">
+                    <p className="text-3">You are an organizer of this hunt.</p>
+                    <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
+                      <button className="my-btn-1">Organizer Dashboard</button>
+                    </Link>
+                  </div>
+                </div>
+              )}
             </div>
           )}
           {!userAnOrganizer && (
@@ -243,7 +249,11 @@ const HuntHome: React.FC = () => {
                       <p className="text-3">Your Current Puzzle</p>
                       <p className="text-2">{puzzle?.name}</p>
                       <p className="text-1">{puzzle?.description}</p>
-                      <ShowImages key={imageUrl} url={imageUrl} imageInterval={5000}/>
+                      <ShowImages
+                        key={imageUrl}
+                        url={imageUrl}
+                        imageInterval={5000}
+                      />
                     </div>
                   )}
                   {!correctAnswerGiven && !didNotGetPuzzle && (

@@ -176,7 +176,7 @@ const CreateHunt: React.FC = () => {
 						/>
 
 						<label className="w-full flex items-center">
-							<span className="w-24">Number of Skips :</span>
+							<span className="w-24">Number of Skips</span>
 							<input
 								type="number"
 								name="number_of_skips_for_each_team"
@@ -187,7 +187,7 @@ const CreateHunt: React.FC = () => {
 						</label>
 
 						<label className="w-full flex items-center">
-							<span className="w-24">Poster Image :</span>
+							<span className="w-24">Poster Image</span>
 							<input
 								type="file"
 								id="posterImg"
