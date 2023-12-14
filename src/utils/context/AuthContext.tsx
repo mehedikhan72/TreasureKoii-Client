@@ -19,6 +19,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
 	useEffect(() => {
 		const storedTokens = localStorage.getItem("authTokens");
+		// console.log(storedTokens);
 
 		if (storedTokens) {
 			setAuthTokens(JSON.parse(storedTokens));

@@ -45,7 +45,7 @@ const Home: React.FC = () => {
 
 			<div className="flex justify-center items-center m-5">
 				<Link to={{ pathname: `/create-hunt/` }}>
-					<button className="my-btn-1">Create A Hunt</button>
+					<button className="my-btn-1">Organize A Hunt</button>
 				</Link>
 				<Link to={{ pathname: `/join-hunt/` }}>
 					<button className="my-btn-1">Join A Hunt</button>

@@ -41,7 +41,7 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 						<div className="text-1 my-2">{`${new Date(hunt.start_date).toDateString()} - ${new Date(
 							hunt.end_date
 						).toDateString()}`}</div>
-						<img src={hunt.poster_img} alt="Hunt" className="w-4/5 max-h-72 object-contain my-5" />
+						<img src={hunt.poster_img} alt="Hunt" className="w-4/5 max-h-96 object-contain my-5" />
 						<div>
 							<Countdown date={new Date(hunt.start_date)} zeroPadDays={3} className="text-5 my-4">
 								<span>The Hunt Has Commenced</span>
