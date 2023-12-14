@@ -15,6 +15,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
 	const [user, setUser] = useState<JwtPayload | null>(null);
 
+	const [tokenInitLoad, setTokenInitLoad] = useState<boolean>(false);
+
 	useEffect(() => {
 		const storedTokens = localStorage.getItem("authTokens");
 
@@ -22,10 +24,11 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			setAuthTokens(JSON.parse(storedTokens));
 			setUser(jwtDecode(storedTokens));
 		}
-	}, []);
-	const [loading, setLoading] = useState(true);
-	const [message, setMessage] = useState<string | null>(null);
 
+		setTokenInitLoad(true);
+	}, []);
+
+	const [message, setMessage] = useState<string | null>(null);
 	const navigate = useNavigate();
 
 	const loginUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -67,22 +70,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 		setAuthTokens(null);
 		setUser(null);
 		localStorage.removeItem("authTokens");
-		// if (user) {
 		navigate(0);
-		// }
 	};
 
 	const updateToken = async (): Promise<void> => {
-		// Experimental fix for multiple token refreshes even before authToken is loaded
-		if (!authTokens) {
-			if (loading) {
-				setLoading(false);
-			}
-			return;
-		}
-
 		const formData = {
-			refresh: authTokens?.refresh,
+			refresh: authTokens ? authTokens.refresh : "",
 		};
 
 		console.log(formData);
@@ -104,38 +97,44 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			console.log(error);
 			logoutUser();
 		}
-
-		if (loading) {
-			setLoading(false);
-		}
 	};
 
 	useEffect(() => {
-		if (loading) {
-			updateToken();
+		if (!tokenInitLoad || !user) {
+			return;
 		}
 
-		let refreshTime = 1000 * 55 * 60; // 55 minutes
-		let interval = setInterval(() => {
-			if (authTokens) {
-				updateToken();
-				console.log("Token refreshed");
-			}
-		}, refreshTime);
-		return () => clearInterval(interval);
-	}, [authTokens, loading]);
+		updateToken();
+	}, [tokenInitLoad]);
 
-	// const contextData: AuthContextProps = {
-	// 	message,
-	// 	user,
-	// 	loginUser,
-	// 	logoutUser,
-	// };
-
-	const [contextData, setContextData] = useState<AuthContextProps>({ message, user, loginUser, logoutUser });
 	useEffect(() => {
-		setContextData({ message, user, loginUser, logoutUser });
-	}, [message, user]);
+		if (!tokenInitLoad || !authTokens) {
+			return;
+		}
 
-	return <AuthContext.Provider value={contextData}>{loading ? null : children}</AuthContext.Provider>;
+		let interval: number | undefined;
+		let refreshTime = 1000 * 60 * 55;
+
+		interval = window.setInterval(() => {
+			updateToken();
+			console.log("Token refreshed");
+		}, refreshTime);
+
+		return () => {
+			interval && clearInterval(interval);
+		};
+	}, [authTokens]);
+
+	return (
+		<AuthContext.Provider
+			value={{
+				message,
+				user,
+				loginUser,
+				logoutUser,
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
 };
