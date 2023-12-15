@@ -17,6 +17,8 @@ import HuntNav from "../components/HuntNav";
 import Custom404 from "../utils/Custom404";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
+import Home from "./Home";
+import HomeFooter from "../components/HomeFooter";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -99,7 +101,7 @@ const HuntHome: React.FC = () => {
     if (user && duringHunt) {
       getPuzzle();
     }
-  }, [slug, user, duringHunt]);
+  }, [slug, user, duringHunt, contextData]);
 
   useEffect(() => {
     setImageUrl(puzzle?.id + "/get-puzzle-images/");
@@ -206,15 +208,22 @@ const HuntHome: React.FC = () => {
             <div>
               {afterHunt && <AfterHunt hunt={hunt} />}
               {!afterHunt && (
-                <div>
-                  {" "}
-                  <HuntNav slug={slug} huntName={hunt?.name} />
-                  <div className="flex justify-center items-center flex-col">
-                    <p className="text-3">You are an organizer of this hunt.</p>
-                    <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
-                      <button className="my-btn-1">Organizer Dashboard</button>
-                    </Link>
+                <div className="flex flex-col min-h-screen">
+                  <div className="flex-grow">
+                    <HuntNav slug={slug} huntName={hunt?.name} />
+                    <div className="flex justify-center items-center flex-col">
+                      <p className="text-3">
+                        You are an organizer of this hunt.
+                      </p>
+                      <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
+                        <button className="my-btn-1">
+                          Organizer Dashboard
+                        </button>
+                      </Link>
+                    </div>
                   </div>
+
+                  <HomeFooter />
                 </div>
               )}
             </div>
@@ -293,6 +302,8 @@ const HuntHome: React.FC = () => {
                       <Confetti width={width} height={height} />
                     </div>
                   )}
+
+                  <HomeFooter />
                 </div>
               )}
             </div>

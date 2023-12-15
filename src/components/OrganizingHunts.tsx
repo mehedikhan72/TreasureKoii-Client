@@ -1,11 +1,14 @@
 import axios from "../utils/axios/AxiosSetup";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Countdown from "react-countdown";
 import { Hunt } from "../types";
 import { Link } from "react-router-dom";
+import AuthContext from "../utils/context/AuthContext";
+
 
 const OrganizingHunts: React.FC = () => {
 	const [hunts, setHunts] = useState<(Hunt & { slug: string })[]>();
+	const contextData = useContext(AuthContext);
 
 	useEffect(() => {
 		const getRegisteredHunts = async () => {
@@ -20,7 +23,7 @@ const OrganizingHunts: React.FC = () => {
 		};
 
 		getRegisteredHunts();
-	}, []);
+	}, [contextData]);
 
 	return (
 		<>
