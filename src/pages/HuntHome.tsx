@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../utils/context/AuthContext";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { Puzzle, Hunt } from "../types";
 import axios from "../utils/axios/AxiosSetup";
 import BeforeHunt from "../components/BeforeHunt";
@@ -47,6 +47,25 @@ const HuntHome: React.FC = () => {
   const [puzzleLoaded, setPuzzleLoaded] = useState<boolean>(false);
 
   const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
+
+  // manual payment checking.
+  const [huntPaidFor, setHuntPaidFor] = useState<boolean>(true);
+  useEffect(() => {
+    const checkIfHuntPaidFor = async (): Promise<void> => {
+      try {
+        const response = await axios.get(`${slug}/is-hunt-paid-for/`);
+        const data = response.data;
+        if (response.status === 200) {
+          setHuntPaidFor(data.paid);
+        }
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkIfHuntPaidFor();
+  }, [slug, contextData, userAnOrganizer]);
+
   // TODO: Skip puzzle.
   useEffect(() => {
     document.title = `${puzzle ? `${puzzle.name} | ` : ""}${
@@ -199,6 +218,12 @@ const HuntHome: React.FC = () => {
   return (
     // todo: add other links n confetti
     <div>
+      {!huntPaidFor && (
+        <div>
+          {userAnOrganizer && <Navigate to={`/${slug}/make-payment`} />}
+          {!userAnOrganizer && <Navigate to={`/${slug}/unpaid-notice`} />}
+        </div>
+      )}
       {loading && <Loading />}
       {!huntLoaded && !puzzleLoaded && <Loading />}
       {huntLoaded && !hunt && <Custom404 />}

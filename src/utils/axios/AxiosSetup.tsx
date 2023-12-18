@@ -44,3 +44,7 @@ function isTokenExpired(token: string) {
 }
 
 export default instance;
+
+// for images
+export const rootUrl = "http://127.0.0.1:8000";
+// export const rootUrl = "https://api.treasurekoii.com";

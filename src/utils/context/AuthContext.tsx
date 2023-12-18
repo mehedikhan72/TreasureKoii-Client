@@ -112,7 +112,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    let refreshTime = 1000 * 40; // 4 minutes
+    let refreshTime = 1000 * 60 * 4; // 4 minutes
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken();
