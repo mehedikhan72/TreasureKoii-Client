@@ -60,7 +60,7 @@ const Announcements: React.FC = () => {
 			{huntLoading && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
 			{announcements && announcements.length !== 0 && (
-				<div>
+				<div className="my-10">
 					<p className="text-4">Announcements </p>
 					{announcements.map((announcement: Announcement) => (
 						<div key={announcement.id} className="p-4 bg-slate-200 rounded-md m-2">

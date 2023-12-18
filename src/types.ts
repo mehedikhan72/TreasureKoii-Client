@@ -3,6 +3,7 @@ export interface AuthContextProps {
   user: any;
   loginUser: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   logoutUser: () => void;
+  updateToken: () => Promise<void>;
 }
 
 export interface AuthProviderProps {

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../utils/context/AuthContext";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { Puzzle, Hunt } from "../types";
 import axios from "../utils/axios/AxiosSetup";
 import BeforeHunt from "../components/BeforeHunt";
@@ -17,6 +17,8 @@ import HuntNav from "../components/HuntNav";
 import Custom404 from "../utils/Custom404";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
+import Home from "./Home";
+import HomeFooter from "../components/HomeFooter";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -45,6 +47,25 @@ const HuntHome: React.FC = () => {
   const [puzzleLoaded, setPuzzleLoaded] = useState<boolean>(false);
 
   const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
+
+  // manual payment checking.
+  const [huntPaidFor, setHuntPaidFor] = useState<boolean>(true);
+  useEffect(() => {
+    const checkIfHuntPaidFor = async (): Promise<void> => {
+      try {
+        const response = await axios.get(`${slug}/is-hunt-paid-for/`);
+        const data = response.data;
+        if (response.status === 200) {
+          setHuntPaidFor(data.paid);
+        }
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkIfHuntPaidFor();
+  }, [slug, contextData, userAnOrganizer]);
+
   // TODO: Skip puzzle.
   useEffect(() => {
     document.title = `${puzzle ? `${puzzle.name} | ` : ""}${
@@ -99,7 +120,7 @@ const HuntHome: React.FC = () => {
     if (user && duringHunt) {
       getPuzzle();
     }
-  }, [slug, user, duringHunt]);
+  }, [slug, user, duringHunt, contextData]);
 
   useEffect(() => {
     setImageUrl(puzzle?.id + "/get-puzzle-images/");
@@ -197,6 +218,12 @@ const HuntHome: React.FC = () => {
   return (
     // todo: add other links n confetti
     <div>
+      {!huntPaidFor && (
+        <div>
+          {userAnOrganizer && <Navigate to={`/${slug}/make-payment`} />}
+          {!userAnOrganizer && <Navigate to={`/${slug}/unpaid-notice`} />}
+        </div>
+      )}
       {loading && <Loading />}
       {!huntLoaded && !puzzleLoaded && <Loading />}
       {huntLoaded && !hunt && <Custom404 />}
@@ -206,15 +233,22 @@ const HuntHome: React.FC = () => {
             <div>
               {afterHunt && <AfterHunt hunt={hunt} />}
               {!afterHunt && (
-                <div>
-                  {" "}
-                  <HuntNav slug={slug} huntName={hunt?.name} />
-                  <div className="flex justify-center items-center flex-col">
-                    <p className="text-3">You are an organizer of this hunt.</p>
-                    <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
-                      <button className="my-btn-1">Organizer Dashboard</button>
-                    </Link>
+                <div className="flex flex-col min-h-screen">
+                  <div className="flex-grow">
+                    <HuntNav slug={slug} huntName={hunt?.name} />
+                    <div className="flex justify-center items-center flex-col">
+                      <p className="text-3">
+                        You are an organizer of this hunt.
+                      </p>
+                      <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
+                        <button className="my-btn-1">
+                          Organizer Dashboard
+                        </button>
+                      </Link>
+                    </div>
                   </div>
+
+                  <HomeFooter />
                 </div>
               )}
             </div>
@@ -293,6 +327,8 @@ const HuntHome: React.FC = () => {
                       <Confetti width={width} height={height} />
                     </div>
                   )}
+
+                  <HomeFooter />
                 </div>
               )}
             </div>

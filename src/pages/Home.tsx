@@ -5,6 +5,7 @@ import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import RegisteredHunts from "../components/RegisteredHunts";
 import OrganizingHunts from "../components/OrganizingHunts";
+import RecentlyHosted from "../components/RecentlyHosted";
 
 const Home: React.FC = () => {
 	useEffect(() => {
@@ -53,6 +54,7 @@ const Home: React.FC = () => {
 			</div>
 			<OrganizingHunts />
 			<RegisteredHunts />
+			<RecentlyHosted />
 			<HomeFooter />
 		</div>
 	);

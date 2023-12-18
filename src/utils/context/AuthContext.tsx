@@ -12,24 +12,19 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export default AuthContext;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-	const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
-	const [user, setUser] = useState<JwtPayload | null>(null);
+	const [authTokens, setAuthTokens] = useState<AuthTokens | null>(
+		localStorage.getItem("authTokens") ? JSON.parse(localStorage.getItem("authTokens") as string) : null
+	);
+	const [user, setUser] = useState<JwtPayload | null>(
+		localStorage.getItem("authTokens")
+			? jwtDecode(JSON.parse(localStorage.getItem("authTokens") as string).access)
+			: null
+	);
 
-	const [tokenInitLoad, setTokenInitLoad] = useState<boolean>(false);
-
-	useEffect(() => {
-		const storedTokens = localStorage.getItem("authTokens");
-		// console.log(storedTokens);
-
-		if (storedTokens) {
-			setAuthTokens(JSON.parse(storedTokens));
-			setUser(jwtDecode(storedTokens));
-		}
-
-		setTokenInitLoad(true);
-	}, []);
-
+	const [loading, setLoading] = useState<boolean>(true);
 	const [message, setMessage] = useState<string | null>(null);
+
+	const [tokenUpdated, setTokenUpdated] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	const loginUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -71,71 +66,102 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 		setAuthTokens(null);
 		setUser(null);
 		localStorage.removeItem("authTokens");
-		navigate(0);
+		navigate("/");
 	};
 
 	const updateToken = async (): Promise<void> => {
 		const formData = {
-			refresh: authTokens ? authTokens.refresh : "",
+			refresh: authTokens?.refresh,
 		};
 
-		console.log(formData);
+		if (!formData.refresh) {
+			console.log("logging user out 1");
+			logoutUser();
+			return;
+		}
 
 		try {
 			let response = await axios.post(`token/refresh/`, formData);
 			let data = response.data;
-
-			console.log(response);
 
 			if (response.status === 200) {
 				setAuthTokens(data);
 				setUser(jwtDecode(data.access));
 				localStorage.setItem("authTokens", JSON.stringify(data));
 			} else {
+				console.log("logging user out 2");
 				logoutUser();
 			}
 		} catch (error) {
 			console.log(error);
+			console.log("logging user out 3");
 			logoutUser();
 		}
+
+		if (loading) {
+			setLoading(false);
+		}
+
+		setTokenUpdated((tokenUpdated) => !tokenUpdated);
 	};
 
 	useEffect(() => {
-		if (!tokenInitLoad || !user) {
-			return;
-		}
-
-		updateToken();
-	}, [tokenInitLoad]);
-
-	useEffect(() => {
-		if (!tokenInitLoad || !authTokens) {
-			return;
-		}
-
-		let interval: number | undefined;
-		let refreshTime = 1000 * 60 * 55;
-
-		interval = window.setInterval(() => {
-			updateToken();
-			console.log("Token refreshed");
+		let refreshTime = 1000 * 60 * 4; // 4 minutes
+		let interval = setInterval(() => {
+			if (authTokens) {
+				updateToken();
+				console.log("Token refreshed");
+			} else {
+				console.log("No authTokens so can't refresh");
+			}
 		}, refreshTime);
-
-		return () => {
-			interval && clearInterval(interval);
-		};
+		return () => clearInterval(interval);
 	}, [authTokens]);
 
-	return (
-		<AuthContext.Provider
-			value={{
-				message,
-				user,
-				loginUser,
-				logoutUser,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
-	);
+	function isTokenExpired(token: string) {
+		const decodedToken: JwtPayload = jwtDecode(token);
+		const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+		if (!decodedToken.exp) {
+			return false;
+		}
+		return decodedToken.exp < currentTime;
+	}
+
+	useEffect(() => {
+		if (authTokens) {
+			const accessToken = authTokens.access;
+			if (isTokenExpired(accessToken)) {
+				console.log("calling update token cause access token expired");
+				updateToken();
+				// window.location.reload();
+			}
+		}
+	}, [authTokens]);
+
+	const [contextData, setContextData] = useState<AuthContextProps>({
+		message,
+		user,
+		loginUser,
+		logoutUser,
+		updateToken,
+	});
+
+	useEffect(() => {
+		setContextData({
+			message,
+			user,
+			loginUser,
+			logoutUser,
+			updateToken,
+		});
+	}, [tokenUpdated, message, user]);
+	// const contextData: AuthContextProps = {
+	//   message,
+	//   user,
+	//   loginUser,
+	//   logoutUser,
+	//   updateToken,
+	// };
+
+	return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
 };

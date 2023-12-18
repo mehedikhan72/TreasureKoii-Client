@@ -16,6 +16,10 @@ import Announcements from "./pages/Announcements";
 import Custom404 from "./utils/Custom404";
 import Dashboard from "./pages/OrganizerDashboard/Dashboard";
 import PuzzleOrder from "./pages/OrganizerDashboard/PuzzleOrder";
+import YouNeedToBeLoggedIn from "./components/YouNeedToBeLoggedIn";
+import YouveBeenLoggedOut from "./pages/YouveBeenLoggedOut";
+import MakePayment from "./pages/MakePayment";
+import UnpaidNotice from "./pages/UnpaidNotice";
 
 const App: React.FC = () => {
   return (
@@ -37,6 +41,13 @@ const App: React.FC = () => {
           <Route path="/:slug/announcements" element={<Announcements />} />
           <Route path="/:slug/organizer-dashboard" element={<Dashboard />} />
           <Route path="/:slug/puzzle-order" element={<PuzzleOrder />} />
+          <Route
+            path="/youve-been-logged-out"
+            element={<YouveBeenLoggedOut />}
+          />
+          <Route path="/:slug/make-payment" element={<MakePayment />} />
+          <Route path="/:slug/unpaid-notice" element={<UnpaidNotice />} />
+
           <Route path="*" element={<Custom404 />} />
         </Routes>
       </AuthProvider>

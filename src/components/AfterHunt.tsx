@@ -7,6 +7,7 @@ import HomeFooter from "./HomeFooter";
 import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
 import AuthContext from "../utils/context/AuthContext";
+import { rootUrl } from "../utils/axios/AxiosSetup";
 
 const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
   const { slug } = useParams();
