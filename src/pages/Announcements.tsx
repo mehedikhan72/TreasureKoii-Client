@@ -68,8 +68,7 @@ const Announcements: React.FC = () => {
 								{announcement.creator.first_name} {announcement.creator.last_name}
 							</p>
 							<p className="text-2 text-left">{announcement.text}</p>
-							{/* TODO: improve this time */}
-							<p className="text-1 text-left">{announcement.created_at}</p>
+							<p className="text-1 text-left">{new Date(announcement.created_at).toLocaleString()}</p>
 							<br />
 						</div>
 					))}

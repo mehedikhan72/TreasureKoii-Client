@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
 
 		getHuntDetails();
 		checkIfUserAnOrganizer();
-	}, [slug]);
+	}, [slug, user]);
 
 	// Announcements
 	const [announcement, setAnnouncement] = useState<string>("");
@@ -141,7 +141,7 @@ const Dashboard: React.FC = () => {
 		<div>
 			{(loading || huntLoading) && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
-			{/* Experimental Fix bcause of fix in AuthContext - TODO: bug fix - the bottom div is shown even when user is an organizer */}
+
 			{!userAnOrganizer && userDataLoaded && (
 				<div className="flex flex-col justify-center items-center">
 					<p className="text-2">You are not an organizer of this hunt.</p>
