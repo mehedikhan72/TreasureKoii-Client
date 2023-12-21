@@ -7,7 +7,10 @@ import axios from "../utils/axios/AxiosSetup";
 import { Image } from "../types";
 import Loading from "../utils/Loading";
 
-const ShowImages: React.FC<{ url: string | null, imageInterval: number }> = ({ url, imageInterval }) => {
+const ShowImages: React.FC<{ url: string | null; imageInterval: number }> = ({
+  url,
+  imageInterval,
+}) => {
   const [images, setImages] = useState<Image[]>([]);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   useEffect(() => {

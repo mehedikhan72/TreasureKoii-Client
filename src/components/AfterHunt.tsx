@@ -7,7 +7,6 @@ import HomeFooter from "./HomeFooter";
 import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
 import AuthContext from "../utils/context/AuthContext";
-import { rootUrl } from "../utils/axios/AxiosSetup";
 
 const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
   const { slug } = useParams();
@@ -103,7 +102,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
                   </p>
                   <button
                     onClick={() => setUploadImageDivDisabled(true)}
-					className="rounded-md bg-red-500 text-white px-2 pt-1"
+                    className="rounded-md bg-red-500 text-white px-2 pt-1"
                   >
                     X
                   </button>
@@ -151,7 +150,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
           </div>
           <div className="mt-16 bg-slate-200">
             <p className="text-3 py-8">Look back at the memories! </p>
-            <ShowImages  url={`${slug}/get-hunt-images/`} imageInterval={2000} />
+            <ShowImages url={`${slug}/get-hunt-images/`} imageInterval={2000} />
           </div>
 
           <LeaderboardTable leaderBoard={leaderBoard} />

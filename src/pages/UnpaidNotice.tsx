@@ -13,12 +13,15 @@ const UnpaidNotice = () => {
           This hunt is not paid for... yet. Please notify your organizers.
         </p>
         <p className="text-2 m-2">
-        If you're an organizer, visit this{" "}
-        <Link className="underline hover:text-blue-500" to={{ pathname: `/${slug}/make-payment` }}>page.</Link>
-      </p>
+          If you're an organizer, visit this{" "}
+          <Link
+            className="underline hover:text-blue-500"
+            to={{ pathname: `/${slug}/make-payment` }}
+          >
+            page.
+          </Link>
+        </p>
       </div>
-
-
 
       <HomeFooter />
     </div>

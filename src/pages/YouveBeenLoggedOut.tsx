@@ -14,8 +14,10 @@ const YouveBeenLoggedOut: React.FC = () => {
       {user && <Navigate to="/" />}
       <div className="flex flex-col justify-center items-center min-h-screen">
         <div className="flex flex-col justify-center items-center flex-grow">
-            <TreasureKoiiImg />
-          <p className="text-1">Oops! You've been logged out. Please log in again.</p>
+          <TreasureKoiiImg />
+          <p className="text-1">
+            Oops! You've been logged out. Please log in again.
+          </p>
           <Link to={{ pathname: `/login` }}>
             <button className="my-btn-1">Login</button>
           </Link>
