@@ -22,13 +22,13 @@ const Home: React.FC = () => {
 	}
 	const { user } = constextData;
 	return (
-		<div>
-			<div className="">
+		<>
+			<div>
 				<TreasureKoiiImg />
-				<p className="text-3">TreasureKoii: Your ultimate solution for all your treasure hunt adventures.</p>
+				<p className="text-3 mx-2">TreasureKoii: Your ultimate solution for all your treasure hunt adventures.</p>
 			</div>
 
-			<div className="flex justify-center items-center p-5">
+			<div className="flex justify-center items-center mt-5">
 				<img
 					src="https://escapetrails.co/wp-content/uploads/2020/03/Treasure-hunt.jpg"
 					className="w-5/6 md:w-1/2 rounded-xl"
@@ -36,15 +36,15 @@ const Home: React.FC = () => {
 				/>
 			</div>
 
-			<div className="flex justify-center items-center">
-				<p className="text-2">
+			<div className="flex justify-center items-center mt-2">
+				<p className="text-2 mx-5 max-w-3xl">
 					Empower your treasure hunt adventures with our platform – your all-in-one solution for creating captivating,
 					interactive, and personalized treasure hunts. Unleash creativity, engage participants, and turn any location
 					into an exciting journey of discovery. Start crafting unforgettable experiences today!
 				</p>
 			</div>
 
-			<div className="flex justify-center items-center m-5">
+			<div className="flex justify-center items-center mt-5">
 				<Link to={{ pathname: `/create-hunt/` }}>
 					<button className="my-btn-1">Organize A Hunt</button>
 				</Link>
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
 			<RegisteredHunts />
 			<RecentlyHosted />
 			<HomeFooter />
-		</div>
+		</>
 	);
 };
 
