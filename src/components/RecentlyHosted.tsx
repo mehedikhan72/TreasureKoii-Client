@@ -1,16 +1,17 @@
 // recently hosted hunts
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "../utils/axios/AxiosSetup";
 import { Hunt } from "../types";
 import { Link } from "react-router-dom";
 import Loading from "../utils/Loading";
 import { rootUrl } from "../utils/axios/AxiosSetup";
+import AuthContext from "../utils/context/AuthContext";
 
 const RecentlyHosted: React.FC = () => {
   const [hunts, setHunts] = useState<Hunt[]>();
   const [loading, setLoading] = useState<boolean>(false);
-  console.log(rootUrl);
+  const contextData = useContext(AuthContext);
 
   useEffect(() => {
     const getRecentHunts = async () => {
@@ -27,7 +28,7 @@ const RecentlyHosted: React.FC = () => {
       }
     };
     getRecentHunts();
-  }, []);
+  }, [contextData]);
   return (
     <div>
       {loading && <Loading />}
