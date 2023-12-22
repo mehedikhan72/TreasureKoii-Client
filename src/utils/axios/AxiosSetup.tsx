@@ -6,13 +6,13 @@ import { jwtDecode } from "jwt-decode";
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-// const instance = axios.create({
-//     baseURL: 'https://api.treasurekoii.com/api/'
-// });
-
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api/",
+    baseURL: 'https://api.treasurekoii.com/api/'
 });
+
+// const instance = axios.create({
+//   baseURL: "http://localhost:8000/api/",
+// });
 
 // Add a request interceptor to add the access token to the request headers
 instance.interceptors.request.use((config) => {
@@ -46,5 +46,5 @@ function isTokenExpired(token: string) {
 export default instance;
 
 // for images
-export const rootUrl = "http://127.0.0.1:8000";
-// export const rootUrl = "https://api.treasurekoii.com";
+// export const rootUrl = "http://127.0.0.1:8000";
+export const rootUrl = "https://api.treasurekoii.com";
