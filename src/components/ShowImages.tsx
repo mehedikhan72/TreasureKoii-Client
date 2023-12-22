@@ -6,6 +6,7 @@ import { RxDotFilled } from "react-icons/rx";
 import axios from "../utils/axios/AxiosSetup";
 import { Image } from "../types";
 import Loading from "../utils/Loading";
+import { rootUrl } from "../utils/axios/AxiosSetup";
 
 const ShowImages: React.FC<{ url: string | null; imageInterval: number }> = ({
   url,
@@ -73,7 +74,7 @@ const ShowImages: React.FC<{ url: string | null; imageInterval: number }> = ({
           <div className="flex justify-center items-center">
             <div className="flex justify-center items-center w-[350px] sm:w-[400px] md:w-[600px] lg:w-[800px] h-[280px] sm:h-[310px] md:h-[400px] lg:h-[520px] overflow-hidden transition-transform duration-500 ease-in-out transform scale-100 hover:scale-105">
               <img
-                src={`http://127.0.0.1:8000${images[currentIndex].image}`}
+                src={`${rootUrl}${images[currentIndex].image}`}
                 alt="puzzle img"
                 className="h-full w-full object-contain rounded-md bg-white"
               />
