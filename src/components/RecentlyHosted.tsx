@@ -19,7 +19,7 @@ const RecentlyHosted: React.FC = () => {
       try {
         const response = await axios.get("get-recent-hunts/");
         const data = response.data;
-        console.log(response);
+        // console.log(response);
         setHunts(data);
         setLoading(false);
       } catch (error) {

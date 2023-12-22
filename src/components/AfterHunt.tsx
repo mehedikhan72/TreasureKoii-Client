@@ -30,7 +30,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       if (response.status === 200) {
         setLeaderBoard(data);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +44,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
     try {
       const response = await axios.post(`${slug}/post-hunt-images/`, formData);
       if (response.status === 201) {
-        console.log("Images Uploaded");
+        // console.log("Images Uploaded");
         setMessage("Images Uploaded");
         setImgFiles(null);
         setImgUploadSuccess(true);
@@ -66,7 +66,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       if (response.status === 200) {
         setUserAnOrganizer(data.is_organizer);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }

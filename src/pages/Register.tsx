@@ -46,14 +46,14 @@ const Register: React.FC = () => {
       const data = response.data;
 
       if (response.status === 201) {
-        console.log("Logging in");
+        // console.log("Logging in");
         if (loginUser) {
           loginUser(e);
         }
       } else {
         setMessage(data.error);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) setMessage(error.response?.data.error);

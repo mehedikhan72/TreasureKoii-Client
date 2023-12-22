@@ -93,7 +93,7 @@ const CreateHunt: React.FC = () => {
       const data = response.data;
 
       if (response.status === 201) {
-        console.log("Hunt Created");
+        // console.log("Hunt Created");
 
         setHuntName("");
         setDescription("");
@@ -109,7 +109,7 @@ const CreateHunt: React.FC = () => {
       } else {
         setMessage(data.error);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) setMessage(error.response?.data.error);

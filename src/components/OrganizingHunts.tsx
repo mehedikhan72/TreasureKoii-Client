@@ -15,7 +15,7 @@ const OrganizingHunts: React.FC = () => {
       try {
         const response = await axios.get("get-users-organizing-hunts/");
         const data = response.data;
-        console.log(response);
+        // console.log(response);
         setHunts(data.hunts);
       } catch (error) {
         console.log(error);
