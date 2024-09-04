@@ -168,9 +168,10 @@ const CreateHunt: React.FC = () => {
                 onChange={setStartDate}
                 startDate={startDate}
                 wrapperClassName="flex-auto"
-                className="my-input-field mx-0 w-full"
+                className="my-input-field mx-0 w-full text-base"
                 showIcon
                 showTimeInput
+                dateFormat="MM/dd/yyyy - h:mm aa"
                 icon={
                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" className="my-3">
                     <mask id="ipSApplication0">
@@ -192,9 +193,10 @@ const CreateHunt: React.FC = () => {
                 onChange={setEndDate}
                 startDate={endDate}
                 wrapperClassName="flex-auto"
-                className="my-input-field mx-0 w-full"
+                className="my-input-field mx-0 w-full text-base"
                 showIcon
                 showTimeInput
+                dateFormat="MM/dd/yyyy - h:mm aa"
                 icon={
                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" className="my-3">
                     <mask id="ipSApplication0">
@@ -211,17 +213,6 @@ const CreateHunt: React.FC = () => {
                 }
               />
             </div>
-
-            <label className="w-full flex items-center">
-              <span className="w-24">Number of Skips</span>
-              <input
-                type="number"
-                name="number_of_skips_for_each_team"
-                value={skips}
-                onChange={onSkipsChange}
-                className="my-input-field w-full flex-1 mr-0"
-              />
-            </label>
 
             <label className="w-full flex items-center">
               <span className="w-24">Poster Image</span>
