@@ -18,7 +18,7 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       if (response.status === 200) {
         setRules(data);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }

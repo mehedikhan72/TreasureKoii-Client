@@ -7,6 +7,7 @@ import HomeFooter from "./HomeFooter";
 import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
 import AuthContext from "../utils/context/AuthContext";
+import Loading from "../utils/Loading";
 
 const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
   const { slug } = useParams();
@@ -21,6 +22,8 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
   const contextData = useContext(AuthContext);
   const user = contextData?.user;
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);
   const [imgFiles, setImgFiles] = useState<File[] | null>(null);
   const getLeaderBoard = async (): Promise<void> => {
@@ -30,7 +33,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       if (response.status === 200) {
         setLeaderBoard(data);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -39,24 +42,28 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     imgFiles?.forEach((file) => formData.append("images", file));
     try {
       const response = await axios.post(`${slug}/post-hunt-images/`, formData);
       if (response.status === 201) {
-        console.log("Images Uploaded");
+        // console.log("Images Uploaded");
         setMessage("Images Uploaded");
         setImgFiles(null);
         setImgUploadSuccess(true);
+        setLoading(false);
       } else {
         setMessage("Error uploading images");
         setImgUploadSuccess(false);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
       const axiosError = error as AxiosError;
       setMessage((axiosError.response?.data as { error: string })?.error);
       setImgUploadSuccess(false);
+      setLoading(false);
     }
   };
   const checkIfUserAnOrganizer = async (): Promise<void> => {
@@ -66,7 +73,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       if (response.status === 200) {
         setUserAnOrganizer(data.is_organizer);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -84,6 +91,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {loading && <Loading />}
       {hunt && (
         <>
           <div className="flex flex-col justify-center items-center mt-16 mx-10">

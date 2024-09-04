@@ -38,7 +38,7 @@ const PuzzleOrder = () => {
         if (response.status === 200) {
           setHunt(data);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       } finally {
@@ -55,7 +55,7 @@ const PuzzleOrder = () => {
           setUserAnOrganizer(data.is_organizer);
           setUserDataLoaded(true);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
         setUserDataLoaded(true);
@@ -72,7 +72,7 @@ const PuzzleOrder = () => {
         if (response.status === 200) {
           setAllTeamsData(data);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       } finally {
@@ -88,7 +88,7 @@ const PuzzleOrder = () => {
         if (response.status === 200) {
           setPuzzles(data);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       } finally {
@@ -124,7 +124,7 @@ const PuzzleOrder = () => {
       } else {
         setUpdatePuzzleOrderMessage(data.error);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
       setMessage(

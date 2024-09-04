@@ -48,8 +48,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       password: formElem.password.value,
     };
 
-    console.log(formData);
-
     try {
       let response = await axios.post(`token/`, formData);
       let data = response.data;
@@ -61,7 +59,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       } else {
         setMessage(data.detail);
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) setMessage(error.response?.data.detail);
@@ -112,7 +109,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    let refreshTime = 1000 * 60 * 4; // 4 minutes
+    let refreshTime = 1000 * 60 * 9; // 9 minutes
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken();

@@ -37,13 +37,13 @@ const CreateTeam: React.FC = () => {
       const data = response.data;
 
       if (response.status === 201) {
-        console.log(data.success);
+        // console.log(data.success);
         let str = data.success;
         setTeampassword(str.match(/password: (.+?)\./)[1]);
       } else {
         setMessage(data.error);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error: unknown) {
       console.log(error);
       if (error instanceof AxiosError) setMessage(error.response?.data.error);
@@ -64,7 +64,7 @@ const CreateTeam: React.FC = () => {
           setHunt(data);
           setLoading(false);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
         setLoading(false);
