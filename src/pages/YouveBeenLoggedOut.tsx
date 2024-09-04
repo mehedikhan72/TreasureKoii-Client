@@ -5,7 +5,7 @@ import AuthContext from "../utils/context/AuthContext";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 
 const YouveBeenLoggedOut: React.FC = () => {
-  console.log("You've been logged out.");
+  // console.log("You've been logged out.");
   const contextData = useContext(AuthContext);
   const user = contextData?.user;
 

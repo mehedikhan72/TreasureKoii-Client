@@ -28,7 +28,7 @@ const Leaderboard: React.FC = () => {
         if (response.status === 200) {
           setLeaderBoard(data);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,7 +43,7 @@ const Leaderboard: React.FC = () => {
         if (response.status === 200) {
           setHunt(data);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       } finally {

@@ -58,7 +58,7 @@ const HuntHome: React.FC = () => {
         if (response.status === 200) {
           setHuntPaidFor(data.paid);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -76,11 +76,11 @@ const HuntHome: React.FC = () => {
         const response = await axios.get(`hunt/${slug}/`);
         const data = response.data;
         if (response.status === 200) {
-          console.log(data);
+          // console.log(data);
           setHunt(data);
           setHuntLoaded(true);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
         setHuntLoaded(true);
@@ -110,7 +110,7 @@ const HuntHome: React.FC = () => {
         if (response.status === 200) {
           setUserAnOrganizer(data.is_organizer);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -183,7 +183,7 @@ const HuntHome: React.FC = () => {
         }
       }
       setLoading(false);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       const axiosError = error as AxiosError;
       setMessage((axiosError.response?.data as { error: string })?.error);

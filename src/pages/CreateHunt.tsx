@@ -13,7 +13,9 @@ import Loading from "../utils/Loading";
 import { Link } from "react-router-dom";
 
 const formatDate = (date: Date): string => {
-  const dateString: string = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
+  const dateString: string = new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000
+  ).toJSON();
   const timezoneMinutes: number = -date.getTimezoneOffset();
   const timezoneString: string =
     (timezoneMinutes >= 0 ? "+" : "-") +
@@ -71,7 +73,9 @@ const CreateHunt: React.FC = () => {
     };
   }, [imgFile]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
     setLoading(true);
 
@@ -89,7 +93,7 @@ const CreateHunt: React.FC = () => {
       const data = response.data;
 
       if (response.status === 201) {
-        console.log("Hunt Created");
+        // console.log("Hunt Created");
 
         setHuntName("");
         setDescription("");
@@ -105,7 +109,7 @@ const CreateHunt: React.FC = () => {
       } else {
         setMessage(data.error);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) setMessage(error.response?.data.error);
@@ -129,18 +133,32 @@ const CreateHunt: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       {loading && <Loading />}
       <TreasureKoiiImg />
-      {!user && <YouNeedToBeLoggedIn message="Please log in to create hunts." />}
+      {!user && (
+        <YouNeedToBeLoggedIn message="Please log in to create hunts." />
+      )}
 
       {user && (
         <div className="flex flex-col self-center justify-center items-center gap-5 flex-1 my-10 mx-8">
-          <div className="text-4xl font-extrabold text-center">Create A Hunt</div>
-          <form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center max-w-lg">
+          <div className="text-4xl font-extrabold text-center">
+            Create A Hunt
+          </div>
+          <form
+            id="createHuntForm"
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center max-w-lg"
+          >
             {message && <p className="text-1 text-red-500">{message}</p>}
             {huntSlug && (
               <>
-                <p className="text-lg font-bold text-green-600">Hunt created successfully.</p>
-                <Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold mb-4">
-                  Go To <span className="text-blue-600 underline">Hunt Page</span>
+                <p className="text-lg font-bold text-green-600">
+                  Hunt created successfully.
+                </p>
+                <Link
+                  to={{ pathname: `/${huntSlug}` }}
+                  className="text-lg font-bold mb-4"
+                >
+                  Go To{" "}
+                  <span className="text-blue-600 underline">Hunt Page</span>
                 </Link>
               </>
             )}
@@ -161,7 +179,7 @@ const CreateHunt: React.FC = () => {
               className="my-input-field w-full h-32 resize-none"
             />
 
-            <div className="flex justify-between max-[400px]:flex-wrap min-[400px]:gap-3">
+            <div className="flex justify-between max-[400px]:flex-wrap min-[400px]:gap-1">
               <DatePicker
                 placeholderText="Hunt Start"
                 selected={startDate}
@@ -173,17 +191,35 @@ const CreateHunt: React.FC = () => {
                 showTimeInput
                 dateFormat="MM/dd/yyyy - h:mm aa"
                 icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" className="my-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 48 48"
+                    className="my-3"
+                  >
                     <mask id="ipSApplication0">
-                      <g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
-                        <path strokeLinecap="round" d="M40.04 22v20h-32V22"></path>
+                      <g
+                        fill="none"
+                        stroke="#fff"
+                        strokeLinejoin="round"
+                        strokeWidth="4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          d="M40.04 22v20h-32V22"
+                        ></path>
                         <path
                           fill="#fff"
                           d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
                         ></path>
                       </g>
                     </mask>
-                    <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSApplication0)"></path>
+                    <path
+                      fill="currentColor"
+                      d="M0 0h48v48H0z"
+                      mask="url(#ipSApplication0)"
+                    ></path>
                   </svg>
                 }
               />
@@ -198,17 +234,35 @@ const CreateHunt: React.FC = () => {
                 showTimeInput
                 dateFormat="MM/dd/yyyy - h:mm aa"
                 icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" className="my-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 48 48"
+                    className="my-3"
+                  >
                     <mask id="ipSApplication0">
-                      <g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
-                        <path strokeLinecap="round" d="M40.04 22v20h-32V22"></path>
+                      <g
+                        fill="none"
+                        stroke="#fff"
+                        strokeLinejoin="round"
+                        strokeWidth="4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          d="M40.04 22v20h-32V22"
+                        ></path>
                         <path
                           fill="#fff"
                           d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
                         ></path>
                       </g>
                     </mask>
-                    <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSApplication0)"></path>
+                    <path
+                      fill="currentColor"
+                      d="M0 0h48v48H0z"
+                      mask="url(#ipSApplication0)"
+                    ></path>
                   </svg>
                 }
               />
@@ -226,7 +280,9 @@ const CreateHunt: React.FC = () => {
                 className="m-2 mr-0 file:ml-0 file:mr-4 file:border-0 text-slate-500 w-full"
               />
             </label>
-            {imgPreview && <img className="m-2 max-h-60" src={imgPreview} alt="Poster" />}
+            {imgPreview && (
+              <img className="m-2 max-h-60" src={imgPreview} alt="Poster" />
+            )}
 
             <button type="submit" className="my-btn-1 mt-4">
               Create

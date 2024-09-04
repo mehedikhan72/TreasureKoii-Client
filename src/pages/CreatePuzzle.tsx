@@ -50,7 +50,7 @@ const CreatePuzzle: React.FC = () => {
       const data = response.data;
 
       if (response.status === 201) {
-        console.log("Puzzle Created");
+        // console.log("Puzzle Created");
 
         setName("");
         setDescription("");
@@ -66,7 +66,7 @@ const CreatePuzzle: React.FC = () => {
         setMessageSuccess(null);
         setMessageError(data.error);
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
       setMessageSuccess(null);
@@ -88,7 +88,7 @@ const CreatePuzzle: React.FC = () => {
         if (response.status === 200) {
           setHunt(data);
         }
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       } finally {

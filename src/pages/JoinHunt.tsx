@@ -60,7 +60,7 @@ const JoinHunt: React.FC = () => {
           setMessage("Hunt does not exist. Please try again.");
         }
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -84,7 +84,7 @@ const JoinHunt: React.FC = () => {
           setMessage("Hunt does not exist. Please try again.");
         }
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     } finally {

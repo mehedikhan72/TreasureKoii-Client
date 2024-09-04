@@ -1,8 +1,10 @@
 import React from "react";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import { useParams, Link } from "react-router-dom";
 
 const MakePayment = () => {
+  const { slug } = useParams();
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <TreasureKoiiImg />
@@ -43,6 +45,15 @@ const MakePayment = () => {
           create team and participate.)
         </p>
 
+        <p className="text-2 mt-6">
+          If you've paid for the hunt, visit home page{" "}
+          <Link
+            className="underline hover:text-blue-500"
+            to={{ pathname: `/${slug}` }}
+          >
+            here.
+          </Link>
+        </p>
         <p className="text-4 pt-8">Thank you for staying with us!!</p>
       </div>
 
