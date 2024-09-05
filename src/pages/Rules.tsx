@@ -62,13 +62,14 @@ const Rules: React.FC = () => {
       <HuntNav slug={slug} huntName={hunt?.name} />
 
       {rules?.length !== 0 && (
-        <div>
-          <p className="text-3">
+        <div className="">
+          <p className="text-5">Rules</p>
+          <p className="text-3 lg:px-60">
             We expect that you follow a set a of ruless. The organizers have
             complete authority to add, delete and/or change any rule at any
             given time.
           </p>
-          <div className="p-2 ml-2 sm:ml-10 md:ml-20">
+          <div className="styled-div-1">
             {rules?.map((rule, index) => (
               <div key={rule.id}>
                 <p className="text-1 text-left">

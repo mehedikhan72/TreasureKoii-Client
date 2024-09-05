@@ -64,18 +64,18 @@ const Announcements: React.FC = () => {
       <HuntNav slug={slug} huntName={hunt?.name} />
       {announcements && announcements.length !== 0 && (
         <div className="my-10">
-          <p className="text-4">Announcements </p>
+          <p className="text-5">Announcements </p>
           {announcements.map((announcement: Announcement) => (
             <div
               key={announcement.id}
-              className="p-4 bg-slate-200 rounded-md m-2"
+              className="styled-div-1"
             >
-              <p className="text-3 text-left">
+              <p className="text-2 text-left">
                 {announcement.creator.first_name}{" "}
                 {announcement.creator.last_name}
               </p>
-              <p className="text-2 text-left">{announcement.text}</p>
-              <p className="text-1 text-left">
+              <p className="text-1 text-left">{announcement.text}</p>
+              <p className="text-0 text-left">
                 {new Date(announcement.created_at).toLocaleString()}
               </p>
               <br />
