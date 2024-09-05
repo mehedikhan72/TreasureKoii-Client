@@ -102,7 +102,7 @@ const CreateHunt: React.FC = () => {
 		// formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
-			const response = await axios.post("create-hunt/", formData);
+			const response = await axios.post("hunts/", formData);
 			const data = response.data;
 
 			if (response.status === 201) {
@@ -151,14 +151,14 @@ const CreateHunt: React.FC = () => {
 				<div className="flex flex-col self-center justify-center items-center gap-5 flex-1 my-10 mx-8">
 					<div className="text-4xl font-extrabold text-center">Organize A Hunt</div>
 					<form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center max-w-lg">
-						{message && <p className="text-1 text-red-500">{message}</p>}
+						{message && <p className="text-1 bg-red-500 styled-div-1 w-full">{message}</p>}
 						{huntSlug && (
-							<>
-								<p className="text-lg font-bold text-green-600">Hunt created successfully.</p>
-								<Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold mb-4">
+							<div className="styled-div-1 bg-green-500 flex flex-col items-center justify-center w-full mb-4">
+								<p className="text-lg font-bold ">Hunt created successfully.</p>
+								<Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold">
 									Go To <span className="text-blue-600 underline">Hunt Page</span>
 								</Link>
-							</>
+							</div>
 						)}
 						<input
 							type="text"
@@ -177,7 +177,7 @@ const CreateHunt: React.FC = () => {
 							className="my-input-field w-full h-32 resize-none"
 						/>
 
-						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field bg-white py-0">
+						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field py-0">
 							<div className="flex-grow flex-shrink-0 text-lg pt-1 w-[6.5rem] font-bold">Hunt Start</div>
 							<DateTimePicker
 								onChange={(date) => {
@@ -194,7 +194,7 @@ const CreateHunt: React.FC = () => {
 								value={startDate}
 							/>
 						</div>
-						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field bg-white py-0">
+						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field py-0">
 							<div className="flex-grow flex-shrink-0 text-lg pt-1 w-[6.5rem] font-bold">Hunt End</div>
 							<DateTimePicker
 								onChange={(date) => {
@@ -212,8 +212,8 @@ const CreateHunt: React.FC = () => {
 							/>
 						</div>
 
-						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field bg-white py-0">
-							<span className="w-28 flex-shrink-0 text-lg font-bold">Poster Image</span>
+						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field p-0">
+							<span className="w-32 pl-2 flex-shrink-0 text-lg font-bold">Poster Image</span>
 							<input
 								type="file"
 								id="posterImg"
@@ -221,7 +221,7 @@ const CreateHunt: React.FC = () => {
 								onChange={(e) => {
 									setImgFile(e.target.files ? e.target.files.item(0) : null);
 								}}
-								className="m-2 mr-0 file:ml-0 file:mr-4 file:cursor-pointer file:border-0 text-slate-500 w-full text-base"
+								className="mr-0 file:my-0 file:mr-4 file:bg-[#f3e3d2] flex-1 file:cursor-pointer p-2 text-base rounded-r"
 							/>
 						</div>
 						{imgPreview && <img className="m-2 max-h-60" src={imgPreview} alt="Poster" />}
