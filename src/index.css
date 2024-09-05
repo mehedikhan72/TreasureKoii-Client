@@ -3,7 +3,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #caa785 inset !important;
+	-webkit-box-shadow: 0 0 0 30px #caa785 inset !important;
 }
 
 @tailwind base;
@@ -11,71 +11,71 @@ input:-webkit-autofill:active {
 @tailwind utilities;
 
 @layer base {
-  .my-font {
-    font-family: "Josefin Sans", "cursive", sans-serif, "Playpen Sans";
-  }
+	.my-font {
+		font-family: "Josefin Sans", "cursive", sans-serif, "Playpen Sans";
+	}
 
-  .dark {
-    @apply bg-gray-900 text-white;
-  }
+	.dark {
+		@apply bg-gray-900 text-white;
+	}
 
-  .text-0 {
-    @apply text-sm text-center p-1;
-  }
+	.text-0 {
+		@apply text-sm text-center p-1;
+	}
 
-  .text-1 {
-    @apply text-base text-center p-1;
-  }
+	.text-1 {
+		@apply text-base text-center p-1;
+	}
 
-  .text-2 {
-    @apply text-lg font-bold text-center p-1;
-  }
+	.text-2 {
+		@apply text-lg font-bold text-center p-1;
+	}
 
-  .text-3 {
-    @apply text-xl font-bold text-center p-1;
-  }
+	.text-3 {
+		@apply text-xl font-bold text-center p-1;
+	}
 
-  .text-4 {
-    @apply text-2xl font-bold text-center p-1;
-  }
+	.text-4 {
+		@apply text-2xl font-bold text-center p-1;
+	}
 
-  .text-5 {
-    @apply text-3xl font-bold text-center p-1;
-  }
+	.text-5 {
+		@apply text-3xl font-bold text-center p-1;
+	}
 
-  .text-6 {
-    @apply text-4xl font-bold text-center p-1;
-  }
+	.text-6 {
+		@apply text-4xl font-bold text-center p-1;
+	}
 
-  .my-btn-1 {
-    @apply bg-yellow-500 text-black bg-opacity-70 border-black border-2 font-bold p-2 m-2 rounded shadow-lg hover:bg-yellow-500 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
-  }
+	.my-btn-1 {
+		@apply bg-yellow-500 text-black bg-opacity-70 border-black border-2 font-bold p-2 m-2 rounded shadow-lg hover:bg-yellow-500 w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
+	}
 
-  .my-btn-sm {
-    @apply bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-bold py-1 px-4 rounded-md m-1;
-  }
+	.my-btn-sm {
+		@apply bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-bold py-1 px-4 rounded-md m-1;
+	}
 
-  .link-1 {
-    @apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 hover:scale-125 transition duration-75;
-  }
+	.link-1 {
+		@apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 hover:scale-125 transition duration-75;
+	}
 
-  .link-2 {
-    @apply hover:underline hover:text-blue-700 underline font-bold px-6 py-2 text-2xl hover:scale-125 transition duration-75;
-  }
+	.link-2 {
+		@apply hover:underline hover:text-blue-700 underline font-bold px-6 py-2 text-2xl hover:scale-125 transition duration-75;
+	}
 
-  .warning-text {
-    @apply text-white bg-yellow-500 p-2 rounded-md text-xl font-bold;
-  }
+	.warning-text {
+		@apply text-white bg-yellow-500 p-2 rounded-md text-xl font-bold;
+	}
 
-  .success-text {
-    @apply text-white bg-green-500 p-2 rounded-md text-xl font-bold;
-  }
+	.success-text {
+		@apply text-white bg-green-500 p-2 rounded-md text-xl font-bold;
+	}
 
-  .my-input-field {
-    @apply border-2 border-black bg-[#CAA785] bg-opacity-70 text-black placeholder-black outline-none rounded-md p-2 m-2 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] font-bold text-base lg:text-lg max-w-2xl;
-  }
+	.my-input-field {
+		@apply border-2 border-black bg-[#f0cead] bg-opacity-70 text-black placeholder-black outline-none rounded-md p-2 m-2 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] font-bold text-2xl max-w-2xl;
+	}
 
-  .styled-div-1 {
-    @apply bg-[#CAA785] bg-opacity-40 border-2 border-black p-2 mx-2 md:mx-8 my-2 rounded-md;
-  }
+	.styled-div-1 {
+		@apply bg-[#f0cead] bg-opacity-70 border-2 border-black p-2 mx-2 md:mx-8 my-2 rounded-md;
+	}
 }

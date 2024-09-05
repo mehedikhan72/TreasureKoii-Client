@@ -13,6 +13,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import { toast } from "react-toastify";
 
 const formatDate = (date: Date): string => {
 	const dateString: string = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
@@ -59,11 +60,11 @@ const CreateHunt: React.FC = () => {
 	const validateForm = (): boolean => {
 		setMessage(null);
 		if (!huntName || !description || !startDate || !endDate || !imgFile) {
-			setMessage("Please fill all the fields.");
+			toast.error("Please fill all the fields.");
 			return false;
 		}
 		if (!validateDate(startDate, endDate)) {
-			setMessage("Start date should be before End date.");
+			toast.error("Start date should be before End date.");
 			return false;
 		}
 		return true;
@@ -118,13 +119,14 @@ const CreateHunt: React.FC = () => {
 				setMessage(null);
 				sluggifyHuntName();
 				(document.getElementById("posterImg") as HTMLInputElement).value = "";
+				toast.success("Hunt created successfully.");
 			} else {
-				setMessage(data.error);
+				toast.error(data.error);
 			}
 			// console.log(response);
 		} catch (error) {
 			console.log(error);
-			if (error instanceof AxiosError) setMessage(error.response?.data.error);
+			if (error instanceof AxiosError) toast.error(error.response?.data.error);
 		} finally {
 			setLoading(false);
 		}
@@ -154,9 +156,8 @@ const CreateHunt: React.FC = () => {
 						{message && <p className="text-1 bg-red-500 styled-div-1 w-full">{message}</p>}
 						{huntSlug && (
 							<div className="styled-div-1 bg-green-500 flex flex-col items-center justify-center w-full mb-4">
-								<p className="text-lg font-bold ">Hunt created successfully.</p>
 								<Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold">
-									Go To <span className="text-blue-600 underline">Hunt Page</span>
+									Go To <span className="text-blue-700 underline">Hunt Page</span>
 								</Link>
 							</div>
 						)}
