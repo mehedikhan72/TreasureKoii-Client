@@ -38,7 +38,7 @@ const CreateHunt: React.FC = () => {
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const [imgFile, setImgFile] = useState<File | null>(null);
 	const [imgPreview, setImgPreview] = useState<string | undefined>(undefined);
-	const [skips, setSkips] = useState<number>(0);
+	// const [skips, setSkips] = useState<number>(0);
 
 	const [huntSlug, setHuntSlug] = useState<string>("");
 
@@ -96,10 +96,10 @@ const CreateHunt: React.FC = () => {
 		if (startDate) formData.append("start_date", formatDate(startDate));
 		if (endDate) formData.append("end_date", formatDate(endDate));
 		if (imgFile) formData.append("poster_img", imgFile as Blob);
-		formData.append("number_of_skips_for_each_team", skips.toString());
+		// formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
-			const response = await axios.post("hunts/", formData);
+			const response = await axios.post("create-hunt/", formData);
 			const data = response.data;
 
 			if (response.status === 201) {
@@ -111,7 +111,7 @@ const CreateHunt: React.FC = () => {
 				setEndDate(null);
 				setImgFile(null);
 				setImgPreview(undefined);
-				setSkips(0);
+				// setSkips(0);
 				setMessage(null);
 				sluggifyHuntName();
 				(document.getElementById("posterImg") as HTMLInputElement).value = "";

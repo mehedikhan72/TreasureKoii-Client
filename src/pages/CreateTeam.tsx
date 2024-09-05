@@ -116,20 +116,22 @@ const CreateTeam: React.FC = () => {
                   Go To{" "}
                   <span className="text-blue-600 underline">Hunt Page</span>
                 </Link>
-                <p className="text-2xl ">Team Password:</p>
-                <input
-                  type="text"
-                  name="name"
-                  value={`${teamPassword}${
-                    copied ? " (Copied)" : " (Click To Copy)"
-                  }`}
-                  readOnly
-                  onClick={() => {
-                    navigator.clipboard.writeText(teamPassword);
-                    setCopied(true);
-                  }}
-                  className="my-input-field text-lg w-full"
-                />
+                <div></div>
+
+                <div className="styled-div-1 flex justify-between items-center">
+                  <p className="text-sm lg:text-lg">
+                    Team Password: {teamPassword}
+                  </p>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(teamPassword);
+                      setCopied(true);
+                    }}
+                  >
+                    <i className="bx bx-copy p-1"></i>
+                    <span>{copied ? "Copied" : "Copy"}</span>
+                  </button>
+                </div>
               </>
             )}
 
