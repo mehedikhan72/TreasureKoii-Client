@@ -31,7 +31,7 @@ const App: React.FC = () => {
           style={{ backgroundImage: `url(/${bgImage})` }}
         ></div>
 
-        <div className="relative z-10 ">
+        <div className="relative z-10">
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Home />} />
