@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import axios from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
 
 import { AxiosError } from "axios";
-import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
+
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
 
 const formatDate = (date: Date): string => {
 	const dateString: string = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
@@ -174,10 +177,9 @@ const CreateHunt: React.FC = () => {
 							className="my-input-field w-full h-32 resize-none"
 						/>
 
-						<div className="flex flex-col justify-between w-full max-[400px]:flex-wrap">
-							<DatePicker
-								placeholderText="Hunt Start"
-								selected={startDate}
+						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field bg-white py-0">
+							<div className="flex-grow flex-shrink-0 text-lg pt-1 w-[6.5rem] font-bold">Hunt Start</div>
+							<DateTimePicker
 								onChange={(date) => {
 									setMessage(null);
 									if (validateDate(date, endDate)) {
@@ -187,36 +189,14 @@ const CreateHunt: React.FC = () => {
 										setMessage("Start date should be before End date.");
 									}
 								}}
-								startDate={startDate}
-								wrapperClassName="flex-auto"
-								className="my-input-field mb-1 mx-0 w-full text-base"
-								showIcon
-								showTimeSelect
-								dateFormat="MM/dd/yyyy - h:mm aa"
-								icon={
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="1em"
-										height="1em"
-										viewBox="0 0 48 48"
-										className="my-2.5"
-									>
-										<mask id="ipSApplication0">
-											<g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
-												<path strokeLinecap="round" d="M40.04 22v20h-32V22"></path>
-												<path
-													fill="#fff"
-													d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
-												></path>
-											</g>
-										</mask>
-										<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSApplication0)"></path>
-									</svg>
-								}
+								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none"
+								disableClock
+								value={startDate}
 							/>
-							<DatePicker
-								placeholderText="Hunt End"
-								selected={endDate}
+						</div>
+						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field bg-white py-0">
+							<div className="flex-grow flex-shrink-0 text-lg pt-1 w-[6.5rem] font-bold">Hunt End</div>
+							<DateTimePicker
 								onChange={(date) => {
 									setMessage(null);
 									if (validateDate(startDate, date)) {
@@ -226,37 +206,14 @@ const CreateHunt: React.FC = () => {
 										setMessage("Start date should be before End date.");
 									}
 								}}
-								startDate={endDate}
-								wrapperClassName="flex-auto"
-								className="my-input-field mt-1 mx-0 w-full text-base"
-								showIcon
-								showTimeSelect
-								dateFormat="MM/dd/yyyy - h:mm aa"
-								icon={
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="1em"
-										height="1em"
-										viewBox="0 0 48 48"
-										className="my-2 mt-1.5"
-									>
-										<mask id="ipSApplication0">
-											<g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
-												<path strokeLinecap="round" d="M40.04 22v20h-32V22"></path>
-												<path
-													fill="#fff"
-													d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
-												></path>
-											</g>
-										</mask>
-										<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSApplication0)"></path>
-									</svg>
-								}
+								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none"
+								disableClock
+								value={endDate}
 							/>
 						</div>
 
-						<label className="w-full flex items-center">
-							<span className="w-24">Poster Image</span>
+						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field bg-white py-0">
+							<span className="w-28 flex-shrink-0 text-lg font-bold">Poster Image</span>
 							<input
 								type="file"
 								id="posterImg"
@@ -264,9 +221,9 @@ const CreateHunt: React.FC = () => {
 								onChange={(e) => {
 									setImgFile(e.target.files ? e.target.files.item(0) : null);
 								}}
-								className="m-2 mr-0 file:ml-0 file:mr-4 file:border-0 text-slate-500 w-full"
+								className="m-2 mr-0 file:ml-0 file:mr-4 file:cursor-pointer file:border-0 text-slate-500 w-full text-base"
 							/>
-						</label>
+						</div>
 						{imgPreview && <img className="m-2 max-h-60" src={imgPreview} alt="Poster" />}
 
 						<button type="submit" className="my-btn-1 mt-4">
