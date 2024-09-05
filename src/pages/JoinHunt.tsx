@@ -1,156 +1,171 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import TreasureKoiiImg from "../components/TreasureKoiiImg";
-import axios from "../utils/axios/AxiosSetup";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "../utils/context/AuthContext";
-import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import HomeFooter from "../components/HomeFooter";
-import Loading from "../utils/Loading";
-import RegisteredHunts from "../components/RegisteredHunts";
 import OrganizingHunts from "../components/OrganizingHunts";
+import RegisteredHunts from "../components/RegisteredHunts";
+import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import axios from "../utils/axios/AxiosSetup";
+import AuthContext from "../utils/context/AuthContext";
+import useDebouncedCallback from "../utils/hooks/useDebouncedCallback";
+import Loading from "../utils/Loading";
 
 const JoinHunt: React.FC = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const contextData = useContext(AuthContext);
-  const user = contextData?.user;
+	const contextData = useContext(AuthContext);
+	const user = contextData?.user;
 
-  const [huntName, setHuntName] = useState<string>("");
-  const [huntSlug, setHuntSlug] = useState<string>("");
-  const [inputGiven, setInputGiven] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
+	const [huntName, setHuntName] = useState<string>("");
+	const huntSlug = useMemo(() => {
+		const slug = huntName
+			.toLowerCase()
+			.replace(/ /g, "-")
+			.replace(/[^\w-]+/g, "");
 
-  const [loading, setLoading] = useState<boolean>(false);
+		return slug;
+	}, [huntName]);
 
-  useEffect(() => {
-    document.title = "Join Hunt | TreasureKoii";
+	const [huntExists, setHuntExists] = useState<boolean>(false);
+	const [message, setMessage] = useState<string>("");
 
-    return () => {
-      document.title = "TreasureKoii";
-    };
-  }, []);
+	const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const sluggifyHuntName = () => {
-      const slug = huntName
-        .toLowerCase()
-        .replace(/ /g, "-")
-        .replace(/[^\w-]+/g, "");
-      setHuntSlug(slug);
-    };
+	const checkHuntExists = useDebouncedCallback(async (huntSlug: string) => {
+		if (huntSlug === "") {
+			setMessage("");
+			setHuntExists(false);
+			return;
+		}
 
-    sluggifyHuntName();
-    setInputGiven(huntName.trim() !== "");
-  }, [huntName]);
+		try {
+			const response = await axios.get(`${huntSlug}/hunt-exists/`);
+			if (response.status === 200 && response.data.hunt_exists !== true) {
+				setHuntExists(false);
+				setMessage("Hunt does not exist. Please try again.");
+			} else {
+				setMessage("");
+				setHuntExists(true);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
 
-  const createTeamClicked = async () => {
-    if (huntSlug === "") {
-      setMessage("Please enter a valid hunt name.");
-      return;
-    }
+	useEffect(() => {
+		document.title = "Join Hunt | TreasureKoii";
 
-    setLoading(true);
-    try {
-      const response = await axios.get(`${huntSlug}/hunt-exists/`);
-      if (response.status === 200) {
-        if (response.data.hunt_exists === true) {
-          navigate(`/${huntSlug}/create-team`);
-        } else {
-          setMessage("Hunt does not exist. Please try again.");
-        }
-      }
-      // console.log(response);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+		return () => {
+			document.title = "TreasureKoii";
+		};
+	}, []);
 
-  const joinTeamClicked = async () => {
-    if (huntSlug === "") {
-      setMessage("Please enter a valid hunt name.");
-      return;
-    }
+	useEffect(() => {
+		checkHuntExists(huntSlug);
+	}, [huntSlug]);
 
-    setLoading(true);
-    try {
-      const response = await axios.get(`${huntSlug}/hunt-exists/`);
-      if (response.status === 200) {
-        if (response.data.hunt_exists === true) {
-          navigate(`/${huntSlug}/join-team`);
-        } else {
-          setMessage("Hunt does not exist. Please try again.");
-        }
-      }
-      // console.log(response);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+	const createTeamClicked = async () => {
+		if (huntSlug === "") {
+			setMessage("Please enter a valid hunt name.");
+			return;
+		}
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      {loading && <Loading />}
-      <TreasureKoiiImg />
-      {!user && <YouNeedToBeLoggedIn message="Please log in to join hunts." />}
-      {user && (
-        <div className="flex flex-col mt-28 items-center gap-5 flex-1">
-          <p className="text-4">Join A Hunt</p>
-          <div className="flex justify-center items-center flex-col">
-            <input
-              name="huntName"
-              placeholder="Hunt Name"
-              className="my-input-field w-[250px]"
-              onChange={(e) => setHuntName(e.target.value)}
-            />
-            {!message && (
-              <p className="text-1 w-5/6 md:w-[200px] text-center">
-                Enter a valid hunt name to continue.
-              </p>
-            )}
-            {message && (
-              <p className="text-1 text-red-500 w-5/6 md:w-[200px] text-center">
-                {message}
-              </p>
-            )}
+		setLoading(true);
+		try {
+			const response = await axios.get(`${huntSlug}/hunt-exists/`);
+			if (response.status === 200) {
+				if (response.data.hunt_exists === true) {
+					navigate(`/${huntSlug}/create-team`);
+				} else {
+					setMessage("Hunt does not exist. Please try again.");
+				}
+			}
+			// console.log(response);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-            {inputGiven && (
-              <div className="flex justify-center items-center">
-                <button onClick={createTeamClicked} className="my-btn-1">
-                  Create a Team
-                </button>
+	const joinTeamClicked = async () => {
+		if (huntSlug === "") {
+			setMessage("Please enter a valid hunt name.");
+			return;
+		}
 
-                <button onClick={joinTeamClicked} className="my-btn-1 ">
-                  Join a Team
-                </button>
-              </div>
-            )}
-            {!inputGiven && (
-              <div>
-                <div className="flex justify-center items-center pointer-events-none opacity-50">
-                  <Link to={{ pathname: `/${huntSlug}/create-team` }}>
-                    <button className="my-btn-1">Create a Team</button>
-                  </Link>
-                  <Link to={{ pathname: `/${huntSlug}/join-team` }}>
-                    <button className="my-btn-1 ">Join a Team</button>
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+		setLoading(true);
+		try {
+			const response = await axios.get(`${huntSlug}/hunt-exists/`);
+			if (response.status === 200) {
+				if (response.data.hunt_exists === true) {
+					navigate(`/${huntSlug}/join-team`);
+				} else {
+					setMessage("Hunt does not exist. Please try again.");
+				}
+			}
+			// console.log(response);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-      <OrganizingHunts />
-      <RegisteredHunts />
+	return (
+		<div className="flex flex-col min-h-screen">
+			{loading && <Loading />}
+			<TreasureKoiiImg />
+			{!user && <YouNeedToBeLoggedIn message="Please log in to join hunts." />}
+			{user && (
+				<div className="flex flex-col mt-28 items-center gap-5 flex-1">
+					<p className="text-5">Join A Hunt</p>
+					<div className="flex justify-center items-center flex-col">
+						<p className="text-1 w-5/6 max-sm:w-[200px] text-center">Ask your organizers for the hunt name</p>
+						<input
+							name="huntName"
+							placeholder="Hunt Name"
+							className="my-input-field w-[250px]"
+							onChange={(e) => setHuntName(e.target.value)}
+						/>
+						{!message && !huntExists && (
+							<p className="text-1 w-5/6 max-sm:w-[200px] text-center">Enter a valid hunt name to continue.</p>
+						)}
+						{message && <p className="text-1 text-red-500 w-5/6 max-sm:w-[200px] text-center">{message}</p>}
 
-      <HomeFooter />
-    </div>
-  );
+						{huntExists && (
+							<div className="flex justify-center items-center">
+								<button onClick={createTeamClicked} className="my-btn-1">
+									Create a Team
+								</button>
+
+								<button onClick={joinTeamClicked} className="my-btn-1 ">
+									Join a Team
+								</button>
+							</div>
+						)}
+						{!huntExists && (
+							<div>
+								<div className="flex justify-center items-center pointer-events-none opacity-50">
+									<Link to={{ pathname: `/${huntSlug}/create-team` }}>
+										<button className="my-btn-1">Create a Team</button>
+									</Link>
+									<Link to={{ pathname: `/${huntSlug}/join-team` }}>
+										<button className="my-btn-1 ">Join a Team</button>
+									</Link>
+								</div>
+							</div>
+						)}
+					</div>
+				</div>
+			)}
+
+			<OrganizingHunts />
+			<RegisteredHunts />
+
+			<HomeFooter />
+		</div>
+	);
 };
 
 export default JoinHunt;
