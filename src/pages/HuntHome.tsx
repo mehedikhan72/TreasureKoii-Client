@@ -306,7 +306,9 @@ const HuntHome: React.FC = () => {
                           onChange={(e) => setAnswer(e.target.value)}
                         />
                         {wrongAnswerGiven && (
-                          <p className="text-1 text-red-500">{message}</p>
+                          <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
+                            {message}
+                          </p>
                         )}
                         <button className="my-btn-1" type="submit">
                           Submit
@@ -317,7 +319,10 @@ const HuntHome: React.FC = () => {
 
                   {correctAnswerGiven && !didNotGetPuzzle && (
                     <div className="flex flex-col justify-center items-center p-4 flex-grow">
-                      <p className="text-2 success-text mb-2">{message}</p>
+                      <div className="styled-div-1">
+                        <p className="text-4 mb-2">{message}</p>
+                      </div>
+
                       <button
                         className="my-btn-1 mt-2"
                         onClick={() => fetchNewPuzzle()}

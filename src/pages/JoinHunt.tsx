@@ -121,17 +121,17 @@ const JoinHunt: React.FC = () => {
 				<div className="flex flex-col mt-28 items-center gap-5 flex-1">
 					<p className="text-5">Join A Hunt</p>
 					<div className="flex justify-center items-center flex-col">
-						<p className="text-1 w-5/6 max-sm:w-[200px] text-center">Ask your organizers for the hunt name</p>
+						<p className="text-2 w-5/6 max-sm:w-[200px] text-center">Ask your organizers for the hunt name</p>
 						<input
 							name="huntName"
 							placeholder="Hunt Name"
-							className="my-input-field w-[250px]"
+							className="my-input-field"
 							onChange={(e) => setHuntName(e.target.value)}
 						/>
 						{!message && !huntExists && (
 							<p className="text-1 w-5/6 max-sm:w-[200px] text-center">Enter a valid hunt name to continue.</p>
 						)}
-						{message && <p className="text-1 text-red-500 w-5/6 max-sm:w-[200px] text-center">{message}</p>}
+						{message && <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">{message}</p>}
 
 						{huntExists && (
 							<div className="flex justify-center items-center">

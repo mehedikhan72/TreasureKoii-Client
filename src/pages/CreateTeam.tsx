@@ -26,6 +26,7 @@ const CreateTeam: React.FC = () => {
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
+    console.log("handle submit clicked.");
     e.preventDefault();
     setLoading(true);
 
@@ -91,7 +92,11 @@ const CreateTeam: React.FC = () => {
           <div className="text-4">Create A Team</div>
           {hunt && <div className="text-3xl">{hunt.name}</div>}
 
-          {message && <p>{message}</p>}
+          {message && (
+            <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
+              {message}
+            </p>
+          )}
           <form
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center gap-2 w-1/2"
@@ -102,43 +107,42 @@ const CreateTeam: React.FC = () => {
               placeholder="Team Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="my-input-field w-full"
+              className="my-input-field"
             />
-            {Boolean(teamPassword) && (
-              <>
-                <p className="text-lg font-bold text-green-600 text-center">
-                  Team Successfully Created.
-                </p>
-                <Link
-                  to={{ pathname: `/${(hunt as Hunt).slug}` }}
-                  className="text-lg font-bold mb-4"
-                >
-                  Go To{" "}
-                  <span className="text-blue-600 underline">Hunt Page</span>
-                </Link>
-                <div></div>
 
-                <div className="styled-div-1 flex justify-between items-center">
-                  <p className="text-sm lg:text-lg">
-                    Team Password: {teamPassword}
-                  </p>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(teamPassword);
-                      setCopied(true);
-                    }}
-                  >
-                    <i className="bx bx-copy p-1"></i>
-                    <span>{copied ? "Copied" : "Copy"}</span>
-                  </button>
-                </div>
-              </>
-            )}
-
-            <button type="submit" className="my-btn-1 w-full">
+            <button type="submit" className="my-btn-1">
               Create Team
             </button>
           </form>
+          {Boolean(teamPassword) && (
+            <>
+              <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-green-600">
+                Team Successfully Created.
+              </p>
+              <Link
+                to={{ pathname: `/${(hunt as Hunt).slug}` }}
+                className="text-lg font-bold mb-4"
+              >
+                Go To <span className="text-blue-600 underline">Hunt Page</span>
+              </Link>
+              <div></div>
+
+              <div className="styled-div-1 w-[350px] md:w-[500px] flex justify-between items-center">
+                <p className="text-sm lg:text-lg">
+                  Team Password: {teamPassword}
+                </p>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(teamPassword);
+                    setCopied(true);
+                  }}
+                >
+                  <i className="bx bx-copy p-1"></i>
+                  <span>{copied ? "Copied" : "Copy"}</span>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       )}
 
