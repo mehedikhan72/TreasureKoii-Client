@@ -9,6 +9,7 @@ import axios from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
 import useDebouncedCallback from "../utils/hooks/useDebouncedCallback";
 import Loading from "../utils/Loading";
+import { toast } from "react-toastify";
 
 const JoinHunt: React.FC = () => {
 	const navigate = useNavigate();
@@ -42,7 +43,8 @@ const JoinHunt: React.FC = () => {
 			const response = await axios.get(`${huntSlug}/hunt-exists/`);
 			if (response.status === 200 && response.data.hunt_exists !== true) {
 				setHuntExists(false);
-				setMessage("Hunt does not exist. Please try again.");
+				// setMessage("Hunt does not exist. Please try again.");
+				toast.error("Hunt does not exist. Please try again.");
 			} else {
 				setMessage("");
 				setHuntExists(true);
@@ -77,7 +79,8 @@ const JoinHunt: React.FC = () => {
 				if (response.data.hunt_exists === true) {
 					navigate(`/${huntSlug}/create-team`);
 				} else {
-					setMessage("Hunt does not exist. Please try again.");
+					// setMessage("Hunt does not exist. Please try again.");
+					toast.error("Hunt does not exist. Please try again.");
 				}
 			}
 			// console.log(response);
@@ -90,7 +93,8 @@ const JoinHunt: React.FC = () => {
 
 	const joinTeamClicked = async () => {
 		if (huntSlug === "") {
-			setMessage("Please enter a valid hunt name.");
+			// setMessage("Please enter a valid hunt name.");
+			toast.error("Please enter a valid hunt name.");
 			return;
 		}
 
@@ -101,7 +105,8 @@ const JoinHunt: React.FC = () => {
 				if (response.data.hunt_exists === true) {
 					navigate(`/${huntSlug}/join-team`);
 				} else {
-					setMessage("Hunt does not exist. Please try again.");
+					// setMessage("Hunt does not exist. Please try again.");
+					toast.error("Hunt does not exist. Please try again.");
 				}
 			}
 			// console.log(response);
@@ -131,7 +136,7 @@ const JoinHunt: React.FC = () => {
 						{!message && !huntExists && (
 							<p className="text-1 w-5/6 max-sm:w-[200px] text-center">Enter a valid hunt name to continue.</p>
 						)}
-						{message && <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">{message}</p>}
+						{/* {message && <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">{message}</p>} */}
 
 						{huntExists && (
 							<div className="flex justify-center items-center">

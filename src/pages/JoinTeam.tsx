@@ -8,6 +8,7 @@ import AuthContext from "../utils/context/AuthContext";
 import Loading from "../utils/Loading";
 import { Hunt } from "../types";
 import HomeFooter from "../components/HomeFooter";
+import { toast } from "react-toastify";
 
 const JoinTeam: React.FC = () => {
   const contextData = useContext(AuthContext);
@@ -38,16 +39,20 @@ const JoinTeam: React.FC = () => {
       if (response.status === 201) {
         setMessageError(null);
         setMessageSuccess(data.success);
+        toast.success(data.success);
       } else {
         setMessageSuccess(null);
         setMessageError(data.error);
+        toast.error(data.error);
       }
       // console.log(response);
     } catch (error: unknown) {
       console.log(error);
       setMessageSuccess(null);
-      if (error instanceof AxiosError)
+      if (error instanceof AxiosError) {
         setMessageError(error.response?.data.error);
+        toast.error(error.response?.data.error);
+      }
     } finally {
       setLoading(false);
     }
@@ -96,14 +101,16 @@ const JoinTeam: React.FC = () => {
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center gap-2 w-1/2"
           >
-            {messageError && (
-              <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">{messageError}</p>
-            )}
+            {/* {messageError && (
+              <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
+                {messageError}
+              </p>
+            )} */}
             {messageSuccess && (
               <>
-                <p className="text-lg font-bold text-green-600 text-center">
+                {/* <p className="text-lg font-bold text-green-600 text-center">
                   {messageSuccess}
-                </p>
+                </p> */}
                 <Link
                   to={{ pathname: `/${(hunt as Hunt).slug}` }}
                   className="text-lg font-bold mb-4"

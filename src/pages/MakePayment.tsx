@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import { useParams, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MakePayment = () => {
+  useEffect(() => {
+    document.title = "Make Payment | TreasureKoii";
+
+    const timeoutId = setTimeout(() => {
+      toast.info(
+        "This hunt is not paid for... yet. Follow the instructions in this page to activate this hunt"
+      );
+    }, 50);
+
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   const { slug } = useParams();
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
@@ -28,7 +44,8 @@ const MakePayment = () => {
             shortly.
           </p>
           <p className="text-2 text-left">
-            4. Once you complete the payment and we confirm it, we will activate this hunt.
+            4. Once you complete the payment and we confirm it, we will activate
+            this hunt.
           </p>
         </div>
         <p className="text-2">

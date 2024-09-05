@@ -35,7 +35,7 @@ const Login: React.FC = () => {
           onSubmit={loginUser}
           className="flex flex-col justify-center items-center gap-2 w-4/6"
         >
-          {message && <p className="text-1 text-red-500">{message}</p>}
+          {/* {message && <p className="text-1 text-red-500">{message}</p>} */}
           <input
             type="email"
             name="email"

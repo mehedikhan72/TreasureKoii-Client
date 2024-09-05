@@ -8,6 +8,7 @@ import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
 import { Hunt } from "../types";
 import HomeFooter from "../components/HomeFooter";
+import { toast } from "react-toastify";
 
 const CreateTeam: React.FC = () => {
   const contextData = useContext(AuthContext);
@@ -41,13 +42,18 @@ const CreateTeam: React.FC = () => {
         // console.log(data.success);
         let str = data.success;
         setTeampassword(str.match(/password: (.+?)\./)[1]);
+        toast.success("Team Successfully Created.");
       } else {
-        setMessage(data.error);
+        // setMessage(data.error);
+        toast.error(data.error);
       }
       // console.log(response);
     } catch (error: unknown) {
       console.log(error);
-      if (error instanceof AxiosError) setMessage(error.response?.data.error);
+      if (error instanceof AxiosError) {
+        // setMessage(error.response?.data.error);
+        toast.error(error.response?.data.error);
+      }
     } finally {
       setLoading(false);
     }
@@ -92,11 +98,11 @@ const CreateTeam: React.FC = () => {
           <div className="text-4">Create A Team</div>
           {hunt && <div className="text-3xl">{hunt.name}</div>}
 
-          {message && (
+          {/* {message && (
             <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
               {message}
             </p>
-          )}
+          )} */}
           <form
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center gap-2 w-1/2"
@@ -116,9 +122,9 @@ const CreateTeam: React.FC = () => {
           </form>
           {Boolean(teamPassword) && (
             <>
-              <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-green-600">
+              {/* <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-green-600">
                 Team Successfully Created.
-              </p>
+              </p> */}
               <Link
                 to={{ pathname: `/${(hunt as Hunt).slug}` }}
                 className="text-lg font-bold mb-4"

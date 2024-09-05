@@ -6,6 +6,7 @@ import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import HomeFooter from "../components/HomeFooter";
 import { AxiosError } from "axios";
 import Loading from "../utils/Loading";
+import { toast } from "react-toastify";
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -30,6 +31,8 @@ const Register: React.FC = () => {
 
     if (password !== confirmedPassword) {
       setMessage("Passwords do not match");
+      toast.error("Passwords do not match");
+      setLoading(false);
       return;
     }
 
@@ -52,11 +55,15 @@ const Register: React.FC = () => {
         }
       } else {
         setMessage(data.error);
+        toast.error(data.error);
       }
       // console.log(response);
     } catch (error) {
       console.log(error);
-      if (error instanceof AxiosError) setMessage(error.response?.data.error);
+      if (error instanceof AxiosError) {
+        setMessage(error.response?.data.error);
+        toast.error(error.response?.data.error);
+      }
     } finally {
       setLoading(false);
     }
@@ -82,7 +89,7 @@ const Register: React.FC = () => {
         <div className="text-6xl font-extrabold pt-8">Register</div>
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          {message && <p className="text-1 text-red-500">{message}</p>}
+          {/* {message && <p className="text-1 text-red-500">{message}</p>} */}
           <div className="flex justify-between gap-2 w-full">
             <input
               type="text"

@@ -63,10 +63,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 				navigate("/");
 			} else {
 				setMessage(data.detail);
+				toast.error(data.detail);
 			}
 		} catch (error) {
 			console.log(error);
-			if (error instanceof AxiosError) setMessage(error.response?.data.detail);
+			if (error instanceof AxiosError) {setMessage(error.response?.data.detail)
+				toast.error(error.response?.data.detail);
+			};
 		}
 	};
 

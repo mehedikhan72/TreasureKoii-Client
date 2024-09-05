@@ -182,7 +182,7 @@ const PuzzleOrder = () => {
 													})}
 												</div>
 											) : (
-												<p className="text-2 text-left text-red-800 px-4">Not Set(random order will be applied)</p>
+												<p className="text-1 text-left text-red-800 px-4">Not Set(random order will be applied)</p>
 											)}
 										</div>
 									);
