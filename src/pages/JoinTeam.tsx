@@ -97,7 +97,7 @@ const JoinTeam: React.FC = () => {
             className="flex flex-col justify-center items-center gap-2 w-1/2"
           >
             {messageError && (
-              <p className="text-1 text-red-500 text-center">{messageError}</p>
+              <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">{messageError}</p>
             )}
             {messageSuccess && (
               <>
@@ -120,9 +120,9 @@ const JoinTeam: React.FC = () => {
               placeholder="Enter Team Password"
               value={teamPassword}
               onChange={(e) => setTeamPassword(e.target.value)}
-              className="my-input-field w-full"
+              className="my-input-field"
             />
-            <button type="submit" className="my-btn-1 w-full">
+            <button type="submit" className="my-btn-1">
               Join Team
             </button>
           </form>

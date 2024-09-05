@@ -9,37 +9,29 @@ const MakePayment = () => {
     <div className="flex flex-col justify-center items-center min-h-screen">
       <TreasureKoiiImg />
       <div className="flex-grow">
-        <p className="text-3 text-red-500 m-2">
+        {/* todo - toaster */}
+        {/* <p className="text-3 text-red-500 m-2 ">
           This hunt is not paid for... yet. Follow the procedure below to
           activate this hunt.
-        </p>
-        <div className="my-5 mx-2">
+        </p> */}
+        <p className="text-5">Make Payment</p>
+        <div className="styled-div-1">
           <p className="text-2 text-left">
-            1. Bkash(Send Money) 5000 BDT to this number: 01306231965. In the
-            reference, type "TreasureKoii - Name of this hunt"
+            1. The compensation of organizing this hunt is 5000 BDT.
           </p>
           <p className="text-2 text-left">
-            2. Make a call to this number: 01306231965, letting us know about
-            the transaction.
+            2. Contact us via email at 'mehedi.72.khan@gmail.com' or call us at
+            '+8801306231965' and we will guide you through the payment process.
           </p>
           <p className="text-2 text-left">
-            3. If we do not pick up the phone, please be patient and try again
-            after some time.
+            3. If you can't reach us, please be patient and we will contact you
+            shortly.
           </p>
           <p className="text-2 text-left">
-            4. If you can't reach us, send an email to
-            "mehedi.72.khan@gmail.com" and inform us about your situation.
-            (Include your transaction ID.)
-          </p>
-          <p className="text-2 text-left">
-            5. Once we confirm your payment, we will activate this hunt.
-          </p>
-          <p className="text-2 text-left">
-            6. This entire process may take from a few minutes upto several
-            hours. So please be patient.
+            4. Once you complete the payment and we confirm it, we will activate this hunt.
           </p>
         </div>
-        <p className="text-1">
+        <p className="text-2">
           (Note: You must pay before the hunt begins so you have enough time to
           create puzzles, tweak other settings for this hunt and let people
           create team and participate.)
