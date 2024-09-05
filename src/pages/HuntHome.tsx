@@ -266,9 +266,9 @@ const HuntHome: React.FC = () => {
               )}
 
               {duringHunt && user && (
-                <div>
+                <div className="min-h-screen flex flex-col">
                   {didNotGetPuzzle && (
-                    <div className="flex flex-col justify-center items-center p-4">
+                    <div className="flex flex-col justify-center items-center p-4 flex-grow">
                       <p className="text-2 warning-text">
                         No more puzzles left. Looks like you solved 'em all.
                       </p>
@@ -291,7 +291,7 @@ const HuntHome: React.FC = () => {
                     </div>
                   )}
                   {!correctAnswerGiven && !didNotGetPuzzle && (
-                    <div className="p-4 m-2">
+                    <div className="p-4 m-2 flex-grow">
                       <p className="text-3">Submit Answer</p>
                       <form
                         onSubmit={handleSubmit}
@@ -316,10 +316,10 @@ const HuntHome: React.FC = () => {
                   )}
 
                   {correctAnswerGiven && !didNotGetPuzzle && (
-                    <div className="flex flex-col justify-center items-center p-4">
-                      <p className="text-2 success-text">{message}</p>
+                    <div className="flex flex-col justify-center items-center p-4 flex-grow">
+                      <p className="text-2 success-text mb-2">{message}</p>
                       <button
-                        className="my-btn-1"
+                        className="my-btn-1 mt-2"
                         onClick={() => fetchNewPuzzle()}
                       >
                         Next Puzzle

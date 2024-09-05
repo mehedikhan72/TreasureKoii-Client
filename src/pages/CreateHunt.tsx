@@ -33,7 +33,7 @@ const CreateHunt: React.FC = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [imgFile, setImgFile] = useState<File | null>(null);
   const [imgPreview, setImgPreview] = useState<string | undefined>(undefined);
-  const [skips, setSkips] = useState<number>(0);
+  // const [skips, setSkips] = useState<number>(0);
 
   const [huntSlug, setHuntSlug] = useState<string>("");
 
@@ -46,10 +46,10 @@ const CreateHunt: React.FC = () => {
     setStartDate(date);
   };
 
-  const onSkipsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const val: string = e.target.value;
-    if (/^\d+$/.test(val)) setSkips(parseInt(val));
-  };
+  // const onSkipsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //   const val: string = e.target.value;
+  //   if (/^\d+$/.test(val)) setSkips(parseInt(val));
+  // };
 
   const sluggifyHuntName = () => {
     const slug = huntName
@@ -86,10 +86,10 @@ const CreateHunt: React.FC = () => {
     if (startDate) formData.append("start_date", formatDate(startDate));
     if (endDate) formData.append("end_date", formatDate(endDate));
     if (imgFile) formData.append("poster_img", imgFile as Blob);
-    formData.append("number_of_skips_for_each_team", skips.toString());
+    // formData.append("number_of_skips_for_each_team", skips.toString());
 
     try {
-      const response = await axios.post("hunts/", formData);
+      const response = await axios.post("create-hunt/", formData);
       const data = response.data;
 
       if (response.status === 201) {
@@ -101,7 +101,7 @@ const CreateHunt: React.FC = () => {
         setEndDate(null);
         setImgFile(null);
         setImgPreview(undefined);
-        setSkips(0);
+        // setSkips(0);
         setMessage(null);
         sluggifyHuntName();
         sluggifyHuntName();
@@ -266,7 +266,7 @@ const CreateHunt: React.FC = () => {
               />
             </div>
 
-            <label className="w-full flex items-center">
+            {/* <label className="w-full flex items-center">
               <span className="w-24">Number of Skips</span>
               <input
                 type="number"
@@ -275,7 +275,7 @@ const CreateHunt: React.FC = () => {
                 onChange={onSkipsChange}
                 className="my-input-field w-full flex-1 mr-0"
               />
-            </label>
+            </label> */}
 
             <label className="w-full flex items-center">
               <span className="w-24">Poster Image</span>

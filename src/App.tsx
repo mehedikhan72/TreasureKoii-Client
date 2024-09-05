@@ -22,35 +22,48 @@ import MakePayment from "./pages/MakePayment";
 import UnpaidNotice from "./pages/UnpaidNotice";
 
 const App: React.FC = () => {
+  const bgImage = "tk-bg.webp";
   return (
     <div className="App my-font overflow-x-hidden min-h-screen">
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/create-hunt" element={<CreateHunt />} />
-          <Route path="/:slug/create-puzzle" element={<CreatePuzzle />} />
-          <Route path="/:slug" element={<HuntHome />} />
-          <Route path="/:slug/create-team" element={<CreateTeam />} />
-          <Route path="/:slug/join-team" element={<JoinTeam />} />
-          <Route path="/join-hunt" element={<JoinHunt />} />
+      <div className="relative min-h-screen w-full">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: `url(/${bgImage})` }}
+        ></div>
 
-          <Route path="/:slug/leaderboard" element={<Leaderboard />} />
-          <Route path="/:slug/rules" element={<Rules />} />
-          <Route path="/:slug/announcements" element={<Announcements />} />
-          <Route path="/:slug/organizer-dashboard" element={<Dashboard />} />
-          <Route path="/:slug/puzzle-order" element={<PuzzleOrder />} />
-          <Route
-            path="/youve-been-logged-out"
-            element={<YouveBeenLoggedOut />}
-          />
-          <Route path="/:slug/make-payment" element={<MakePayment />} />
-          <Route path="/:slug/unpaid-notice" element={<UnpaidNotice />} />
+        <div className="relative z-10 ">
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/create-hunt" element={<CreateHunt />} />
+              <Route path="/:slug/create-puzzle" element={<CreatePuzzle />} />
+              <Route path="/:slug" element={<HuntHome />} />
+              <Route path="/:slug/create-team" element={<CreateTeam />} />
+              <Route path="/:slug/join-team" element={<JoinTeam />} />
+              <Route path="/join-hunt" element={<JoinHunt />} />
 
-          <Route path="*" element={<Custom404 />} />
-        </Routes>
-      </AuthProvider>
+              <Route path="/:slug/leaderboard" element={<Leaderboard />} />
+              <Route path="/:slug/rules" element={<Rules />} />
+              <Route path="/:slug/announcements" element={<Announcements />} />
+              <Route
+                path="/:slug/organizer-dashboard"
+                element={<Dashboard />}
+              />
+              <Route path="/:slug/puzzle-order" element={<PuzzleOrder />} />
+              <Route
+                path="/youve-been-logged-out"
+                element={<YouveBeenLoggedOut />}
+              />
+              <Route path="/:slug/make-payment" element={<MakePayment />} />
+              <Route path="/:slug/unpaid-notice" element={<UnpaidNotice />} />
+
+              <Route path="*" element={<Custom404 />} />
+            </Routes>
+          </AuthProvider>
+        </div>
+      </div>
     </div>
   );
 };

@@ -21,6 +21,7 @@ const Home: React.FC = () => {
     return null;
   }
   const { user } = constextData;
+  const homeImg = 'thunt-home.webp';
   return (
     <>
       <div>
@@ -33,7 +34,7 @@ const Home: React.FC = () => {
 
       <div className="flex justify-center items-center mt-5">
         <img
-          src="https://escapetrails.co/wp-content/uploads/2020/03/Treasure-hunt.jpg"
+          src={homeImg}
           className="w-5/6 md:w-1/2 rounded-xl"
           alt="treasure hunt"
         />
