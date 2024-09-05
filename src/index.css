@@ -11,28 +11,32 @@
 		@apply bg-gray-900 text-white;
 	}
 
+	.text-0{
+		@apply text-sm text-center p-1;
+	}
+
 	.text-1 {
-		@apply text-lg font-bold text-center p-2;
+		@apply text-base text-center p-1;
 	}
 
 	.text-2 {
-		@apply text-xl font-bold text-center p-2;
+		@apply text-lg font-bold text-center p-1;
 	}
 
 	.text-3 {
-		@apply text-2xl font-bold text-center p-2;
+		@apply text-xl font-bold text-center p-1;
 	}
 
 	.text-4 {
-		@apply text-3xl font-bold text-center p-2;
+		@apply text-2xl font-bold text-center p-1;
 	}
 
 	.text-5 {
-		@apply text-4xl font-bold text-center p-2;
+		@apply text-3xl font-bold text-center p-1;
 	}
 
 	.text-6 {
-		@apply text-5xl font-bold text-center p-2;
+		@apply text-4xl font-bold text-center p-1;
 	}
 
 	.my-btn-1 {
@@ -64,6 +68,6 @@
 	}
 
 	.styled-div-1 {
-		@apply bg-amber-600 p-2 m-2 rounded-md w-full;
+		@apply bg-[#CAA785] bg-opacity-30 border-2 border-black p-2 mx-2 md:mx-8 my-2 rounded-md;
 	}
 }

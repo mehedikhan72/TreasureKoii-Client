@@ -27,8 +27,10 @@ const App: React.FC = () => {
     <div className="App my-font overflow-x-hidden min-h-screen">
       <div className="relative min-h-screen w-full">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-          style={{ backgroundImage: `url(/${bgImage})` }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-100"
+          style={{ backgroundImage: `url(/${bgImage})`,
+            backgroundPosition: "center",
+           }}
         ></div>
 
         <div className="relative z-10">
