@@ -155,7 +155,7 @@ const Dashboard: React.FC = () => {
       )}
       {userAnOrganizer && (
         <div>
-          <p className="text-3">
+          <p className="text-3 lg:text-4">
             Hi, {user?.first_name} {user?.last_name}! Welcome to the organizer
             dashboard.
           </p>
@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
 
             {/* Add announcements Div */}
             <div className="m-10">
-              <p className="text-2">
+              <p className="text-2 lg:text-3">
                 Add an announcement!(designed for 'during the hunt' phase)
               </p>
               <form
@@ -179,6 +179,7 @@ const Dashboard: React.FC = () => {
                 onSubmit={announcementAdded}
               >
                 <input
+                  required
                   type="text"
                   name="announcement"
                   placeholder="Announcement"
@@ -197,7 +198,7 @@ const Dashboard: React.FC = () => {
 
             {/* Add rule div */}
             <div className="m-10">
-              <p className="text-2">
+              <p className="text-2 lg:text-3">
                 Add a rule!(designed for 'before the hunt' phase)
               </p>
               <form
@@ -208,6 +209,7 @@ const Dashboard: React.FC = () => {
                   type="text"
                   name="rules"
                   placeholder="Rules"
+                  required
                   value={rule}
                   onChange={(e) => setRule(e.target.value)}
                   className="my-input-field w-[300px] md:w-[500px]"
@@ -223,12 +225,15 @@ const Dashboard: React.FC = () => {
 
             {/* Add more organizers div */}
             <div className="m-10">
-              <p className="text-2">Add more organizers to this hunt!</p>
+              <p className="text-2 lg:text-3">
+                Add more organizers to this hunt!
+              </p>
               <form
                 className="flex flex-col justify-center items-center"
                 onSubmit={addOrganizers}
               >
                 <input
+                  required
                   type="text"
                   name="emails"
                   placeholder="Emails of organizers(comma separated)"
@@ -236,7 +241,7 @@ const Dashboard: React.FC = () => {
                   onChange={(e) => setEmails(e.target.value.split(","))}
                   className="my-input-field w-[300px] md:w-[500px]"
                 />
-                <p className="text-1">
+                <p className="text-2">
                   (Note: The organizers must have an account on this website.
                   Seperate the emails with a comma, only. no other spaces.
                   Example - a@gmail.com,b@gmail.com,c@gmail.com)

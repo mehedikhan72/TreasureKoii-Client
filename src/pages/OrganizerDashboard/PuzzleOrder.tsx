@@ -88,7 +88,7 @@ const PuzzleOrder = () => {
         if (response.status === 200) {
           setPuzzles(data);
         }
-        // console.log(response);
+        console.log(data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -152,7 +152,7 @@ const PuzzleOrder = () => {
         </div>
       )}
       {userAnOrganizer && userDataLoaded && (
-        <div>
+        <div className="max-w-5xl flex mx-auto">
           {allTeamsData.length === 0 && (
             <div>
               <p className="text-2">
@@ -164,14 +164,14 @@ const PuzzleOrder = () => {
           {allTeamsData.length > 0 && (
             <div>
               <p className="text-3">Here's the current puzzle order list</p>
-              <p className="text-1">
+              <p className="text-1 md:text-lg">
                 (The list have the IDs of the puzzles(in the database), not
                 necessarily the serial you put them in.)
               </p>
-              <div className="m-2 sm:m-8 bg-slate-200 rounded-md">
+              <div className="m-2 sm:m-8 rounded-md">
                 {allTeamsData.map((teamData, index) => {
                   return (
-                    <div className="flex flex-col items-left border border-gray-500">
+                    <div className="flex flex-col items-left styled-div-1 ">
                       <p className="text-1 text-left">
                         Team : {teamData.team_name}, Team ID: {teamData.team_id}
                         , Team leader : {teamData.team_leader}
@@ -190,7 +190,7 @@ const PuzzleOrder = () => {
                             })}
                           </div>
                         ) : (
-                          <p className="text-2 text-red-500">
+                          <p className="text-2 text-left text-red-800">
                             Not Set(random order will be applied)
                           </p>
                         )}
@@ -202,7 +202,7 @@ const PuzzleOrder = () => {
 
               <div>
                 <p className="text-2">Update Puzzle Order</p>
-                <p className="text-1">
+                <p className="text-1 md:text-lg">
                   (Puzzle order must be a list of puzzle IDs. Don't have any
                   commas(,) in the list. Example Order: 45,49,50,46,48,47. Check
                   below to get the IDs of your puzzles.)
@@ -238,10 +238,10 @@ const PuzzleOrder = () => {
 
               <div className="my-4">
                 <p className="text-3">Puzzles of this hunt</p>
-                <div className="m-2 sm:m-8 bg-slate-200 rounded-md">
+                <div className="m-2 sm:m-8 rounded-md">
                   {puzzles.map((puzzle, index) => {
                     return (
-                      <div className="flex justify-left items-center border border-gray-500">
+                      <div className="flex justify-left items-center border styled-div-1">
                         <p className="text-1">
                           Puzzle Name : {puzzle.name}, Puzzle ID: {puzzle.id}
                         </p>
