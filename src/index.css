@@ -56,11 +56,11 @@ input:-webkit-autofill:active {
 	}
 
 	.link-1 {
-		@apply hover:underline hover:text-blue-700 underline font-bold px-8 py-2 hover:scale-125 transition duration-75;
+		@apply hover:underline font-bold px-8 py-2 hover:scale-125 transition duration-75;
 	}
 
 	.link-2 {
-		@apply hover:underline hover:text-blue-700 underline font-bold px-6 py-2 text-2xl hover:scale-125 transition duration-75;
+		@apply hover:underline font-bold px-6 py-2 text-2xl hover:scale-125 transition duration-75;
 	}
 
 	.warning-text {

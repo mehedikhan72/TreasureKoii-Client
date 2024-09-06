@@ -289,11 +289,11 @@ const HuntHome: React.FC = () => {
                 <div className="min-h-screen flex flex-col">
                   {didNotGetPuzzle && (
                     <div className="flex flex-col justify-center items-center p-4 flex-grow">
-                      <p className="text-2">
+                      <p className="text-2 stroked-text-sm">
                         No more puzzles left. Looks like you solved 'em all.
                         {/* {toast.info("No more puzzles left. Looks like you solved 'em all.")} */}
                       </p>
-                      <p className="text-1">
+                      <p className="text-1 stroked-text-sm">
                         Refresh this page to verify again.
                       </p>
                     </div>
@@ -301,9 +301,9 @@ const HuntHome: React.FC = () => {
 
                   {!didNotGetPuzzle && !correctAnswerGiven && (
                     <div className="p-4">
-                      <p className="text-3">Your Current Puzzle</p>
-                      <p className="text-2">{puzzle?.name}</p>
-                      <p className="text-1 mb-4">{puzzle?.description}</p>
+                      <p className="text-1 stroked-text-sm">Your Current Puzzle</p>
+                      <p className="text-2 stroked-text-sm">{puzzle?.name}</p>
+                      <p className="text-1 stroked-text-sm mb-4">{puzzle?.description}</p>
                       <ShowImages
                         key={imageUrl}
                         url={imageUrl}
@@ -313,7 +313,7 @@ const HuntHome: React.FC = () => {
                   )}
                   {!correctAnswerGiven && !didNotGetPuzzle && (
                     <div className="p-4 m-2 flex-grow">
-                      <p className="text-3">Submit Answer</p>
+                      <p className="text-3 stroked-text-sm">Submit Answer</p>
                       <form
                         onSubmit={handleSubmit}
                         className="flex flex-col justify-center items-center"
@@ -341,7 +341,7 @@ const HuntHome: React.FC = () => {
                   {correctAnswerGiven && !didNotGetPuzzle && (
                     <div className="flex flex-col justify-center items-center p-4 flex-grow">
                       <div className="">
-                        <p className="text-4 mb-2">{message}</p>
+                        <p className="text-4 mb-2 stroked-text-sm">{message}</p>
                       </div>
 
                       <button

@@ -33,8 +33,8 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       {hunt && (
         <>
           <div className="flex flex-col justify-center items-center mt-20 mb-10 mx-10">
-            <div className="text-5">{hunt.name}</div>
-            <div className="text-1 my-2">{`${new Date(
+            <div className="text-5 stroked-text-sm">{hunt.name}</div>
+            <div className="text-1 my-2 stroked-text-sm">{`${new Date(
               hunt.start_date
             ).toDateString()} - ${new Date(
               hunt.end_date
@@ -48,13 +48,13 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
               <Countdown
                 date={new Date(hunt.start_date)}
                 zeroPadDays={2}
-                className="text-5 my-4"
+                className="text-5 my-4 stroked-text-sm"
               >
                 <span>The Hunt Has Commenced</span>
               </Countdown>
             </div>
 
-            <div className="text-1">{hunt.description}</div>
+            <div className="text-1 stroked-text-sm">{hunt.description}</div>
           </div>
           <div className="flex justify-center m-4">
             <Link to={{ pathname: `/${slug}/create-team/` }}>
@@ -66,7 +66,7 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
           </div>
           {rules?.length !== 0 && (
             <div>
-              <p className="text-2 my-5 ">
+              <p className="text-1 my-5 stroked-text-sm">
                 We expect that you follow a set a of ruless. The organizers have
                 complete authority to add, delete and/or change any rule at any
                 given time.

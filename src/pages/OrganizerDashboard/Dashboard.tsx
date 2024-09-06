@@ -145,7 +145,7 @@ const Dashboard: React.FC = () => {
 
       {!userAnOrganizer && userDataLoaded && (
         <div className="flex flex-col justify-center items-center">
-          <p className="text-2">You are not an organizer of this hunt.</p>
+          <p className="text-2 stroked-text-sm">You are not an organizer of this hunt.</p>
           <Link to={{ pathname: `/${slug}` }}>
             <button className="btn btn-primary my-btn-1">
               Go to hunt home
@@ -155,7 +155,7 @@ const Dashboard: React.FC = () => {
       )}
       {userAnOrganizer && (
         <div>
-          <p className="text-3 lg:text-4">
+          <p className="text-3 lg:text-4 stroked-text-sm">
             Hi, {user?.first_name} {user?.last_name}! Welcome to the organizer
             dashboard.
           </p>
@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
 
             {/* Add announcements Div */}
             <div className="m-10">
-              <p className="text-2 lg:text-3">
+              <p className="text-2 lg:text-3 stroked-text-sm">
                 Add an announcement!(designed for 'during the hunt' phase)
               </p>
               <form
@@ -198,7 +198,7 @@ const Dashboard: React.FC = () => {
 
             {/* Add rule div */}
             <div className="m-10">
-              <p className="text-2 lg:text-3">
+              <p className="text-2 lg:text-3 stroked-text-sm">
                 Add a rule!(designed for 'before the hunt' phase)
               </p>
               <form
@@ -225,7 +225,7 @@ const Dashboard: React.FC = () => {
 
             {/* Add more organizers div */}
             <div className="m-10">
-              <p className="text-2 lg:text-3">
+              <p className="text-2 lg:text-3 stroked-text-sm">
                 Add more organizers to this hunt!
               </p>
               <form
@@ -236,12 +236,12 @@ const Dashboard: React.FC = () => {
                   required
                   type="text"
                   name="emails"
-                  placeholder="Emails of organizers(comma separated)"
+                  placeholder="Emails of organizers"
                   value={emails}
                   onChange={(e) => setEmails(e.target.value.split(","))}
                   className="my-input-field w-[300px] md:w-[500px]"
                 />
-                <p className="text-2">
+                <p className="text-2 stroked-text-sm">
                   (Note: The organizers must have an account on this website.
                   Seperate the emails with a comma, only. no other spaces.
                   Example - a@gmail.com,b@gmail.com,c@gmail.com)
