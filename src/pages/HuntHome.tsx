@@ -19,6 +19,7 @@ import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
 import Home from "./Home";
 import HomeFooter from "../components/HomeFooter";
+import Dashboard from "./OrganizerDashboard/Dashboard";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -233,21 +234,26 @@ const HuntHome: React.FC = () => {
             <div>
               {afterHunt && <AfterHunt hunt={hunt} />}
               {!afterHunt && (
-                <div className="flex flex-col min-h-screen">
-                  <div className="flex-grow">
-                    <HuntNav slug={slug} huntName={hunt?.name} />
-                    <div className="flex justify-center items-center flex-col">
-                      <p className="text-3">
-                        You are an organizer of this hunt.
-                      </p>
-                      <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
-                        <button className="my-btn-1">
-                          Organizer Dashboard
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
+                // <div className="flex flex-col min-h-screen">
+                //   <div className="flex-grow">
+                //     <HuntNav slug={slug} huntName={hunt?.name} />
+                //     <div className="flex justify-center items-center flex-col">
+                //       <p className="text-3">
+                //         You are an organizer of this hunt.
+                //       </p>
+                //       <Link to={{ pathname: `/${slug}/organizer-dashboard` }}>
+                //         <button className="my-btn-1">
+                //           Organizer Dashboard
+                //         </button>
+                //       </Link>
+                //     </div>
+                //   </div>
 
+                //   <HomeFooter />
+                // </div>
+
+                <div>
+                  <Dashboard />
                   <HomeFooter />
                 </div>
               )}

@@ -48,11 +48,11 @@ input:-webkit-autofill:active {
 	}
 
 	.my-btn-1 {
-		@apply bg-yellow-500 text-black bg-opacity-70 border-black border-2 font-bold p-2 m-2 rounded shadow-lg hover:bg-yellow-500 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
+		@apply bg-yellow-500 text-black bg-opacity-70 border-black border-2 font-bold p-2 m-2 rounded shadow-lg hover:bg-yellow-500 text-sm md:text-base w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
 	}
 
 	.my-btn-sm {
-		@apply bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-bold py-1 px-4 rounded-md m-1;
+		@apply bg-yellow-500 text-black bg-opacity-70 border-black border-2 text-sm font-bold p-1 m-1 rounded shadow-lg hover:bg-yellow-500 w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
 	}
 
 	.link-1 {
@@ -72,7 +72,7 @@ input:-webkit-autofill:active {
 	}
 
 	.my-input-field {
-		@apply border-2 border-black bg-[#f0cead] bg-opacity-70 text-black placeholder-black outline-none rounded-md p-2 m-2 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] font-bold text-2xl max-w-2xl;
+		@apply border-2 border-black bg-[#f0cead] bg-opacity-70 text-black placeholder-black outline-none rounded-md p-2 m-2 w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] font-bold text-2xl max-w-2xl;
 	}
 
 	.styled-div-1 {
