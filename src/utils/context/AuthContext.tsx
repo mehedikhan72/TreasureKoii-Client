@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, FC } from "react";
 import { JwtPayload } from "jwt-decode";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContextProps, AuthProviderProps, AuthTokens } from "../../types";
 import axios from "../axios/AxiosSetup";
 import { AxiosError } from "axios";
@@ -13,6 +13,8 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export default AuthContext;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+	const { pathname } = useLocation();
+
 	const [authTokens, setAuthTokens] = useState<AuthTokens | null>(
 		localStorage.getItem("authTokens") ? JSON.parse(localStorage.getItem("authTokens") as string) : null
 	);
@@ -67,9 +69,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 			}
 		} catch (error) {
 			console.log(error);
-			if (error instanceof AxiosError) {setMessage(error.response?.data.detail)
+			if (error instanceof AxiosError) {
+				setMessage(error.response?.data.detail);
 				toast.error(error.response?.data.detail);
-			};
+			}
 		}
 	};
 
@@ -147,7 +150,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 				// window.location.reload();
 			}
 		}
-	}, [authTokens]);
+	}, [authTokens, pathname]);
 
 	const [contextData, setContextData] = useState<AuthContextProps>({
 		message,

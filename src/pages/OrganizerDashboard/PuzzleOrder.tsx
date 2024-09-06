@@ -5,6 +5,7 @@ import { Hunt, TeamData, Puzzle } from "../../types";
 import axios from "../../utils/axios/AxiosSetup";
 import AuthContext from "../../utils/context/AuthContext";
 import Loading from "../../utils/Loading";
+import { toast } from "react-toastify";
 
 const PuzzleOrder = () => {
 	const { slug } = useParams();
@@ -86,7 +87,7 @@ const PuzzleOrder = () => {
 				if (response.status === 200) {
 					setPuzzles(data);
 				}
-				console.log(data);
+				// console.log(data);
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -104,8 +105,6 @@ const PuzzleOrder = () => {
 
 	const puzzleOrderUpdated = async (e: React.FormEvent<HTMLFormElement>) => {
 		setLoading(true);
-		setMessage(null);
-		setUpdatePuzzleOrderMessage("");
 		e.preventDefault();
 		const list = puzzleOrder.split(",").map((item) => parseInt(item));
 		try {
@@ -114,17 +113,16 @@ const PuzzleOrder = () => {
 			});
 			const data = response.data;
 			if (response.status === 201) {
-				setUpdatePuzzleOrderMessage("Puzzle order updated successfully");
+				toast.success("Puzzle order updated successfully");
 				setTeamId("");
 				setPuzzleOrder("");
-				setMessage(null);
 			} else {
-				setUpdatePuzzleOrderMessage(data.error);
+				toast.error(data.error);
 			}
 			// console.log(response);
 		} catch (error) {
 			console.log(error);
-			setMessage("Invalid Puzzle Order. Please check the puzzle IDs and try again.");
+			toast.error("Invalid Puzzle Order. Please check the puzzle IDs and try again.");
 		} finally {
 			setLoading(false);
 		}
@@ -153,49 +151,55 @@ const PuzzleOrder = () => {
 					)}
 					{allTeamsData.length > 0 && (
 						<div>
-							<p className="text-4 text-white text-stroke-[4px]">Here's the current puzzle order list</p>
-							<p className="text-1 text-white text-stroke-1 md:text-lg">
-								(The list have the IDs of the puzzles(in the database), not necessarily the serial you put them in.)
-							</p>
-							<div className="m-2 sm:m-8 rounded-md grid grid-cols-[auto_1fr_1fr_1fr] styled-div-1 px-4">
-								<div className="grid grid-cols-subgrid col-span-full text-center [&>*]:py-3 font-bold">
-									<div className="border-r border-r-black pr-4">Team ID</div>
-									<div className="border-r border-r-black px-4">Team Name</div>
-									<div className="border-r border-r-black px-4">Team Leader</div>
-									<div>Puzzle (IDs) Order</div>
+							<div className=" mt-8">
+								<p className="text-3 stroked-text-md">Here's the current puzzle order list</p>
+								<p className="text-1 stroked-text-md md:text-lg">
+									(The list have the IDs of the puzzles(in the database), not necessarily the serial you put them in.)
+								</p>
+								<div className="m-2 sm:my-4 rounded-md grid grid-cols-[auto_1fr_1fr_1fr] max-sm:grid-cols-[auto_1fr_1fr] styled-div-1 p-0 [&>*>*]:px-4">
+									<div className="grid grid-cols-subgrid col-span-full text-center py-2 pt-4 rounded-t font-bold border-b border-b-black mb-2 bg-prim bg-opacity-70">
+										<div>Team ID</div>
+										<div>Team Name</div>
+										<div>Team Leader</div>
+										<div className="max-sm:hidden">Puzzle (IDs) Order</div>
+									</div>
+									{allTeamsData.map((teamData, index) => {
+										return (
+											<div
+												className="grid grid-cols-subgrid col-span-full text-center py-2 odd:bg-prim odd:bg-opacity-50 last:rounded-b place-items-center gap-y-2"
+												key={teamData.team_id}
+											>
+												<div>{teamData.team_id}</div>
+												<div>{teamData.team_name}</div>
+												<div>{teamData.team_leader}</div>
+												{teamData.team_puzzle_order.length > 0 ? (
+													<div className="flex flex-wrap justify-center max-sm:justify-start w-full max-sm:col-span-full max-sm:text-sm">
+														<p className="sm:hidden mr-4 font-semibold">Puzzle (IDs) Order:</p>
+														{teamData.team_puzzle_order.map((puzzleId, index) => {
+															return (
+																<p className="text-1" key={`${teamData.team_id}-${puzzleId}`}>
+																	{puzzleId}
+																	{index + 1 !== teamData.team_puzzle_order.length && ","}
+																</p>
+															);
+														})}
+													</div>
+												) : (
+													<p className="text-1 text-left text-red-800 px-4">Not Set(random order will be applied)</p>
+												)}
+											</div>
+										);
+									})}
 								</div>
-								{allTeamsData.map((teamData, index) => {
-									return (
-										<div className="grid grid-cols-subgrid col-span-full text-center [&>*]:py-2" key={teamData.team_id}>
-											<div className="border-r border-r-black pr-4">{teamData.team_id}</div>
-											<div className="border-r border-r-black px-4">{teamData.team_name}</div>
-											<div className="border-r border-r-black px-4">{teamData.team_leader}</div>
-											{teamData.team_puzzle_order.length > 0 ? (
-												<div className="flex flex-wrap items-left justify-center px-4">
-													{teamData.team_puzzle_order.map((puzzleId, index) => {
-														return (
-															<p className="text-1" key={`${teamData.team_id}-${puzzleId}`}>
-																{puzzleId}
-																{index + 1 !== teamData.team_puzzle_order.length && ","}
-															</p>
-														);
-													})}
-												</div>
-											) : (
-												<p className="text-1 text-left text-red-800 px-4">Not Set(random order will be applied)</p>
-											)}
-										</div>
-									);
-								})}
 							</div>
 
-							<div>
-								<p className="text-2">Update Puzzle Order</p>
-								<p className="text-1 md:text-lg">
+							<div className="mt-16">
+								<p className="text-2 stroked-text-md">Update Puzzle Order</p>
+								<p className="text-1 stroked-text-md md:text-lg">
 									(Puzzle order must be a list of puzzle IDs. Don't have any commas(,) in the list. Example Order:
 									45,49,50,46,48,47. Check below to get the IDs of your puzzles.)
 								</p>
-								<form onSubmit={puzzleOrderUpdated}>
+								<form onSubmit={puzzleOrderUpdated} className="mt-2">
 									<div className="flex flex-col justify-center items-center">
 										<input
 											type="text"
@@ -224,19 +228,22 @@ const PuzzleOrder = () => {
 
 							{/* Puzzle info(IDS) */}
 
-							<div className="my-4 max-w-[40rem] mx-auto">
-								<p className="text-4">Puzzles of this hunt</p>
-								<div className="m-2 sm:m-8 rounded-md grid grid-cols-[auto_1fr_auto] styled-div-1 px-4">
-									<div className="grid grid-cols-subgrid col-span-full justify-items-center [&>*]:py-3 font-bold">
-										<div>ID</div>
-										<div className="justify-self-stretch mx-4 px-4 border-x-black border-x">Name</div>
-										<div>Points</div>
+							<div className="mt-16 max-w-[40rem] mx-auto">
+								<p className="text-4 stroked-text-md">Puzzles of this hunt</p>
+								<div className="m-2 sm:m-4 rounded-md grid grid-cols-[auto_1fr_auto] styled-div-1 p-0 [&>*>*]:px-4 text-center">
+									<div className="grid grid-cols-subgrid col-span-full text-center py-2 pt-4 rounded-t font-bold border-b border-b-black mb-2 bg-prim bg-opacity-70 ">
+										<div className="!px-8">ID</div>
+										<div>Name</div>
+										<div className="!px-8">Points</div>
 									</div>
 									{puzzles.map((puzzle, index) => {
 										return (
-											<div className="grid grid-cols-subgrid col-span-full justify-items-center [&>*]:py-1">
+											<div
+												className="grid grid-cols-subgrid col-span-full text-center py-1 odd:bg-prim odd:bg-opacity-50 last:rounded-b"
+												key={puzzle.id}
+											>
 												<div>{puzzle.id}</div>
-												<div className="justify-self-stretch mx-4 px-4 border-x-black border-x">{puzzle.name}</div>
+												<div>{puzzle.name}</div>
 												<div>{puzzle.points}</div>
 											</div>
 										);
