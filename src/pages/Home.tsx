@@ -59,7 +59,6 @@ const Home: React.FC = () => {
 				</div>
 			</div>
 			<OrganizingHunts />
-			<RegisteredHunts />
 			<RecentlyHosted />
 			<HomeFooter />
 		</>
