@@ -20,6 +20,7 @@ import Loading from "../utils/Loading";
 import Home from "./Home";
 import HomeFooter from "../components/HomeFooter";
 import Dashboard from "./OrganizerDashboard/Dashboard";
+import { toast } from "react-toastify";
 
 const HuntHome: React.FC = () => {
   const { slug } = useParams();
@@ -178,9 +179,11 @@ const HuntHome: React.FC = () => {
         if (data.success) {
           setCorrectAnswerGiven(true);
           setMessage(data.success);
+          toast.success(data.success);
         } else {
           setWrongAnswerGiven(true);
           setMessage(data.error);
+          toast.error(data.error);
         }
       }
       setLoading(false);
@@ -188,6 +191,7 @@ const HuntHome: React.FC = () => {
     } catch (error) {
       const axiosError = error as AxiosError;
       setMessage((axiosError.response?.data as { error: string })?.error);
+      toast.error((axiosError.response?.data as { error: string })?.error);
       setWrongAnswerGiven(true);
       setLoading(false);
       console.log(error);
@@ -212,6 +216,7 @@ const HuntHome: React.FC = () => {
       setLoading(false);
       const axiosError = error as AxiosError;
       setMessage((axiosError.response?.data as { error: string })?.error);
+      toast.error((axiosError.response?.data as { error: string })?.error);
       console.log(error);
     }
   };
@@ -311,11 +316,11 @@ const HuntHome: React.FC = () => {
                           value={answer}
                           onChange={(e) => setAnswer(e.target.value)}
                         />
-                        {wrongAnswerGiven && (
+                        {/* {wrongAnswerGiven && (
                           <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
                             {message}
                           </p>
-                        )}
+                        )} */}
                         <button className="my-btn-1" type="submit">
                           Submit
                         </button>
@@ -325,7 +330,7 @@ const HuntHome: React.FC = () => {
 
                   {correctAnswerGiven && !didNotGetPuzzle && (
                     <div className="flex flex-col justify-center items-center p-4 flex-grow">
-                      <div className="styled-div-1">
+                      <div className="">
                         <p className="text-4 mb-2">{message}</p>
                       </div>
 
