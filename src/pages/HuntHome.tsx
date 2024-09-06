@@ -102,6 +102,7 @@ const HuntHome: React.FC = () => {
         console.log(error);
         setDidNotGetPuzzle(true);
         setPuzzleLoaded(true);
+        toast.info("No more puzzles left. Looks like you solved 'em all.");
       }
     };
 
@@ -209,14 +210,22 @@ const HuntHome: React.FC = () => {
         setAnswer("");
         setCorrectAnswerGiven(false);
         setWrongAnswerGiven(false);
+        console.log(data);
       }
       setLoading(false);
+      console.log(data);
     } catch (error) {
       setDidNotGetPuzzle(true);
       setLoading(false);
       const axiosError = error as AxiosError;
+      const errorMsg = (axiosError.response?.data as { error: string })?.error;
       setMessage((axiosError.response?.data as { error: string })?.error);
-      toast.error((axiosError.response?.data as { error: string })?.error);
+      if (errorMsg === "No more puzzles left to skip.") {
+        toast.info("No more puzzles left. Looks like you solved 'em all.");
+      } else {
+        toast.error((axiosError.response?.data as { error: string })?.error);
+      }
+
       console.log(error);
     }
   };
@@ -280,8 +289,9 @@ const HuntHome: React.FC = () => {
                 <div className="min-h-screen flex flex-col">
                   {didNotGetPuzzle && (
                     <div className="flex flex-col justify-center items-center p-4 flex-grow">
-                      <p className="text-2 warning-text">
+                      <p className="text-2">
                         No more puzzles left. Looks like you solved 'em all.
+                        {/* {toast.info("No more puzzles left. Looks like you solved 'em all.")} */}
                       </p>
                       <p className="text-1">
                         Refresh this page to verify again.
