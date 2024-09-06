@@ -5,6 +5,7 @@ import { Hunt } from "../types";
 import HuntNav from "../components/HuntNav";
 import LeaderboardTable from "../components/LeaderboardTable";
 import Loading from "../utils/Loading";
+import HomeFooter from "../components/HomeFooter";
 
 const Leaderboard: React.FC = () => {
   const { slug } = useParams();
@@ -59,10 +60,13 @@ const Leaderboard: React.FC = () => {
   }, [slug]);
 
   return (
-    <div className="overflow-x-hidden">
-      {(huntLoading || leaderboardLoading) && <Loading />}
-      <HuntNav slug={slug} huntName={hunt?.name} />
-      <LeaderboardTable leaderBoard={leaderBoard} />
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow overflow-x-hidden">
+        {(huntLoading || leaderboardLoading) && <Loading />}
+        <HuntNav slug={slug} huntName={hunt?.name} />
+        <LeaderboardTable leaderBoard={leaderBoard} />
+      </div>
+      <HomeFooter />
     </div>
   );
 };
