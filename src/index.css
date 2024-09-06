@@ -52,7 +52,7 @@ input:-webkit-autofill:active {
 	}
 
 	.my-btn-sm {
-		@apply bg-yellow-500 text-black bg-opacity-80 border-black border-2 text-sm font-bold p-1 m-1 rounded shadow-lg hover:bg-yellow-500 w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
+		@apply bg-yellow-500 text-black bg-opacity-80 border-black border-2 text-sm font-bold p-1 m-1 rounded shadow-lg hover:bg-yellow-500 w-[140px] sm:w-[180px] md:w-[220px] lg:w-[250px] max-w-xl;
 	}
 
 	.link-1 {
