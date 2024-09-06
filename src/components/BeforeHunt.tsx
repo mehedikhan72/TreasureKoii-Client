@@ -44,10 +44,10 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
               alt="Hunt"
               className="w-4/5 max-h-96 object-contain my-5"
             />
-            <div>
+            <div> 
               <Countdown
                 date={new Date(hunt.start_date)}
-                zeroPadDays={3}
+                zeroPadDays={2}
                 className="text-5 my-4"
               >
                 <span>The Hunt Has Commenced</span>
@@ -71,7 +71,7 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
                 complete authority to add, delete and/or change any rule at any
                 given time.
               </p>
-              <div className="p-2 ml-2 sm:ml-10 md:ml-20">
+              <div className="styled-div-1">
                 {rules?.map((rule, index) => (
                   <div key={rule.id}>
                     <p className="text-1 text-left">

@@ -76,7 +76,7 @@ const ShowImages: React.FC<{ url: string | null; imageInterval: number }> = ({
               <img
                 src={`${rootUrl}${images[currentIndex].image}`}
                 alt="puzzle img"
-                className="h-full w-full object-contain rounded-md bg-white"
+                className="h-full w-full object-contain rounded-md bg-[#f0cead] bg-opacity-50"
               />
             </div>
           </div>

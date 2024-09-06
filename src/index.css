@@ -24,7 +24,7 @@ input:-webkit-autofill:active {
 	}
 
 	.text-1 {
-		@apply text-base text-center p-1;
+		@apply text-base text-center px-1;
 	}
 
 	.text-2 {
@@ -76,6 +76,6 @@ input:-webkit-autofill:active {
 	}
 
 	.styled-div-1 {
-		@apply bg-[#f0cead] bg-opacity-70 border-2 border-black p-2 mx-2 md:mx-8 my-2 rounded-md;
+		@apply bg-[#f0cead] bg-opacity-40 border-2 border-black p-2 mx-2 md:mx-8 my-2 rounded-md;
 	}
 }

@@ -140,23 +140,23 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
               </div>
             )}
 
-            <div className="text-2 text-center">
+            <p className="text-2 text-center">
               Hunt has ended. Here's a summary!
-            </div>
-            <div className="text-5">{hunt.name}</div>
-            <div className="text-1 my-2">{`${new Date(
+            </p>
+            <p className="text-5">{hunt.name}</p>
+            <p className="text-1 my-2">{`${new Date(
               hunt.start_date
             ).toDateString()} - ${new Date(
               hunt.end_date
-            ).toDateString()}`}</div>
+            ).toDateString()}`}</p>
             <img
               src={hunt.poster_img}
               alt="Hunt"
               className="w-full max-h-96 object-contain my-5"
             />
-            <div className="text-1">{hunt.description}</div>
+            <p className="text-1">{hunt.description}</p>
           </div>
-          <div className="mt-16 bg-slate-200">
+          <div className="mt-16">
             <p className="text-3 py-8">Look back at the memories! </p>
             <ShowImages url={`${slug}/get-hunt-images/`} imageInterval={2000} />
           </div>

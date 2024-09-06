@@ -279,10 +279,10 @@ const HuntHome: React.FC = () => {
                   )}
 
                   {!didNotGetPuzzle && !correctAnswerGiven && (
-                    <div className="p-4 styled-div-1 rounded-md">
+                    <div className="p-4">
                       <p className="text-3">Your Current Puzzle</p>
                       <p className="text-2">{puzzle?.name}</p>
-                      <p className="text-1">{puzzle?.description}</p>
+                      <p className="text-1 mb-4">{puzzle?.description}</p>
                       <ShowImages
                         key={imageUrl}
                         url={imageUrl}
