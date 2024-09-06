@@ -95,8 +95,8 @@ const JoinTeam: React.FC = () => {
       )}
       {user && (
         <div className="flex flex-col my-28 items-center gap-5 flex-1">
-          <div className="text-4xl font-extrabold">Join Team :</div>
-          {hunt && <div className="text-3xl">{hunt.name}</div>}
+          {hunt && <p className="text-5 stroked-text-md">{hunt.name}</p>}
+          <p className="text-2 font-extrabold stroked-text-sm">Join Team </p>
           <form
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center gap-2 w-1/2"

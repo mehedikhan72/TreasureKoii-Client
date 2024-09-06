@@ -95,9 +95,8 @@ const CreateTeam: React.FC = () => {
 
       {user && (
         <div className="flex flex-col my-28 items-center gap-5 flex-1">
-          <div className="text-4">Create A Team</div>
-          {hunt && <div className="text-3xl">{hunt.name}</div>}
-
+          {hunt && <div className="text-5 stroked-text-md">{hunt.name}</div>}
+          <div className="text-2 stroked-text-sm">Create A Team</div>
           {/* {message && (
             <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
               {message}

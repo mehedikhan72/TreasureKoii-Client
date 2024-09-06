@@ -29,7 +29,7 @@ const Login: React.FC = () => {
       </div>
 
       <div className="flex flex-col justify-center items-center gap-10 flex-1">
-        <div className="text-6xl font-extrabold pt-8">Login</div>
+        <div className="text-6 stroked-text-md pt-8">Login</div>
 
         <form
           onSubmit={loginUser}
@@ -52,11 +52,11 @@ const Login: React.FC = () => {
             Login
           </button>
 
-          <div className="text-1 flex justify-center items-center">
+          <div className="text-1 flex justify-center items-center stroked-text-sm">
             <p className="px-1">Don't have an account?</p>
             <Link to={{ pathname: `/register` }}>
               <div className="flex justify-center items-center">
-                <p className="text-blue-500">Register</p>
+                <p className="underline">Register</p>
                 <p className="px-1"> here.</p>
               </div>
             </Link>

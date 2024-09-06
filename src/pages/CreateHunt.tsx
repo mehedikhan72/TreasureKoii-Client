@@ -103,7 +103,7 @@ const CreateHunt: React.FC = () => {
 		// formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
-			const response = await axios.post("hunts/", formData);
+			const response = await axios.post("create-hunt/", formData);
 			const data = response.data;
 
 			if (response.status === 201) {
@@ -151,13 +151,13 @@ const CreateHunt: React.FC = () => {
 
 			{user && (
 				<div className="flex flex-col self-center justify-center items-center gap-5 flex-1 my-10 mx-8">
-					<div className="text-4xl font-extrabold text-center">Organize A Hunt</div>
+					<div className="text-4xl font-extrabold text-center stroked-text-md">Organize A Hunt</div>
 					<form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center max-w-lg">
-						{message && <p className="text-1 bg-red-500 styled-div-1 w-full">{message}</p>}
+						{/* {message && <p className="text-1 bg-red-500 styled-div-1 w-full">{message}</p>} */}
 						{huntSlug && (
-							<div className="styled-div-1 bg-green-500 flex flex-col items-center justify-center w-full mb-4">
+							<div className="stroked-text-sm flex flex-col items-center justify-center w-full mb-4">
 								<Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold">
-									Go To <span className="text-blue-700 underline">Hunt Page</span>
+									Go to hunt <span className="underline">page</span>
 								</Link>
 							</div>
 						)}
