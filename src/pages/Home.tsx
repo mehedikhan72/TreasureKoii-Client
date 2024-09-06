@@ -50,14 +50,14 @@ const Home: React.FC = () => {
 				</Link>
 			</div>
 
-			<div className="flex justify-center items-center p-2 m-4">
+			{/* <div className="flex justify-center items-center p-2 m-4">
 				<p className="text-4 stroked-text-md">We help you create core life memories.</p>
 				<div>
 					<img src="/hero-img-1.jpg"
 					className="w-[300px] object-cover h-auto">
 					</img>
 				</div>
-			</div>
+			</div> */}
 			<OrganizingHunts />
 			<RecentlyHosted />
 			<HomeFooter />

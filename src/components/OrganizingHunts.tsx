@@ -43,9 +43,8 @@ const OrganizingHunts: React.FC = () => {
 		<div>
 			{hunts?.length ? (
 				<div className="flex flex-col justify-center items-center my-5 mx-8">
-					<div className="text-4 my-5 leading-[3rem]">
-						You're <span className="bg-slate-700 rounded-lg text-white px-4 py-2">organizing</span> the following
-						hunt(s)
+					<div className="text-4 my-5 stroked-text-md">
+					Schedules treasure hunts
 					</div>
 					<div className="m-2 sm:m-4 rounded-md grid grid-cols-[1fr_auto_auto] styled-div-1 p-0 [&>*>*]:px-4 text-center [&>*]:items-center">
 						<div className="grid grid-cols-subgrid col-span-full text-center py-2 pt-4 rounded-t font-bold border-b border-b-black mb-2 bg-prim bg-opacity-70 ">
