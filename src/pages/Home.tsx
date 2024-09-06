@@ -50,7 +50,6 @@ const Home: React.FC = () => {
 				</Link>
 			</div>
 			<OrganizingHunts />
-			<RegisteredHunts />
 			<RecentlyHosted />
 			<HomeFooter />
 		</>
