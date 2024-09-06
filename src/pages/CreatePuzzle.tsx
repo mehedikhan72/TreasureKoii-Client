@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import { Hunt } from "../types";
 import HuntNav from "../components/HuntNav";
 import Loading from "../utils/Loading";
+import { toast } from "react-toastify";
 
 const CreatePuzzle: React.FC = () => {
   const contextData = useContext(AuthContext);
@@ -37,6 +38,18 @@ const CreatePuzzle: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (!name || !description || !answer || !type || !points) {
+      toast.error("Please fill all the fields.");
+      setLoading(false);
+      return;
+    }
+
+    if (imgFiles === null || imgFiles.length === 0) {
+      toast.error("Please upload at least one image.");
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -62,16 +75,20 @@ const CreatePuzzle: React.FC = () => {
           "";
         setMessageError(null);
         setMessageSuccess("Puzzle Successfully Created");
+        toast.success("Puzzle Successfully Created");
       } else {
         setMessageSuccess(null);
         setMessageError(data.error);
+        toast.error(data.error);
       }
       // console.log(response);
     } catch (error) {
       console.log(error);
       setMessageSuccess(null);
-      if (error instanceof AxiosError)
+      if (error instanceof AxiosError) {
         setMessageError(error.response?.data.error);
+        toast.error(error.response?.data.error);
+      }
     } finally {
       setLoading(false);
     }
@@ -123,14 +140,14 @@ const CreatePuzzle: React.FC = () => {
             onSubmit={handleSubmit}
             className="flex flex-col items-center"
           >
-            {messageError && (
+            {/* {messageError && (
               <p className="text-1 text-red-500">{messageError}</p>
             )}
             {messageSuccess && (
               <p className="text-lg font-bold mb-5 text-green-600">
                 {messageSuccess}
               </p>
-            )}
+            )} */}
             <input
               type="text"
               name="puzzleName"
@@ -196,7 +213,7 @@ const CreatePuzzle: React.FC = () => {
                     e.target.files ? Array.from(e.target.files) : null
                   );
                 }}
-                className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:border-0 text-slate-500 w-52"
+                className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm text-black w-52 md:w-full"
               />
             </label>
 
