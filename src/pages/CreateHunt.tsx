@@ -178,8 +178,8 @@ const CreateHunt: React.FC = () => {
 							className="my-input-field w-full h-32 resize-none"
 						/>
 
-						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field py-0">
-							<div className="flex-grow flex-shrink-0 text-lg pt-1 w-[6.5rem] font-bold">Hunt Start</div>
+						<div className="w-full flex items-center gap-2">
+							<span className="stroked-text-sm text-xl w-28">Hunt Start </span>
 							<DateTimePicker
 								onChange={(date) => {
 									setMessage(null);
@@ -190,13 +190,14 @@ const CreateHunt: React.FC = () => {
 										setMessage("Start date should be before End date.");
 									}
 								}}
-								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none"
+								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field"
 								disableClock
 								value={startDate}
 							/>
 						</div>
-						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field py-0">
-							<div className="flex-grow flex-shrink-0 text-lg pt-1 w-[6.5rem] font-bold">Hunt End</div>
+
+						<div className="w-full flex items-center gap-2 my-2">
+							<span className="stroked-text-sm text-xl w-28">Hunt End</span>
 							<DateTimePicker
 								onChange={(date) => {
 									setMessage(null);
@@ -207,14 +208,14 @@ const CreateHunt: React.FC = () => {
 										setMessage("Start date should be before End date.");
 									}
 								}}
-								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none"
+								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field"
 								disableClock
 								value={endDate}
 							/>
 						</div>
 
-						<div className="flex justify-between items-center gap-1 w-full max-[450px]:flex-wrap my-input-field p-0">
-							<span className="w-32 pl-2 flex-shrink-0 text-lg font-bold">Poster Image</span>
+						<label className="w-full flex items-center gap-1">
+							<span className="stroked-text-sm text-lg w-max">Poster Image</span>
 							<input
 								type="file"
 								id="posterImg"
@@ -222,9 +223,10 @@ const CreateHunt: React.FC = () => {
 								onChange={(e) => {
 									setImgFile(e.target.files ? e.target.files.item(0) : null);
 								}}
-								className="mr-0 file:my-0 file:mr-4 file:bg-[#f3e3d2] flex-1 file:cursor-pointer p-2 text-base rounded-r"
+								className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:w-fit text-black w-52 flex-1"
 							/>
-						</div>
+						</label>
+
 						{imgPreview && <img className="m-2 max-h-60" src={imgPreview} alt="Poster" />}
 
 						<button type="submit" className="my-btn-1 mt-4">
