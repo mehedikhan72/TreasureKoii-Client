@@ -74,8 +74,10 @@ const Dashboard: React.FC = () => {
 			const data = response.data;
 			if (response.status === 201) {
 				toast.success("Announcement added successfully.");
+				setAnnouncementMessage("Announcement added successfully.");
 				setAnnouncement("");
 			} else {
+				setAnnouncementMessage(data.error);
 				toast.error(data.error);
 			}
 			// console.log(response);
@@ -100,9 +102,11 @@ const Dashboard: React.FC = () => {
 			const data = response.data;
 			if (response.status === 201) {
 				toast.success("Rule added successfully.");
+				setRulesMessage("Rule added successfully.");
 				setRule("");
 			} else {
 				toast.error(data.error);
+				setRulesMessage(data.error);
 			}
 			// console.log(response);
 		} catch (error) {
@@ -126,9 +130,10 @@ const Dashboard: React.FC = () => {
 			const data = response.data;
 			if (response.status === 201) {
 				toast.success("Organizers added successfully.");
+				setOrganizerAddMessage("Organizers added successfully.");
 				setEmails([]);
 			} else {
-				toast.error(data.error);
+				setOrganizerAddMessage(data.error);
 			}
 			// console.log(response);
 		} catch (error) {
@@ -180,7 +185,9 @@ const Dashboard: React.FC = () => {
 									onChange={(e) => setAnnouncement(e.target.value)}
 									className="my-input-field w-[300px] md:w-[500px]"
 								/>
-								{announcementMessage && <p className="text-1 text-green-500">{announcementMessage}</p>}
+								{/* {announcementMessage && (
+                  <p className="text-1 text-green-500">{announcementMessage}</p>
+                )} */}
 								<button className="my-btn-1 w-[300px] md:w-[500px]">Add Announcement</button>
 							</form>
 						</div>
@@ -198,7 +205,9 @@ const Dashboard: React.FC = () => {
 									onChange={(e) => setRule(e.target.value)}
 									className="my-input-field w-[300px] md:w-[500px]"
 								/>
-								{rulesMessage && <p className="text-1 text-green-500">{rulesMessage}</p>}
+								{/* {rulesMessage && (
+                  <p className="text-1 text-green-500">{rulesMessage}</p>
+                )} */}
 								<button className="my-btn-1 w-[300px] md:w-[500px]">Add Rule</button>
 							</form>
 						</div>
@@ -220,7 +229,9 @@ const Dashboard: React.FC = () => {
 									(Note: The organizers must have an account on this website. Seperate the emails with a comma, only. no
 									other spaces. Example - a@gmail.com,b@gmail.com,c@gmail.com)
 								</p>
-								{organizerAddMessage && <p className="text-1 text-green-500">{organizerAddMessage}</p>}
+								{/* {organizerAddMessage && (
+                  <p className="text-1 text-green-500">{organizerAddMessage}</p>
+                )} */}
 								<button className="my-btn-1 w-[300px] md:w-[500px]">Add Organizers</button>
 							</form>
 						</div>

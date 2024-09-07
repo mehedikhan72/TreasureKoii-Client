@@ -17,7 +17,11 @@ border-b border-b-black text-center font-bold"
             key={team.id}
             className={`grid grid-cols-subgrid col-span-full py-2 odd:bg-prim odd:bg-opacity-50 last:rounded-b`}
           >
-            <p className="text-1 flex items-center justify-center">
+            <p
+              className={
+                index < 3 ? "text-1 font-bold flex items-center justify-center" : "text-1 flex items-center justify-center"
+              }
+            >
               {team.team_name}
               {index < 3 && (
                 <div

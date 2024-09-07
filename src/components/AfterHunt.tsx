@@ -8,6 +8,7 @@ import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
 import AuthContext from "../utils/context/AuthContext";
 import Loading from "../utils/Loading";
+import { toast } from "react-toastify";
 
 const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
   const { slug } = useParams();
@@ -53,8 +54,10 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
         setImgFiles(null);
         setImgUploadSuccess(true);
         setLoading(false);
+        toast.success("Images uploaded successfully.");
       } else {
         setMessage("Error uploading images");
+        toast.error("Error uploading images.");
         setImgUploadSuccess(false);
         setLoading(false);
       }
@@ -62,6 +65,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
       console.log(error);
       const axiosError = error as AxiosError;
       setMessage((axiosError.response?.data as { error: string })?.error);
+      toast.error((axiosError.response?.data as { error: string })?.error);
       setImgUploadSuccess(false);
       setLoading(false);
     }
@@ -97,12 +101,12 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
           <div className="flex flex-col justify-center items-center mt-16 mx-10">
             {userAnOrganizer && !uploadImageDivDisabled && (
               <div className="styled-div-1 rounded-md p-2 mb-4">
-                {message && imgUploadSuccess && (
+                {/* {message && imgUploadSuccess && (
                   <p className="text-1 text-green-500">{message}</p>
                 )}
                 {message && !imgUploadSuccess && (
                   <p className="text-1 text-red-500">{message}</p>
-                )}
+                )} */}
                 <div className="flex justify-between items-center">
                   <p className="text-1">
                     You were an organizer of this hunt. Upload some images as
@@ -110,7 +114,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
                   </p>
                   <button
                     onClick={() => setUploadImageDivDisabled(true)}
-                    className="rounded-md bg-red-500 text-white px-2 pt-1"
+                    className="rounded-md bg-red-500 text-white font-bold px-2 pt-1"
                   >
                     X
                   </button>
@@ -131,7 +135,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
                         e.target.files ? Array.from(e.target.files) : null
                       );
                     }}
-                    className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:border-0 text-slate-500 w-52"
+                    className="file:my-btn-sm file:border-0"
                   />
                   <button type="submit" className="my-btn-sm">
                     Upload

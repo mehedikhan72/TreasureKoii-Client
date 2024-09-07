@@ -89,6 +89,19 @@ const HuntHome: React.FC = () => {
 			}
 		};
 
+		const checkIfUserAnOrganizer = async (): Promise<void> => {
+			try {
+				const response = await axios.get(`${slug}/is-user-an-organizer/`);
+				const data = response.data;
+				if (response.status === 200) {
+					setUserAnOrganizer(data.is_organizer);
+				}
+				// console.log(response);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
 		const getPuzzle = async (): Promise<void> => {
 			try {
 				const response = await axios.get(`${slug}/get-current-puzzle-view/`);
@@ -102,22 +115,12 @@ const HuntHome: React.FC = () => {
 				console.log(error);
 				setDidNotGetPuzzle(true);
 				setPuzzleLoaded(true);
-				toast.info("No more puzzles left. Looks like you solved 'em all.");
+				if (!userAnOrganizer) {
+					toast.info("No more puzzles left. Looks like you solved 'em all.");
+				}
 			}
 		};
 
-		const checkIfUserAnOrganizer = async (): Promise<void> => {
-			try {
-				const response = await axios.get(`${slug}/is-user-an-organizer/`);
-				const data = response.data;
-				if (response.status === 200) {
-					setUserAnOrganizer(data.is_organizer);
-				}
-				// console.log(response);
-			} catch (error) {
-				console.log(error);
-			}
-		};
 		getHuntDetails();
 		checkIfUserAnOrganizer();
 		if (user && duringHunt) {

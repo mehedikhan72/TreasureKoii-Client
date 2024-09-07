@@ -7,6 +7,7 @@ import RegisteredHunts from "../components/RegisteredHunts";
 import OrganizingHunts from "../components/OrganizingHunts";
 import RecentlyHosted from "../components/RecentlyHosted";
 import Memories from "./Memories";
+import UIExposure from "../components/UIExposure";
 
 const Home: React.FC = () => {
 	useEffect(() => {
@@ -56,6 +57,7 @@ const Home: React.FC = () => {
 			<Memories />
 			<OrganizingHunts />
 			<RecentlyHosted />
+			<UIExposure />
 			<HomeFooter />
 		</>
 	);

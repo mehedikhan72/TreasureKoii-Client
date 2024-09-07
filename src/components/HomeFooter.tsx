@@ -38,7 +38,7 @@ const HomeFooter: React.FC = () => {
               </span>
             </p>
             <button
-              className="text-white text-stroke-[3px] text-2 underline hover:text-blue-500"
+              className="text-white text-stroke-[3px] text-2 hover:underline"
               onClick={logoutUser}
             >
               Logout
@@ -49,7 +49,7 @@ const HomeFooter: React.FC = () => {
           <div className=" py-3 flex justify-center items-center">
             <Link
               to={{ pathname: `/login` }}
-              className="text-white text-stroke-[3px] text-2 underline hover:text-blue-500"
+              className="text-white text-stroke-[3px] text-2 hover:underline"
             >
               Login
             </Link>
