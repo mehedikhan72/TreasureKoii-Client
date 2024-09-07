@@ -59,6 +59,7 @@ const RecentlyHosted: React.FC = () => {
 						<Link
 							to={{ pathname: `/${hunt.slug}` }}
 							className="grid grid-cols-[1fr_40%] justify-between items-center styled-div-1 bg-opacity-80 my-4 gap-y-2 max-w-[60rem] mx-auto hover:-translate-y-0.5 active:translate-y-0 transition-all max-sm:grid-cols-[1fr] max-sm:max-w-80"
+							key={`recent-hosted-${hunt.slug}`}
 						>
 							<div
 								className="text-4 px-2 sm:px-10 md:px-20 max-md:text-3"

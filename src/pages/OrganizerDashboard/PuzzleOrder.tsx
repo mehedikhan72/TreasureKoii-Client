@@ -166,14 +166,14 @@ const PuzzleOrder = () => {
 									{allTeamsData.map((teamData, index) => {
 										return (
 											<div
-												className="grid grid-cols-subgrid col-span-full text-center py-2 odd:bg-prim odd:bg-opacity-50 last:rounded-b place-items-center gap-y-2"
+												className="grid grid-cols-subgrid col-span-full text-center py-2 odd:bg-prim odd:bg-opacity-50 last:rounded-b place-items-center gap-y-2 last:pb-2"
 												key={teamData.team_id}
 											>
 												<div>{teamData.team_id}</div>
 												<div>{teamData.team_name}</div>
 												<div>{teamData.team_leader}</div>
 												{teamData.team_puzzle_order.length > 0 ? (
-													<div className="flex flex-wrap justify-center max-sm:justify-start w-full max-sm:col-span-full max-sm:text-sm">
+													<div className="flex flex-wrap justify-center items-center max-sm:justify-start w-full max-sm:col-span-full max-sm:text-sm">
 														<p className="sm:hidden mr-4 font-semibold">Puzzle (IDs) Order:</p>
 														{teamData.team_puzzle_order.map((puzzleId, index) => {
 															return (
@@ -185,7 +185,13 @@ const PuzzleOrder = () => {
 														})}
 													</div>
 												) : (
-													<p className="text-1 text-left text-red-800 px-4">Not Set(random order will be applied)</p>
+													<div className="flex flex-wrap justify-center items-center max-sm:justify-start w-full max-sm:col-span-full max-sm:text-sm">
+														<p className="sm:hidden mr-4 font-semibold">Puzzle (IDs) Order:</p>
+														<div className="text-1 text-red-800 px-4 sm:flex sm:flex-wrap items-center justify-center">
+															<span>Not Set</span>
+															<span>(random order)</span>
+														</div>
+													</div>
 												)}
 											</div>
 										);
@@ -239,7 +245,7 @@ const PuzzleOrder = () => {
 									{puzzles.map((puzzle, index) => {
 										return (
 											<div
-												className="grid grid-cols-subgrid col-span-full text-center py-1 odd:bg-prim odd:bg-opacity-50 last:rounded-b"
+												className="grid grid-cols-subgrid col-span-full text-center py-1 odd:bg-prim odd:bg-opacity-50 last:rounded-b last:pb-2"
 												key={puzzle.id}
 											>
 												<div>{puzzle.id}</div>

@@ -11,6 +11,10 @@ input:-webkit-autofill:active {
 @tailwind utilities;
 
 @layer base {
+	:root {
+		--toastify-color-success: #38bb3c;
+	}
+
 	.my-font {
 		font-family: "Josefin Sans", "cursive", sans-serif, "Playpen Sans";
 	}
@@ -48,11 +52,11 @@ input:-webkit-autofill:active {
 	}
 
 	.my-btn-1 {
-		@apply bg-yellow-500 text-black bg-opacity-80 border-black border-2 font-bold p-2 m-2 rounded shadow-lg hover:bg-yellow-500 text-sm md:text-base w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl;
+		@apply bg-yellow-500 text-black bg-opacity-80 border-black border-2 font-bold p-2 m-2 rounded shadow-lg hover:bg-yellow-500 text-sm md:text-base w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] max-w-2xl transition-all duration-75;
 	}
 
 	.my-btn-sm {
-		@apply bg-yellow-500 text-black bg-opacity-80 border-black border-2 text-sm font-bold p-1 m-1 rounded shadow-lg hover:bg-yellow-500 w-[140px] sm:w-[180px] md:w-[220px] lg:w-[250px] max-w-xl;
+		@apply bg-yellow-500 text-black bg-opacity-80 border-black border-2 text-sm font-bold p-1 m-1 rounded shadow-lg hover:bg-yellow-500 w-[140px] sm:w-[180px] md:w-[220px] lg:w-[250px] max-w-xl transition-all duration-75;
 	}
 
 	.link-1 {
