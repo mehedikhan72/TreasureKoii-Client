@@ -72,7 +72,7 @@ const Rules: React.FC = () => {
                 change any rule at any given time.
               </p>
             </p>
-            <div className="styled-div-1 mx-auto max-w-[60rem] grid grid-cols-[auto_auto_1fr] gap-x-2">
+            <div className="styled-div-1 m-2 md:mx-auto max-w-[60rem] grid grid-cols-[auto_auto_1fr] gap-x-2">
               {rules?.map((rule, index) => (
                 <div
                   key={rule.id}
