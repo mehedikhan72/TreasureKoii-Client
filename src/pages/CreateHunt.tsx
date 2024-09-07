@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
 
 import { AxiosError } from "axios";
@@ -9,11 +8,12 @@ import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import Loading from "../utils/Loading";
 
-import DateTimePicker from "react-datetime-picker";
-import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
 import { toast } from "react-toastify";
+import useAxios from "../utils/hooks/useAxios";
 
 const formatDate = (date: Date): string => {
 	const dateString: string = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
@@ -36,6 +36,7 @@ const validateDate = (startDate: Date | null, endDate: Date | null): boolean => 
 };
 
 const CreateHunt: React.FC = () => {
+	const axios = useAxios();
 	const [huntName, setHuntName] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
 	const [startDate, setStartDate] = useState<Date | null>(null);

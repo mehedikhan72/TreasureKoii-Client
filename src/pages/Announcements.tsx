@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Announcement, Hunt } from "../types";
-import axios from "../utils/axios/AxiosSetup";
-import HuntNav from "../components/HuntNav";
-import Loading from "../utils/Loading";
 import HomeFooter from "../components/HomeFooter";
+import HuntNav from "../components/HuntNav";
+import { Announcement, Hunt } from "../types";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 
 const Announcements: React.FC = () => {
 	const { slug } = useParams();
+	const axios = useAxios();
 
 	const [hunt, setHunt] = useState<Hunt>();
 	const [announcements, setAnnouncements] = useState<Announcement[]>([]);

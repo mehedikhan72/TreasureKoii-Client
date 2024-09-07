@@ -1,30 +1,30 @@
 // this is the home view for a hunt, before hunt, info will show, during hunt, current puzzle
 // will show, after hunt, results and other info
 
-import React, { useState, useEffect, useContext } from "react";
-import AuthContext from "../utils/context/AuthContext";
-import { useParams, Link, Navigate } from "react-router-dom";
-import { Puzzle, Hunt } from "../types";
-import axios from "../utils/axios/AxiosSetup";
-import BeforeHunt from "../components/BeforeHunt";
-import AfterHunt from "../components/AfterHunt";
-import ShowImages from "../components/ShowImages";
 import { AxiosError } from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import AfterHunt from "../components/AfterHunt";
+import BeforeHunt from "../components/BeforeHunt";
+import ShowImages from "../components/ShowImages";
+import { Hunt, Puzzle } from "../types";
+import AuthContext from "../utils/context/AuthContext";
 
 import Confetti from "react-confetti";
-import useWindowSize from "react-use/lib/useWindowSize";
-import HuntNav from "../components/HuntNav";
-import Custom404 from "../utils/Custom404";
-import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
-import Loading from "../utils/Loading";
-import Home from "./Home";
-import HomeFooter from "../components/HomeFooter";
-import Dashboard from "./OrganizerDashboard/Dashboard";
 import { toast } from "react-toastify";
+import useWindowSize from "react-use/lib/useWindowSize";
+import HomeFooter from "../components/HomeFooter";
+import HuntNav from "../components/HuntNav";
+import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import Custom404 from "../utils/Custom404";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 import MakePayment from "./MakePayment";
+import Dashboard from "./OrganizerDashboard/Dashboard";
 import UnpaidNotice from "./UnpaidNotice";
 
 const HuntHome: React.FC = () => {
+	const axios = useAxios();
 	const { slug } = useParams();
 	const [puzzle, setPuzzle] = useState<Puzzle>();
 	const [hunt, setHunt] = useState<Hunt>();

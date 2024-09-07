@@ -106,6 +106,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 				console.log("logging user out 2");
 				logoutUser();
 			}
+
+			return data.access;
 		} catch (error) {
 			console.log(error);
 			console.log("logging user out 3");

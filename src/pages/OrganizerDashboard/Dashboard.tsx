@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import HuntNav from "../../components/HuntNav";
 import { Hunt } from "../../types";
-import axios from "../../utils/axios/AxiosSetup";
 import AuthContext from "../../utils/context/AuthContext";
+import useAxios from "../../utils/hooks/useAxios";
 import Loading from "../../utils/Loading";
-import { toast } from "react-toastify";
 
 const Dashboard: React.FC = () => {
 	const { slug } = useParams();
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;
+	const axios = useAxios();
 
 	const [hunt, setHunt] = useState<Hunt>();
 	const [userAnOrganizer, setUserAnOrganizer] = useState<boolean>(false);

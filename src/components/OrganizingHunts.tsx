@@ -1,9 +1,9 @@
-import axios from "../utils/axios/AxiosSetup";
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Countdown from "react-countdown";
-import { Hunt } from "../types";
 import { Link } from "react-router-dom";
+import { Hunt } from "../types";
 import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
 
 const zeroPad = (num: number, places: number) => String(num).padStart(places, "0");
 
@@ -35,6 +35,7 @@ const countdownRenderer = ({
 };
 
 const OrganizingHunts: React.FC = () => {
+	const axios = useAxios();
 	const [hunts, setHunts] = useState<(Hunt & { slug: string; status: "Organizing" | "Registered" })[]>();
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;

@@ -1,14 +1,15 @@
 // recently hosted hunts
 
-import React, { useEffect, useState, useContext } from "react";
-import axios from "../utils/axios/AxiosSetup";
-import { Hunt } from "../types";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Hunt } from "../types";
 import Loading from "../utils/Loading";
 import { rootUrl } from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
 
 const RecentlyHosted: React.FC = () => {
+	const axios = useAxios();
 	const [hunts, setHunts] = useState<(Hunt & { winner: any })[]>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const contextData = useContext(AuthContext);

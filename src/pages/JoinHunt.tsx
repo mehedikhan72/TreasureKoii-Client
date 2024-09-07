@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import HomeFooter from "../components/HomeFooter";
 import OrganizingHunts from "../components/OrganizingHunts";
-import RegisteredHunts from "../components/RegisteredHunts";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
-import axios from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
 import useDebouncedCallback from "../utils/hooks/useDebouncedCallback";
 import Loading from "../utils/Loading";
-import { toast } from "react-toastify";
 
 const JoinHunt: React.FC = () => {
+	const axios = useAxios();
 	const navigate = useNavigate();
 
 	const contextData = useContext(AuthContext);

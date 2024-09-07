@@ -1,16 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
-import AuthContext from "../utils/context/AuthContext";
-import { Link, useParams } from "react-router-dom";
-import axios from "../utils/axios/AxiosSetup";
-import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import { AxiosError } from "axios";
-import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
-import Loading from "../utils/Loading";
-import { Hunt } from "../types";
-import HomeFooter from "../components/HomeFooter";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import HomeFooter from "../components/HomeFooter";
+import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import { Hunt } from "../types";
+import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 
 const CreateTeam: React.FC = () => {
+	const axios = useAxios();
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;
 	const { slug } = useParams();
