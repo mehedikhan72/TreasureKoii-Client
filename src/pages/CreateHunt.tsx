@@ -28,7 +28,7 @@ const formatDate = (date: Date): string => {
 };
 
 const validateDate = (startDate: Date | null, endDate: Date | null): boolean => {
-	if (startDate && endDate && startDate.getTime() > endDate.getTime()) {
+	if (startDate && endDate && startDate.getTime() >= endDate.getTime()) {
 		return false;
 	}
 

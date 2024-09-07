@@ -26,8 +26,9 @@ const countdownRenderer = ({
 		const date = new Date(days, hours, minutes, seconds);
 		return (
 			<span>
-				{!!days && `${days}D`} {!!days && `${zeroPad(hours, 2)}H`} {!!days && !!hours && `${zeroPad(minutes, 2)}M`}{" "}
-				{!!days && !!hours && !!minutes && `${zeroPad(seconds, 2)}S`}
+				{!!days && `${days}D`} {(!!days || !!hours) && `${hours}H`}{" "}
+				{(!!days || !!hours || !!minutes) && `${zeroPad(minutes, 2)}M`}{" "}
+				{(!!days || !!hours || !!minutes || !!seconds) && `${zeroPad(seconds, 2)}S`}
 			</span>
 		);
 	}
