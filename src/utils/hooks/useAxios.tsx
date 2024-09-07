@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axiosInstance from "../axios/AxiosSetup";
 import AuthContext from "../context/AuthContext";
 import { AxiosInstance } from "axios";
+import { AuthTokens } from "../../types";
 
 const useAxios = () => {
 	const contextData = useContext(AuthContext);
@@ -10,12 +11,12 @@ const useAxios = () => {
 
 	useEffect(() => {
 		const authTokensLocal = localStorage.getItem("authTokens");
-		const authTokens = authTokensLocal ? JSON.parse(authTokensLocal) : null;
+		const authTokens: AuthTokens = authTokensLocal ? JSON.parse(authTokensLocal) : null;
 
 		const requestIntercept = axios.interceptors.request.use(
 			(config) => {
-				if (!config.headers["Authorization"] && authTokens) {
-					config.headers["Authorization"] = `Bearer ${authTokens}`;
+				if (!config.headers["Authorization"] && authTokens?.access) {
+					config.headers["Authorization"] = `Bearer ${authTokens?.access}`;
 				}
 				return config;
 			},
