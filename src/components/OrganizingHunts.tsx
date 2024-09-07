@@ -56,7 +56,7 @@ const OrganizingHunts: React.FC = () => {
 	}, [contextData]);
 
 	return hunts?.length ? (
-		<div className="flex flex-col justify-center items-center mt-16 mx-8">
+		<div className="flex flex-col justify-center items-center mt-8 mx-4">
 			<div className="text-5 leading-[3rem] stroked-text-sm">Upcoming Hunts</div>
 			<div className=" rounded-md grid grid-cols-[auto_auto_auto] styled-div-1 p-0 [&>*>*]:px-4 text-center [&>*]:items-center">
 				<div className="grid grid-cols-subgrid col-span-full text-center py-3 pt-4 rounded-t font-bold border-b border-b-black mb-2 bg-prim bg-opacity-70">
@@ -67,10 +67,10 @@ const OrganizingHunts: React.FC = () => {
 				{hunts.map((hunt, ind) => (
 					<Link
 						to={{ pathname: `/${hunt.slug}/` }}
-						className="grid grid-cols-subgrid col-span-full text-center py-2 odd:bg-prim odd:bg-opacity-50 last:rounded-b hover:-translate-y-0.5 active:translate-y-0 transition-all duration-100"
+						className="grid grid-cols-subgrid col-span-full text-center py-2 odd:bg-prim odd:bg-opacity-50 last:rounded-b hover:-translate-y-0.5 active:translate-y-0 transition-all duration-100 max-sm:text-sm"
 						key={hunt.id}
 					>
-						<div className="text-left font-bold !px-8">{hunt.name}</div>
+						<div className="text-left font-bold !px-8 max-sm:!px-4">{hunt.name}</div>
 						<p>{hunt.status}</p>
 						<Countdown
 							date={new Date(hunt.start_date)}
