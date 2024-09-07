@@ -64,7 +64,7 @@ const CreateHunt: React.FC = () => {
 			return false;
 		}
 		if (!validateDate(startDate, endDate)) {
-			toast.error("Start date should be before End date.");
+			toast.error("Start date should be before End date.", { toastId: "start-date-error" });
 			return false;
 		}
 		return true;
@@ -103,7 +103,7 @@ const CreateHunt: React.FC = () => {
 		// formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
-			const response = await axios.post("create-hunt/", formData);
+			const response = await axios.post("hunts/", formData);
 			const data = response.data;
 
 			if (response.status === 201) {
@@ -183,14 +183,12 @@ const CreateHunt: React.FC = () => {
 							<DateTimePicker
 								onChange={(date) => {
 									setMessage(null);
+									setStartDate(date);
 									if (validateDate(date, endDate)) {
-										setStartDate(date);
-									} else {
-										setStartDate(null);
-										setMessage("Start date should be before End date.");
+										toast.error("Start date should be before End date.", { toastId: "start-date-error" });
 									}
 								}}
-								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field"
+								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field flex-1"
 								disableClock
 								value={startDate}
 							/>
@@ -201,14 +199,12 @@ const CreateHunt: React.FC = () => {
 							<DateTimePicker
 								onChange={(date) => {
 									setMessage(null);
-									if (validateDate(startDate, date)) {
-										setEndDate(date);
-									} else {
-										setEndDate(null);
-										setMessage("Start date should be before End date.");
+									setEndDate(date);
+									if (!validateDate(startDate, date)) {
+										toast.error("Start date should be before End date.", { toastId: "start-date-error" });
 									}
 								}}
-								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field"
+								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field flex-1"
 								disableClock
 								value={endDate}
 							/>
