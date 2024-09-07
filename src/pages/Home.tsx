@@ -6,6 +6,7 @@ import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import RegisteredHunts from "../components/RegisteredHunts";
 import OrganizingHunts from "../components/OrganizingHunts";
 import RecentlyHosted from "../components/RecentlyHosted";
+import Memories from "./Memories";
 
 const Home: React.FC = () => {
 	useEffect(() => {
@@ -26,7 +27,9 @@ const Home: React.FC = () => {
 		<>
 			<div>
 				<TreasureKoiiImg />
-				<p className="text-3 mx-2 stroked-text-sm">TreasureKoii: Your ultimate solution for all your treasure hunt adventures.</p>
+				<p className="text-3 mx-2 stroked-text-sm">
+					TreasureKoii: Your ultimate solution for all your treasure hunt adventures.
+				</p>
 			</div>
 
 			{/* <div className="flex justify-center items-center mt-5">
@@ -41,7 +44,7 @@ const Home: React.FC = () => {
 				</p>
 			</div> */}
 
-			<div className="flex justify-center items-center mt-5">
+			<div className="flex max-sm:flex-col justify-center items-center mt-5">
 				<Link to={{ pathname: `/organize-hunt/` }}>
 					<button className="my-btn-1">Organize A Hunt</button>
 				</Link>
@@ -50,14 +53,7 @@ const Home: React.FC = () => {
 				</Link>
 			</div>
 
-			{/* <div className="flex justify-center items-center p-2 m-4">
-				<p className="text-4 stroked-text-md">We help you create core life memories.</p>
-				<div>
-					<img src="/hero-img-1.jpg"
-					className="w-[300px] object-cover h-auto">
-					</img>
-				</div>
-			</div> */}
+			<Memories />
 			<OrganizingHunts />
 			<RecentlyHosted />
 			<HomeFooter />

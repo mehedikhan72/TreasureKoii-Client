@@ -58,10 +58,10 @@ const RecentlyHosted: React.FC = () => {
 					{hunts?.map((hunt, ind) => (
 						<Link
 							to={{ pathname: `/${hunt.slug}` }}
-							className="grid grid-cols-[1fr_40%] justify-between items-center styled-div-1 bg-opacity-80 my-4 gap-y-2 max-w-[60rem] mx-auto hover:-translate-y-0.5 active:translate-y-0 transition-all"
+							className="grid grid-cols-[1fr_40%] justify-between items-center styled-div-1 bg-opacity-80 my-4 gap-y-2 max-w-[60rem] mx-auto hover:-translate-y-0.5 active:translate-y-0 transition-all max-sm:grid-cols-[1fr] max-sm:max-w-80"
 						>
 							<div
-								className="text-4 px-2 sm:px-10 md:px-20"
+								className="text-4 px-2 sm:px-10 md:px-20 max-md:text-3"
 								style={{
 									gridRow: !hunt.winner ? "1 / span 2" : undefined,
 									alignSelf: hunt.winner ? "end" : undefined,
@@ -72,10 +72,10 @@ const RecentlyHosted: React.FC = () => {
 							<img
 								src={`${rootUrl}${hunt.poster_img}`}
 								alt="hunt"
-								className="aspect-[2/1] object-cover object-center overflow-hidden rounded row-span-2"
+								className="aspect-[3/2] object-cover object-center overflow-hidden rounded sm:row-span-2 max-sm:row-start-3"
 							/>
 							{hunt.winner && (
-								<div className="grid grid-cols-[repeat(3,max-content)] gap-x-2 place-items-center mx-auto self-start">
+								<div className="grid grid-cols-[repeat(3,max-content)] gap-x-2 place-items-center mx-auto self-start max-md:text-sm">
 									<span className="font-bold">Winner Team</span>
 									<span>:</span>
 									<span>{hunt.winner?.team_name}</span>
