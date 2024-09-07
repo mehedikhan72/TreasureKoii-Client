@@ -133,7 +133,7 @@ const CreatePuzzle: React.FC = () => {
 
       {user && (
         <div className="flex flex-col m-4 items-center gap-10 flex-1">
-          <div className="text-4xl font-extrabold">Create A Puzzle</div>
+          <div className="text-5 stroked-text-md">Create A Puzzle</div>
           <form
             method="post"
             encType="multipart/form-data"

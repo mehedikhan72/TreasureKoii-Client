@@ -82,7 +82,7 @@ const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
               </div>
             </div>
           )}
-          {rules?.length === 0 && <p className="text-4 p-4">No rules yet.</p>}
+          {rules?.length === 0 && <p className="text-4 p-4 stroked-text-sm">No rules yet.</p>}
         </>
       )}
 

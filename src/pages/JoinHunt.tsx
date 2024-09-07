@@ -166,7 +166,7 @@ const JoinHunt: React.FC = () => {
 			)}
 
 			<OrganizingHunts />
-			<RegisteredHunts />
+			{/* <RegisteredHunts /> */}
 
 			<HomeFooter />
 		</div>
