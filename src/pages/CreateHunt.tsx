@@ -103,7 +103,7 @@ const CreateHunt: React.FC = () => {
 		// formData.append("number_of_skips_for_each_team", skips.toString());
 
 		try {
-			const response = await axios.post("hunts/", formData);
+			const response = await axios.post("create-hunt/", formData);
 			const data = response.data;
 
 			if (response.status === 201) {
