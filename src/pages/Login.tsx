@@ -39,12 +39,9 @@ const Login: React.FC = () => {
 						Login
 					</button>
 
-					<div className="text-1 flex justify-center items-center">
-						<p className="px-1  stroked-text-sm">Don't have an account?</p>
-						<Link
-							to={{ pathname: `/register` }}
-							className="my-btn-sm w-fit px-2 pb-0.5 bg-blue-400 hover:bg-blue-500 mb-2"
-						>
+					<div className="text-1 flex justify-center items-center  stroked-text-sm">
+						<p className="px-1 ">Don't have an account?</p>
+						<Link to={{ pathname: `/register` }} className="text-blue-300 hover:underline">
 							Register here
 						</Link>
 					</div>

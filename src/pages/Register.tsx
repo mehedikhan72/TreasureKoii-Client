@@ -148,12 +148,9 @@ const Register: React.FC = () => {
 						Register
 					</button>
 
-					<div className="text-1 flex justify-center items-center">
-						<p className="px-1 stroked-text-sm">Already have an account?</p>
-						<Link
-							to={{ pathname: `/login` }}
-							className="my-btn-sm w-fit px-2 pb-0.5 bg-blue-400 hover:bg-blue-500 mb-2"
-						>
+					<div className="text-1 flex justify-center items-center  stroked-text-sm">
+						<p className="px-1">Already have an account?</p>
+						<Link to={{ pathname: `/login` }} className="text-blue-300 hover:underline">
 							Login here
 						</Link>
 					</div>
