@@ -28,7 +28,7 @@ const formatDate = (date: Date): string => {
 };
 
 const validateDate = (startDate: Date | null, endDate: Date | null): boolean => {
-	if (startDate && endDate && startDate.getTime() >= endDate.getTime()) {
+	if (!startDate || !endDate || startDate.getTime() >= endDate.getTime()) {
 		return false;
 	}
 
@@ -150,7 +150,7 @@ const CreateHunt: React.FC = () => {
 			{!user && <YouNeedToBeLoggedIn message="Please log in to create hunts." />}
 
 			{user && (
-				<div className="flex flex-col self-center justify-center items-center gap-5 flex-1 my-10 mx-8">
+				<div className="flex flex-col self-center justify-center items-center gap-5 flex-1 my-10 mx-4">
 					<div className="text-4xl font-extrabold text-center stroked-text-md">Organize A Hunt</div>
 					<form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center max-w-lg">
 						{/* {message && <p className="text-1 bg-red-500 styled-div-1 w-full">{message}</p>} */}
@@ -184,11 +184,11 @@ const CreateHunt: React.FC = () => {
 								onChange={(date) => {
 									setMessage(null);
 									setStartDate(date);
-									if (validateDate(date, endDate)) {
+									if (!!endDate && validateDate(date, endDate)) {
 										toast.error("Start date should be before End date.", { toastId: "start-date-error" });
 									}
 								}}
-								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field flex-1"
+								className=" !m-0 !p-0 text-sm [&>div]:p-2 [&>div]:border-none my-input-field flex-1 w-fit"
 								disableClock
 								value={startDate}
 							/>
@@ -200,11 +200,11 @@ const CreateHunt: React.FC = () => {
 								onChange={(date) => {
 									setMessage(null);
 									setEndDate(date);
-									if (!validateDate(startDate, date)) {
+									if (!!startDate && !validateDate(startDate, date)) {
 										toast.error("Start date should be before End date.", { toastId: "start-date-error" });
 									}
 								}}
-								className=" !m-0 !p-0 text-base [&>div]:p-2 [&>div]:border-none my-input-field flex-1"
+								className=" !m-0 !p-0 text-sm [&>div]:p-2 [&>div]:border-none my-input-field flex-1 w-fit"
 								disableClock
 								value={endDate}
 							/>
