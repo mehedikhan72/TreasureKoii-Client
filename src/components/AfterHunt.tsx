@@ -98,12 +98,6 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 					<div className="flex flex-col justify-center items-center mt-16 mx-10">
 						{userAnOrganizer && !uploadImageDivDisabled && (
 							<div className="styled-div-1 rounded-md p-2 mb-4">
-								{/* {message && imgUploadSuccess && (
-                  <p className="text-1 text-green-500">{message}</p>
-                )}
-                {message && !imgUploadSuccess && (
-                  <p className="text-1 text-red-500">{message}</p>
-                )} */}
 								<div className="flex justify-between items-center">
 									<p className="text-1">You were an organizer of this hunt. Upload some images as memories.</p>
 									<button
@@ -114,7 +108,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 									</button>
 								</div>
 
-								<form onSubmit={uploadImages} className="flex justify-between items-center">
+								<form onSubmit={uploadImages} className="flex flex-col justify-between items-center">
 									<input
 										required
 										type="file"
@@ -124,7 +118,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 										onChange={(e) => {
 											setImgFiles(e.target.files ? Array.from(e.target.files) : null);
 										}}
-										className="file:my-btn-sm file:border-0"
+										className="file:my-btn-sm file:border-0 flex flex-col"
 									/>
 									<button type="submit" className="my-btn-sm">
 										Upload

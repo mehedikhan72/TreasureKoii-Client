@@ -105,8 +105,12 @@ const JoinTeam: React.FC = () => {
 								{/* <p className="text-lg font-bold text-green-600 text-center">
                   {messageSuccess}
                 </p> */}
-								<Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold mb-4">
-									Go To <span className="text-blue-600 underline">Hunt Page</span>
+								<Link
+									to={{ pathname: `/${(hunt as Hunt).slug}` }}
+									className="text-lg font-bold flex items-center gap-1"
+								>
+									<span className="stroked-text-sm">Go To</span>
+									<span className="my-btn-sm w-fit px-2 pb-0.5 bg-blue-400 hover:bg-blue-500 mb-1.5">Hunt Page</span>
 								</Link>
 							</>
 						)}
