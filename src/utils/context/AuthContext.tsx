@@ -122,7 +122,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	};
 
 	useEffect(() => {
-		let refreshTime = 1000 * 60 * 60 * 23; // 23 hours
+		// let refreshTime = 1000 * 60 * 60 * 47; // 47 hours, don't even ask why the access token has a huge lifetime.
+		let refreshTime = 1000 * 60 * 4; // 4 minutes
 		let interval = setInterval(() => {
 			if (authTokens) {
 				updateToken();

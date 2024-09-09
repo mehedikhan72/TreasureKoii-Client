@@ -34,8 +34,8 @@ const App: React.FC = () => {
 
 	return (
 		<div
-			className="App my-font overflow-x-hidden min-h-screen bg-cover bg-center bg-no-repeat bg-fixed opacity-100"
-			style={{ backgroundImage: `url(/${bgImage})`, backgroundPosition: "center" }}
+			className="App my-font overflow-x-hidden min-h-screen bg-cover bg-center bg-fixed opacity-100"
+			style={{ backgroundImage: `url(/${bgImage})` }}
 		>
 			<div className="relative min-h-screen w-full">
 				<AuthProvider>
