@@ -28,6 +28,22 @@ const PuzzleOrder = () => {
 	const [teamsLoading, setTeamsLoading] = useState<boolean>(false);
 	const [puzzlesLoading, setPuzzlesLoading] = useState<boolean>(false);
 
+	const getAllTeamsData = async (): Promise<void> => {
+		setTeamsLoading(true);
+		try {
+			const response = await axios.get(`${slug}/get-all-teams-data/`);
+			const data = response.data;
+			if (response.status === 200) {
+				setAllTeamsData(data);
+			}
+			// console.log(response);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setTeamsLoading(false);
+		}
+	};
+
 	useEffect(() => {
 		const getHuntDetails = async (): Promise<void> => {
 			setLoading(true);
@@ -60,22 +76,6 @@ const PuzzleOrder = () => {
 				setUserDataLoaded(true);
 			} finally {
 				setOrganizerCheckLoading(false);
-			}
-		};
-
-		const getAllTeamsData = async (): Promise<void> => {
-			setTeamsLoading(true);
-			try {
-				const response = await axios.get(`${slug}/get-all-teams-data/`);
-				const data = response.data;
-				if (response.status === 200) {
-					setAllTeamsData(data);
-				}
-				// console.log(response);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				setTeamsLoading(false);
 			}
 		};
 
@@ -116,6 +116,7 @@ const PuzzleOrder = () => {
 				toast.success("Puzzle order updated successfully");
 				setTeamId("");
 				setPuzzleOrder("");
+				getAllTeamsData();
 			} else {
 				toast.error(data.error);
 			}

@@ -60,7 +60,7 @@ const Announcements: React.FC = () => {
 		<div className="flex flex-col min-h-screen">
 			{(huntLoading || announcementsLoading) && <Loading />}
 			<HuntNav slug={slug} huntName={hunt?.name} />
-			<div className="my-10 flex-grow m-2 md:mx-auto max-w-[50rem] w-full">
+			<div className="my-10 flex-grow p-2 md:mx-auto max-w-[50rem] w-full">
 				{announcements?.length > 0 && (
 					<div>
 						<p className="text-5 stroked-text-md mb-4">Announcements </p>
