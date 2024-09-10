@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
@@ -24,6 +24,8 @@ const JoinTeam: React.FC = () => {
 
 	const [hunt, setHunt] = useState<Hunt>();
 
+	const navigate = useNavigate();
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
@@ -39,6 +41,7 @@ const JoinTeam: React.FC = () => {
 				setMessageError(null);
 				setMessageSuccess(data.success);
 				toast.success(data.success);
+				hunt && navigate(`/${hunt?.slug}`);
 			} else {
 				setMessageSuccess(null);
 				setMessageError(data.error);
@@ -100,11 +103,9 @@ const JoinTeam: React.FC = () => {
                 {messageError}
               </p>
             )} */}
-						{messageSuccess && (
+						{/* {messageSuccess && (
 							<>
-								{/* <p className="text-lg font-bold text-green-600 text-center">
-                  {messageSuccess}
-                </p> */}
+								<p className="text-lg font-bold text-green-600 text-center">{messageSuccess}</p>
 								<Link
 									to={{ pathname: `/${(hunt as Hunt).slug}` }}
 									className="text-lg font-bold flex items-center gap-1"
@@ -113,7 +114,7 @@ const JoinTeam: React.FC = () => {
 									<span className="my-btn-sm w-fit px-2 pb-0.5 bg-blue-400 hover:bg-blue-500 mb-1.5">Hunt Page</span>
 								</Link>
 							</>
-						)}
+						)} */}
 
 						<input
 							type="text"

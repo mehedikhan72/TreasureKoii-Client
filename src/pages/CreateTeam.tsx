@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
@@ -24,6 +24,7 @@ const CreateTeam: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const [hunt, setHunt] = useState<Hunt>();
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		console.log("handle submit clicked.");
@@ -42,6 +43,8 @@ const CreateTeam: React.FC = () => {
 				let str = data.success;
 				setTeampassword(str.match(/password: (.+?)\./)[1]);
 				toast.success("Team Successfully Created.");
+
+				hunt && navigate(`/${hunt?.slug}`);
 			} else {
 				// setMessage(data.error);
 				toast.error(data.error);
@@ -118,10 +121,10 @@ const CreateTeam: React.FC = () => {
 							{/* <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-green-600">
                 Team Successfully Created.
               </p> */}
-							<Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold flex items-center gap-1">
+							{/* <Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold flex items-center gap-1">
 								<span className="stroked-text-sm">Go To</span>
 								<span className="my-btn-sm w-fit px-2 pb-0.5 bg-blue-400 hover:bg-blue-500 mb-1.5">Hunt Page</span>
-							</Link>
+							</Link> */}
 							<div></div>
 
 							<div className="styled-div-1 w-[350px] md:w-[500px] flex justify-between items-center">

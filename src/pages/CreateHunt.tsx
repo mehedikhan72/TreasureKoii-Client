@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../utils/context/AuthContext";
 
 import { AxiosError } from "axios";
-import { Link } from "react-router-dom";
 import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
@@ -14,6 +13,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import { toast } from "react-toastify";
 import useAxios from "../utils/hooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 const formatDate = (date: Date): string => {
 	const dateString: string = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
@@ -45,17 +45,17 @@ const CreateHunt: React.FC = () => {
 	const [imgPreview, setImgPreview] = useState<string | undefined>(undefined);
 	// const [skips, setSkips] = useState<number>(0);
 
-	const [huntSlug, setHuntSlug] = useState<string>("");
-
 	const [message, setMessage] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
+
+	const navigate = useNavigate();
 
 	const sluggifyHuntName = () => {
 		const slug = huntName
 			.toLowerCase()
 			.replace(/ /g, "-")
 			.replace(/[^\w-]+/g, "");
-		setHuntSlug(slug);
+		return slug;
 	};
 
 	const validateForm = (): boolean => {
@@ -118,9 +118,12 @@ const CreateHunt: React.FC = () => {
 				setImgPreview(undefined);
 				// setSkips(0);
 				setMessage(null);
-				sluggifyHuntName();
+				const huntSlug = sluggifyHuntName();
+
 				(document.getElementById("posterImg") as HTMLInputElement).value = "";
 				toast.success("Hunt created successfully.");
+
+				navigate({ pathname: `/${huntSlug}` });
 			} else {
 				toast.error(data.error);
 			}
@@ -155,13 +158,13 @@ const CreateHunt: React.FC = () => {
 					<div className="text-4xl font-extrabold text-center stroked-text-md">Organize A Hunt</div>
 					<form id="createHuntForm" onSubmit={handleSubmit} className="flex flex-col items-center max-w-lg">
 						{/* {message && <p className="text-1 bg-red-500 styled-div-1 w-full">{message}</p>} */}
-						{huntSlug && (
+						{/* {huntSlug && (
 							<div className="stroked-text-sm flex flex-col items-center justify-center w-full mb-4">
 								<Link to={{ pathname: `/${huntSlug}` }} className="text-lg font-bold">
 									Go to hunt <span className="underline">page</span>
 								</Link>
 							</div>
-						)}
+						)} */}
 						<input
 							type="text"
 							name="name"
@@ -218,6 +221,12 @@ const CreateHunt: React.FC = () => {
 								id="posterImg"
 								name="poster_image"
 								onChange={(e) => {
+									if (e.target?.files?.[0].type.split("/")[0] !== "image") {
+										toast.error("Please select an image file.", { toastId: "image-type-error" });
+										e.target.value = "";
+										return;
+									}
+
 									setImgFile(e.target.files ? e.target.files.item(0) : null);
 								}}
 								className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:w-fit text-black w-52 flex-1"
