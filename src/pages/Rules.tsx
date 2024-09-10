@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "../utils/axios/AxiosSetup";
-import { Hunt, Rule } from "../types";
-import HuntNav from "../components/HuntNav";
-import Loading from "../utils/Loading";
 import HomeFooter from "../components/HomeFooter";
+import HuntNav from "../components/HuntNav";
+import { Hunt, Rule } from "../types";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 
 const Rules: React.FC = () => {
 	const { slug } = useParams();
+	const axios = useAxios();
 
 	const [hunt, setHunt] = useState<Hunt>();
 	const [rules, setRules] = useState<Rule[]>();

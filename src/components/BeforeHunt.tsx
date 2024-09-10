@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Hunt } from "../types";
-import axios from "../utils/axios/AxiosSetup";
-import HomeFooter from "./HomeFooter";
 import Countdown, { zeroPad } from "react-countdown";
-import { Rule } from "../types";
+import { Link, useParams } from "react-router-dom";
+import { Hunt, Rule } from "../types";
+import useAxios from "../utils/hooks/useAxios";
+import HomeFooter from "./HomeFooter";
 
 const countdownRenderer = ({
 	days,
@@ -39,6 +38,8 @@ const countdownRenderer = ({
 
 const Before: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 	const { slug } = useParams();
+
+	const axios = useAxios();
 
 	const [rules, setRules] = useState<Rule[]>();
 

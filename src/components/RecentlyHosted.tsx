@@ -1,14 +1,15 @@
 // recently hosted hunts
 
-import React, { useEffect, useState, useContext } from "react";
-import axios from "../utils/axios/AxiosSetup";
-import { Hunt } from "../types";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Hunt } from "../types";
 import Loading from "../utils/Loading";
 import { rootUrl } from "../utils/axios/AxiosSetup";
 import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
 
 const RecentlyHosted: React.FC = () => {
+	const axios = useAxios();
 	const [hunts, setHunts] = useState<(Hunt & { winner: any })[]>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const contextData = useContext(AuthContext);
@@ -54,7 +55,7 @@ const RecentlyHosted: React.FC = () => {
 			{loading && <Loading />}
 			{hunts?.length !== 0 && (
 				<div className="my-10 w-full px-4">
-					<p className="text-5 m-2 stroked-text-sm">Recently hosted treasure hunts</p>
+					<p className="text-5 m-2 stroked-text-md">Recently hosted treasure hunts</p>
 					{hunts?.map((hunt, ind) => (
 						<Link
 							to={{ pathname: `/${hunt.slug}` }}

@@ -106,6 +106,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 				console.log("logging user out 2");
 				logoutUser();
 			}
+
+			return data.access;
 		} catch (error) {
 			console.log(error);
 			console.log("logging user out 3");
@@ -119,19 +121,19 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 		setTokenUpdated((tokenUpdated) => !tokenUpdated);
 	};
 
-	useEffect(() => {
-		// let refreshTime = 1000 * 60 * 60 * 47; // 47 hours, don't even ask why the access token has a huge lifetime.
-		let refreshTime = 1000 * 60 * 4; // 4 minutes
-		let interval = setInterval(() => {
-			if (authTokens) {
-				updateToken();
-				console.log("Token refreshed");
-			} else {
-				console.log("No authTokens so can't refresh");
-			}
-		}, refreshTime);
-		return () => clearInterval(interval);
-	}, [authTokens]);
+	// useEffect(() => {
+	// 	// let refreshTime = 1000 * 60 * 60 * 47; // 47 hours, don't even ask why the access token has a huge lifetime.
+	// 	let refreshTime = 1000 * 60 * 4; // 4 minutes
+	// 	let interval = setInterval(() => {
+	// 		if (authTokens) {
+	// 			updateToken();
+	// 			console.log("Token refreshed");
+	// 		} else {
+	// 			console.log("No authTokens so can't refresh");
+	// 		}
+	// 	}, refreshTime);
+	// 	return () => clearInterval(interval);
+	// }, [authTokens]);
 
 	function isTokenExpired(token: string) {
 		const decodedToken: JwtPayload = jwtDecode(token);
@@ -142,16 +144,16 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 		return decodedToken.exp < currentTime;
 	}
 
-	useEffect(() => {
-		if (authTokens) {
-			const accessToken = authTokens.access;
-			if (isTokenExpired(accessToken)) {
-				console.log("calling update token cause access token expired");
-				updateToken();
-				// window.location.reload();
-			}
-		}
-	}, [authTokens, pathname]);
+	// useEffect(() => {
+	// 	if (authTokens) {
+	// 		const accessToken = authTokens.access;
+	// 		if (isTokenExpired(accessToken)) {
+	// 			console.log("calling update token cause access token expired");
+	// 			updateToken();
+	// 			// window.location.reload();
+	// 		}
+	// 	}
+	// }, [authTokens, pathname]);
 
 	const [contextData, setContextData] = useState<AuthContextProps>({
 		message,

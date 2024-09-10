@@ -1,17 +1,19 @@
 import { AxiosError } from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Hunt } from "../types";
-import axios from "../utils/axios/AxiosSetup";
+import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 import HomeFooter from "./HomeFooter";
 import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
-import AuthContext from "../utils/context/AuthContext";
-import Loading from "../utils/Loading";
-import { toast } from "react-toastify";
 
 const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 	const { slug } = useParams();
+
+	const axios = useAxios();
 
 	const [leaderBoard, setLeaderBoard] = useState<[]>([]);
 
@@ -106,7 +108,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 									</button>
 								</div>
 
-								<form onSubmit={uploadImages} className="flex flex-col justify-between items-center">
+								<form onSubmit={uploadImages} className="flex flex-col justify-center items-center">
 									<input
 										required
 										type="file"

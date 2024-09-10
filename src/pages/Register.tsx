@@ -1,14 +1,15 @@
+import { AxiosError } from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import axios from "../utils/axios/AxiosSetup";
-import AuthContext from "../utils/context/AuthContext";
-import TreasureKoiiImg from "../components/TreasureKoiiImg";
-import HomeFooter from "../components/HomeFooter";
-import { AxiosError } from "axios";
-import Loading from "../utils/Loading";
 import { toast } from "react-toastify";
+import HomeFooter from "../components/HomeFooter";
+import TreasureKoiiImg from "../components/TreasureKoiiImg";
+import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 
 const Register: React.FC = () => {
+	const axios = useAxios();
 	const [firstName, setFirstName] = useState<string>("");
 	const [lastName, setLastName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");

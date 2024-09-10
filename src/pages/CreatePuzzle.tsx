@@ -1,15 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
-import AuthContext from "../utils/context/AuthContext";
-import { useParams } from "react-router-dom";
-import axios from "../utils/axios/AxiosSetup";
-import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
 import { AxiosError } from "axios";
-import { Hunt } from "../types";
-import HuntNav from "../components/HuntNav";
-import Loading from "../utils/Loading";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import HuntNav from "../components/HuntNav";
+import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
+import { Hunt } from "../types";
+import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 
 const CreatePuzzle: React.FC = () => {
+	const axios = useAxios();
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;
 

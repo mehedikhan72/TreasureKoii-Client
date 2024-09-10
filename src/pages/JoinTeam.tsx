@@ -1,16 +1,17 @@
 import { AxiosError } from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import HomeFooter from "../components/HomeFooter";
 import TreasureKoiiImg from "../components/TreasureKoiiImg";
 import YouNeedToBeLoggedIn from "../components/YouNeedToBeLoggedIn";
-import axios from "../utils/axios/AxiosSetup";
-import AuthContext from "../utils/context/AuthContext";
-import Loading from "../utils/Loading";
 import { Hunt } from "../types";
-import HomeFooter from "../components/HomeFooter";
-import { toast } from "react-toastify";
+import AuthContext from "../utils/context/AuthContext";
+import useAxios from "../utils/hooks/useAxios";
+import Loading from "../utils/Loading";
 
 const JoinTeam: React.FC = () => {
+	const axios = useAxios();
 	const contextData = useContext(AuthContext);
 	const user = contextData?.user;
 

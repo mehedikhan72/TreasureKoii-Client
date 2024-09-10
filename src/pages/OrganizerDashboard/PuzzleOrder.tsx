@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import HuntNav from "../../components/HuntNav";
-import { Hunt, TeamData, Puzzle } from "../../types";
-import axios from "../../utils/axios/AxiosSetup";
-import AuthContext from "../../utils/context/AuthContext";
-import Loading from "../../utils/Loading";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import HuntNav from "../../components/HuntNav";
+import { Hunt, Puzzle, TeamData } from "../../types";
+import useAxios from "../../utils/hooks/useAxios";
+import Loading from "../../utils/Loading";
 
 const PuzzleOrder = () => {
 	const { slug } = useParams();
+	const axios = useAxios();
 
 	const [hunt, setHunt] = useState<Hunt>();
 	const [puzzles, setPuzzles] = useState<Puzzle[]>([]);
