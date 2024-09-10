@@ -34,7 +34,7 @@ const App: React.FC = () => {
 
 	return (
 		<div
-			className="App my-font overflow-x-hidden min-h-screen bg-cover bg-center bg-fixed opacity-100"
+			className="App my-font overflow-x-hidden min-h-[100vh] h-[100vh] bg-cover bg-center bg-fixed opacity-100"
 			style={{ backgroundImage: `url(/${bgImage})` }}
 		>
 			<div className="relative min-h-screen w-full">
