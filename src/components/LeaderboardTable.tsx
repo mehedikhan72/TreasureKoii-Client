@@ -29,8 +29,8 @@ border-b border-b-black text-center font-bold"
 								<div
 									className="ml-4 drop-shadow-lg"
 									style={{
-										height: `${1 + (3 - index) / 4}rem`,
-										width: `${1 + (3 - index) / 4}rem`,
+										height: `${1 + (3 - index * .5) / 4}rem`,
+										width: `${1 + (3 - index * .5) / 4}rem`,
 									}}
 								>
 									{badges[index]}
