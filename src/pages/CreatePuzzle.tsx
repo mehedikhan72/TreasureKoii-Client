@@ -205,6 +205,14 @@ const CreatePuzzle: React.FC = () => {
 								name="images"
 								multiple
 								onChange={(e) => {
+									Array.from(e.target.files!).forEach((file) => {
+										if (file.type.split("/")[0] !== "image") {
+											toast.error("Please select only image files.", { toastId: "image-type-error" });
+											e.target.value = "";
+											return;
+										}
+									});
+
 									setImgFiles(e.target.files ? Array.from(e.target.files) : null);
 								}}
 								className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:w-fit text-black w-52 flex-1"

@@ -221,6 +221,12 @@ const CreateHunt: React.FC = () => {
 								id="posterImg"
 								name="poster_image"
 								onChange={(e) => {
+									if (e.target?.files?.[0].type.split("/")[0] !== "image") {
+										toast.error("Please select an image file.", { toastId: "image-type-error" });
+										e.target.value = "";
+										return;
+									}
+
 									setImgFile(e.target.files ? e.target.files.item(0) : null);
 								}}
 								className="m-2 mr-0 file:ml-0 file:mr-4 file:my-btn-sm file:w-fit text-black w-52 flex-1"

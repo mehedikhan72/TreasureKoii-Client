@@ -10,7 +10,7 @@ import HomeFooter from "./HomeFooter";
 import LeaderboardTable from "./LeaderboardTable";
 import ShowImages from "./ShowImages";
 
-const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
+const AfterHunt: React.FC<{ hunt: Hunt; getHuntDetails: () => Promise<void> }> = ({ hunt, getHuntDetails }) => {
 	const { slug } = useParams();
 
 	const axios = useAxios();
@@ -53,6 +53,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 				setImgUploadSuccess(true);
 				setLoading(false);
 				toast.success("Images uploaded successfully.");
+				getHuntDetails();
 			} else {
 				setMessage("Error uploading images");
 				toast.error("Error uploading images.");
@@ -116,6 +117,14 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 										id="huntImages"
 										multiple
 										onChange={(e) => {
+											Array.from(e.target.files!).forEach((file) => {
+												if (file.type.split("/")[0] !== "image") {
+													toast.error("Please select only image files.", { toastId: "image-type-error" });
+													e.target.value = "";
+													return;
+												}
+											});
+
 											setImgFiles(e.target.files ? Array.from(e.target.files) : null);
 										}}
 										className="file:my-btn-sm file:border-0 flex flex-col"
@@ -127,7 +136,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 							</div>
 						)}
 
-						<p className="text-2 text-center stroked-text-sm stroked-text-sm">Hunt has ended. Here's a summary!</p>
+						<p className="text-2 text-center stroked-text-sm">Hunt has ended. Here's a summary!</p>
 						<p className="text-5 stroked-text-sm">{hunt.name}</p>
 						<p className="text-1 my-2 stroked-text-sm">{`${new Date(hunt.start_date).toDateString()} - ${new Date(
 							hunt.end_date

@@ -70,24 +70,25 @@ const HuntHome: React.FC = () => {
 		checkIfHuntPaidFor();
 	}, [slug, contextData, userAnOrganizer]);
 
+	const getHuntDetails = async (): Promise<void> => {
+		try {
+			const response = await axios.get(`hunt/${slug}/`);
+			const data = response.data;
+			if (response.status === 200) {
+				// console.log(data);
+				setHunt(data);
+				setHuntLoaded(true);
+			}
+			// console.log(response);
+		} catch (error) {
+			console.log(error);
+			setHuntLoaded(true);
+		}
+	};
+
 	// TODO: Skip puzzle.
 	useEffect(() => {
 		document.title = `${puzzle ? `${puzzle.name} | ` : ""}${hunt ? `${hunt.name} | ` : ""}TreasureKoii`;
-		const getHuntDetails = async (): Promise<void> => {
-			try {
-				const response = await axios.get(`hunt/${slug}/`);
-				const data = response.data;
-				if (response.status === 200) {
-					// console.log(data);
-					setHunt(data);
-					setHuntLoaded(true);
-				}
-				// console.log(response);
-			} catch (error) {
-				console.log(error);
-				setHuntLoaded(true);
-			}
-		};
 
 		const checkIfUserAnOrganizer = async (): Promise<void> => {
 			try {
@@ -240,7 +241,7 @@ const HuntHome: React.FC = () => {
 				<div>
 					{userAnOrganizer && (
 						<div>
-							{afterHunt && <AfterHunt hunt={hunt} />}
+							{afterHunt && <AfterHunt hunt={hunt} getHuntDetails={getHuntDetails} />}
 							{!afterHunt && (
 								// <div className="flex flex-col min-h-screen">
 								//   <div className="flex-grow">
@@ -270,7 +271,7 @@ const HuntHome: React.FC = () => {
 					{!userAnOrganizer && (
 						<div>
 							{beforeHunt && <BeforeHunt hunt={hunt} />}
-							{afterHunt && <AfterHunt hunt={hunt} />}
+							{afterHunt && <AfterHunt hunt={hunt} getHuntDetails={getHuntDetails} />}
 
 							{duringHunt && <HuntNav slug={slug} huntName={hunt?.name} />}
 							{duringHunt && !user && (
