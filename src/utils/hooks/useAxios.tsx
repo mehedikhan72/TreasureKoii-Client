@@ -26,17 +26,8 @@ const useAxios = () => {
 		const responseIntercept = axios.interceptors.response.use(
 			(response) => response,
 			async (error) => {
-				const prevRequest = error?.config;
-				console.log(prevRequest);
-				if (error?.response?.status === 401 && !prevRequest.sent && prevRequest.url !== "token/") {
-					prevRequest.sent = true;
-
-					const newAccessToken = await contextData?.updateToken();
-
-					if (!!newAccessToken) {
-						prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-						return axios(prevRequest);
-					}
+				if (error?.response?.status === 401) {
+					contextData?.logoutUser();
 				}
 
 				return Promise.reject({ ...error });
