@@ -108,7 +108,7 @@ const AfterHunt: React.FC<{ hunt: Hunt }> = ({ hunt }) => {
 									</button>
 								</div>
 
-								<form onSubmit={uploadImages} className="flex flex-col justify-between items-center">
+								<form onSubmit={uploadImages} className="flex flex-col justify-center items-center">
 									<input
 										required
 										type="file"

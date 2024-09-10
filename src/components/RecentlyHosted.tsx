@@ -55,7 +55,7 @@ const RecentlyHosted: React.FC = () => {
 			{loading && <Loading />}
 			{hunts?.length !== 0 && (
 				<div className="my-10 w-full px-4">
-					<p className="text-5 m-2 stroked-text-sm">Recently hosted treasure hunts</p>
+					<p className="text-5 m-2 stroked-text-md">Recently hosted treasure hunts</p>
 					{hunts?.map((hunt, ind) => (
 						<Link
 							to={{ pathname: `/${hunt.slug}` }}
