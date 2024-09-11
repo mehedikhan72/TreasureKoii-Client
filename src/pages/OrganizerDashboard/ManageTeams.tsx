@@ -6,7 +6,7 @@ import { Hunt, Puzzle, TeamData } from "../../types";
 import useAxios from "../../utils/hooks/useAxios";
 import Loading from "../../utils/Loading";
 
-const PuzzleOrder = () => {
+const ManageTeams = () => {
 	const { slug } = useParams();
 	const axios = useAxios();
 
@@ -288,4 +288,4 @@ const PuzzleOrder = () => {
 	);
 };
 
-export default PuzzleOrder;
+export default ManageTeams;

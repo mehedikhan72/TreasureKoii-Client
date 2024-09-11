@@ -166,8 +166,8 @@ const Dashboard: React.FC = () => {
 							<Link to={{ pathname: `/${slug}/create-puzzle` }}>
 								<button className="my-btn-1">Create New Puzzle</button>
 							</Link>
-							<Link to={{ pathname: `/${slug}/puzzle-order` }}>
-								<button className="my-btn-1">Update Puzzle Order</button>
+							<Link to={{ pathname: `/${slug}/manage-teams` }}>
+								<button className="my-btn-1">Manage Teams</button>
 							</Link>
 						</div>
 

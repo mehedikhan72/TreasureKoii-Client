@@ -15,13 +15,12 @@ import Rules from "./pages/Rules";
 import Announcements from "./pages/Announcements";
 import Custom404 from "./utils/Custom404";
 import Dashboard from "./pages/OrganizerDashboard/Dashboard";
-import PuzzleOrder from "./pages/OrganizerDashboard/PuzzleOrder";
-import YouNeedToBeLoggedIn from "./components/YouNeedToBeLoggedIn";
 import YouveBeenLoggedOut from "./pages/YouveBeenLoggedOut";
 import MakePayment from "./pages/MakePayment";
 import UnpaidNotice from "./pages/UnpaidNotice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ManageTeams from "./pages/OrganizerDashboard/ManageTeams";
 
 const App: React.FC = () => {
 	const bgImage = "tk-bg.webp";
@@ -54,7 +53,7 @@ const App: React.FC = () => {
 						<Route path="/:slug/rules" element={<Rules />} />
 						<Route path="/:slug/announcements" element={<Announcements />} />
 						<Route path="/:slug/organizer-dashboard" element={<Dashboard />} />
-						<Route path="/:slug/puzzle-order" element={<PuzzleOrder />} />
+						<Route path="/:slug/manage-teams" element={<ManageTeams />} />
 						<Route path="/youve-been-logged-out" element={<YouveBeenLoggedOut />} />
 						<Route path="/:slug/make-payment" element={<MakePayment />} />
 						<Route path="/:slug/unpaid-notice" element={<UnpaidNotice />} />
