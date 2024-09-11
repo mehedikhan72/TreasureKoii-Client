@@ -143,10 +143,10 @@ const PuzzleOrder = () => {
 				</div>
 			)}
 			{userAnOrganizer && userDataLoaded && (
-				<div className="max-w-5xl flex mx-auto">
+				<div className="max-w-5xl flex mx-auto flex-col items-center">
 					{allTeamsData.length === 0 && (
 						<div>
-							<p className="text-2">
+							<p className="text-2 stroked-text-md mx-auto">
 								No teams registered for this hunt... yet. You can set puzzle order for teams once they register.
 							</p>
 						</div>
@@ -160,7 +160,7 @@ const PuzzleOrder = () => {
 								</p>
 								<div className="m-2 sm:my-4 rounded-md grid grid-cols-[auto_1fr_1fr_1fr] max-sm:grid-cols-[auto_1fr_1fr] styled-div-1 p-0 [&>*>*]:px-4">
 									<div className="grid grid-cols-subgrid col-span-full text-center py-2 pt-4 rounded-t font-bold border-b border-b-black mb-2 bg-prim bg-opacity-70">
-										<div>Team ID</div>
+										<div className="!px-8">Team ID</div>
 										<div>Team Name</div>
 										<div>Team Leader</div>
 										<div className="max-sm:hidden">Puzzle (IDs) Order</div>
@@ -195,18 +195,18 @@ const PuzzleOrder = () => {
 														</div>
 													</div>
 												)}
-												<div className="flex flex-wrap items-center justify-start w-full col-span-full text-sm">
+												<div className="flex flex-wrap items-center justify-end max-sm:justify-start w-full col-span-full text-sm">
 													<p className="mr-2 font-semibold">Team Password :</p>
-													<div className="text-1 px-2 sm:flex sm:flex-wrap items-center justify-center gap-2">
-														<span>{teamData.team_password}</span>
+													<div className="text-1 px-2 flex items-center gap-2">
+														<div className="w-24 text-left">{teamData.team_password}</div>
 														<button
 															onClick={() => {
 																navigator.clipboard.writeText(teamData.team_password);
 																toast.success("Copied to clipboard");
 															}}
-															className="my-btn-sm w-fit px-2 py-0.5"
+															className="my-btn-sm w-fit px-1.5 py-0"
 														>
-															<i className="bx bx-copy mt-1"></i>
+															<i className="bx bx-copy mt-1.5"></i>
 															{/* <span>Copy</span> */}
 														</button>
 													</div>

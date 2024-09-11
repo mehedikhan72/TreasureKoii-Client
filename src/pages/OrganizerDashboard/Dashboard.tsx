@@ -162,12 +162,12 @@ const Dashboard: React.FC = () => {
 						Hi, {user?.first_name} {user?.last_name}! Welcome to the organizer dashboard.
 					</p>
 					<div className="flex flex-col justify-center items-center">
-						<div className="flex justify-center items-center">
-							<Link to={{ pathname: `/${slug}/create-puzzle` }}>
+						<div className="flex justify-center items-center flex-wrap ">
+							<Link to={{ pathname: `/${slug}/create-puzzle` }} className="block">
 								<button className="my-btn-1">Create New Puzzle</button>
 							</Link>
-							<Link to={{ pathname: `/${slug}/puzzle-order` }}>
-								<button className="my-btn-1">Update Puzzle Order</button>
+							<Link to={{ pathname: `/${slug}/puzzle-order` }} className="block">
+								<button className="my-btn-1 max-sm:w-max px-4">Manage Teams & Puzzles</button>
 							</Link>
 						</div>
 
