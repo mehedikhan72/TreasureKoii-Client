@@ -33,6 +33,7 @@ const PuzzleOrder = () => {
 		try {
 			const response = await axios.get(`${slug}/get-all-teams-data/`);
 			const data = response.data;
+
 			if (response.status === 200) {
 				setAllTeamsData(data);
 			}
@@ -175,7 +176,7 @@ const PuzzleOrder = () => {
 												<div>{teamData.team_leader}</div>
 												{teamData.team_puzzle_order.length > 0 ? (
 													<div className="flex flex-wrap justify-center items-center max-sm:justify-start w-full max-sm:col-span-full max-sm:text-sm">
-														<p className="sm:hidden mr-4 font-semibold">Puzzle (IDs) Order:</p>
+														<p className="sm:hidden mr-2 font-semibold">Puzzle (IDs) Order:</p>
 														{teamData.team_puzzle_order.map((puzzleId, index) => {
 															return (
 																<p className="text-1" key={`${teamData.team_id}-${puzzleId}`}>
@@ -187,13 +188,29 @@ const PuzzleOrder = () => {
 													</div>
 												) : (
 													<div className="flex flex-wrap justify-center items-center max-sm:justify-start w-full max-sm:col-span-full max-sm:text-sm">
-														<p className="sm:hidden mr-4 font-semibold">Puzzle (IDs) Order:</p>
-														<div className="text-1 text-red-800 px-4 sm:flex sm:flex-wrap items-center justify-center">
+														<p className="sm:hidden mr-2 font-semibold">Puzzle (IDs) Order :</p>
+														<div className="text-1 text-red-800 px-2 sm:flex sm:flex-wrap items-center justify-center">
 															<span>Not Set</span>
 															<span>(random order)</span>
 														</div>
 													</div>
 												)}
+												<div className="flex flex-wrap items-center justify-start w-full col-span-full text-sm">
+													<p className="mr-2 font-semibold">Team Password :</p>
+													<div className="text-1 px-2 sm:flex sm:flex-wrap items-center justify-center gap-2">
+														<span>{teamData.team_password}</span>
+														<button
+															onClick={() => {
+																navigator.clipboard.writeText(teamData.team_password);
+																toast.success("Copied to clipboard");
+															}}
+															className="my-btn-sm w-fit px-2 py-0.5"
+														>
+															<i className="bx bx-copy mt-1"></i>
+															{/* <span>Copy</span> */}
+														</button>
+													</div>
+												</div>
 											</div>
 										);
 									})}

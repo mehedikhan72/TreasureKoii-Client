@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 	const contextData = useContext(AuthContext);
 
 	useEffect(() => {
-		document.title = "Login | TreasureKoii";
+		document.title = "Log In | TreasureKoii";
 
 		return () => {
 			document.title = "TreasureKoii";
@@ -29,20 +29,20 @@ const Login: React.FC = () => {
 			</div>
 
 			<div className="flex flex-col justify-center items-center gap-10 flex-1">
-				<div className="text-6 stroked-text-md pt-8">Login</div>
+				<div className="text-6 stroked-text-md pt-8">Log In</div>
 
 				<form onSubmit={loginUser} className="flex flex-col justify-center items-center gap-2 w-4/6">
 					{/* {message && <p className="text-1 text-red-500">{message}</p>} */}
 					<input type="email" name="email" placeholder="Email" className="my-input-field w-full" />
 					<input type="password" name="password" placeholder="Password" className="my-input-field w-full" />
 					<button type="submit" className="my-btn-1 w-full">
-						Login
+						Log In
 					</button>
 
 					<div className="text-1 flex justify-center items-center  stroked-text-sm">
 						<p className="px-1 ">Don't have an account?</p>
 						<Link to={{ pathname: `/register` }} className="text-blue-300 hover:underline">
-							Register here
+							Sign Up here
 						</Link>
 					</div>
 				</form>

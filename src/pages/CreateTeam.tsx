@@ -43,8 +43,13 @@ const CreateTeam: React.FC = () => {
 				let str = data.success;
 				setTeampassword(str.match(/password: (.+?)\./)[1]);
 				toast.success("Team Successfully Created.");
+				toast.error("Store the password carefully. If you lose it, you will have to contact the organizers.", {
+					autoClose: false,
+				});
 
-				hunt && navigate(`/${hunt?.slug}`);
+				// new Promise((resolve) => setTimeout(resolve, 500))
+
+				// hunt && navigate(`/${hunt?.slug}`);
 			} else {
 				// setMessage(data.error);
 				toast.error(data.error);
@@ -85,7 +90,7 @@ const CreateTeam: React.FC = () => {
 		return () => {
 			document.title = "TreasureKoii";
 		};
-	}, [slug]);
+	}, [slug, user]);
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -96,12 +101,19 @@ const CreateTeam: React.FC = () => {
 			{user && (
 				<div className="flex flex-col my-28 items-center gap-5 flex-1">
 					{hunt && <div className="text-5 stroked-text-md">{hunt.name}</div>}
-					<div className="text-2 stroked-text-sm">Create A Team</div>
+					<div className="text-4 stroked-text-md">Create A Team</div>
 					{/* {message && (
             <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">
               {message}
             </p>
           )} */}
+
+					<div className="stroked-text-md max-w-[40rem] text-center text-lg rte">
+						<p>After creating a team, you will receive a team password.</p>
+						<p>Share this password with your team members to join the team.</p>
+						<p>Store the password carefully</p>
+						<p>If you lose it, you will have to contact the organizers</p>
+					</div>
 					<form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-2 w-1/2">
 						<input
 							type="text"
@@ -116,16 +128,12 @@ const CreateTeam: React.FC = () => {
 							Create Team
 						</button>
 					</form>
+
 					{Boolean(teamPassword) && (
 						<>
 							{/* <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-green-600">
                 Team Successfully Created.
               </p> */}
-							{/* <Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold flex items-center gap-1">
-								<span className="stroked-text-sm">Go To</span>
-								<span className="my-btn-sm w-fit px-2 pb-0.5 bg-blue-400 hover:bg-blue-500 mb-1.5">Hunt Page</span>
-							</Link> */}
-							<div></div>
 
 							<div className="styled-div-1 w-[350px] md:w-[500px] flex justify-between items-center">
 								<p className="text-sm lg:text-lg">Team Password: {teamPassword}</p>
@@ -139,6 +147,11 @@ const CreateTeam: React.FC = () => {
 									<span>{copied ? "Copied" : "Copy"}</span>
 								</button>
 							</div>
+
+							<Link to={{ pathname: `/${(hunt as Hunt).slug}` }} className="text-lg font-bold flex items-center gap-1">
+								<span className="stroked-text-sm">Go To</span>
+								<span className="my-btn-sm w-fit px-2 pb-0.5  mb-1.5">Hunt Page</span>
+							</Link>
 						</>
 					)}
 				</div>
