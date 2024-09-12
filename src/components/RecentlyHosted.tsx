@@ -59,7 +59,7 @@ const RecentlyHosted: React.FC = () => {
 					{hunts?.map((hunt, ind) => (
 						<Link
 							to={{ pathname: `/${hunt.slug}` }}
-							className="grid grid-cols-[1fr_40%] justify-between items-center styled-div-1 bg-opacity-80 my-4 gap-y-2 max-w-[60rem] mx-auto hover:-translate-y-0.5 active:translate-y-0 transition-all max-sm:grid-cols-[1fr] max-sm:max-w-80"
+							className="grid grid-cols-[1fr_40%] justify-between items-center styled-div-1 bg-opacity-80 my-4 gap-y-2 max-w-[60rem] mx-auto hover:-translate-y-0.5 active:translate-y-0 transition-all max-sm:grid-cols-[1fr] max-sm:max-w-[26rem]"
 							key={`recent-hosted-${hunt.slug}`}
 						>
 							<div
@@ -77,12 +77,12 @@ const RecentlyHosted: React.FC = () => {
 								className="aspect-[3/2] object-cover object-center overflow-hidden rounded sm:row-span-2 max-sm:row-start-3"
 							/>
 							{hunt.winner && (
-								<div className="grid grid-cols-[repeat(3,max-content)] gap-x-2 place-items-center mx-auto self-start max-md:text-sm">
+								<div className="grid grid-cols-[repeat(3,auto)] gap-x-2 gap-y-1 place-items-center text-center mx-auto self-start max-md:text-sm !px-4">
 									<span className="font-bold">Winner Team</span>
 									<span>:</span>
 									<span>{hunt.winner?.team_name}</span>
 									<span className="font-bold">Leader</span>
-									<span>:</span> <span>{hunt.winner?.team_leader}</span>
+									<span>:</span> <div>{hunt.winner?.team_leader}</div>
 									<span className="font-bold">Points</span>
 									<span>:</span> <span>{hunt.winner?.points} </span>
 								</div>
