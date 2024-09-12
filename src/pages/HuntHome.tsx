@@ -310,7 +310,7 @@ const HuntHome: React.FC = () => {
 													placeholder="Answer"
 													className="my-input-field"
 													value={answer}
-													onChange={(e) => setAnswer(e.target.value)}
+													onChange={(e) => setAnswer(e.target.value.toLowerCase())}
 												/>
 												{/* {wrongAnswerGiven && (
                           <p className="text-1 w-[172px] sm:w-[200px] md:w-[250px] lg:w-[300px] styled-div-1 bg-red-500">

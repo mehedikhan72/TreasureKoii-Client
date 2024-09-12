@@ -44,10 +44,12 @@ const JoinHunt: React.FC = () => {
 			if (response.status === 200 && response.data.hunt_exists !== true) {
 				setHuntExists(false);
 				// setMessage("Hunt does not exist. Please try again.");
-				toast.error("Hunt does not exist. Please try again.");
+				toast.error("Hunt does not exist. Please try again.", { toastId: "hunt-not-exist" });
 			} else {
 				setMessage("");
 				setHuntExists(true);
+				toast.dismiss("hunt-not-exist");
+				toast.success("Hunt exists. You can join it.", { toastId: "hunt-not-exists" });
 			}
 		} catch (error) {
 			console.log(error);
@@ -104,9 +106,10 @@ const JoinHunt: React.FC = () => {
 			if (response.status === 200) {
 				if (response.data.hunt_exists === true) {
 					navigate(`/${huntSlug}/join-team`);
+					toast.success("Hunt exists. You can join it.", { toastId: "hunt-not-exists" });
 				} else {
 					// setMessage("Hunt does not exist. Please try again.");
-					toast.error("Hunt does not exist. Please try again.");
+					toast.error("Hunt does not exist. Please try again.", { toastId: "hunt-not-exist" });
 				}
 			}
 			// console.log(response);

@@ -64,7 +64,7 @@ const OrganizingHunts: React.FC = () => {
 				<div className="grid grid-cols-subgrid col-span-full text-center py-3 pt-4 rounded-t font-bold border-b border-b-black mb-2 bg-prim bg-opacity-70">
 					<p>Hunt Name</p>
 					<p>Status</p>
-					<p>Starts In</p>
+					<p className="!px-20">Starts In</p>
 				</div>
 				{hunts.map((hunt, ind) => (
 					<Link
