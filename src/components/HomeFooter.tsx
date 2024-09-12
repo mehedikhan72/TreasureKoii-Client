@@ -21,7 +21,7 @@ const HomeFooter: React.FC = () => {
 				<Link to={{ pathname: `/` }} className="text-white text-stroke-[3px] text-2 link-1 flex-1">
 					FAQ
 				</Link>
-				<Link to={{ pathname: `/` }} className="text-white text-stroke-[3px] text-2 link-1 flex-1">
+				<Link to={{ pathname: `/points-system` }} className="text-white text-stroke-[3px] text-2 link-1 flex-1">
 					Points System
 				</Link>
 				<Link to={{ pathname: `/` }} className="text-white text-stroke-[3px] text-2 link-1 flex-1">
