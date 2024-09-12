@@ -195,7 +195,7 @@ const ManageTeams = () => {
 														</div>
 													</div>
 												)}
-												<div className="flex flex-wrap items-center justify-end max-sm:justify-start w-full col-span-full text-sm">
+												<div className="flex flex-wrap items-center justify-start max-sm:justify-start w-full col-span-full text-sm">
 													<p className="mr-2 font-semibold">Team Password :</p>
 													<div className="text-1 px-2 flex items-center gap-2">
 														<div className="w-24 text-left">{teamData.team_password}</div>

@@ -119,7 +119,7 @@ const JoinTeam: React.FC = () => {
 						<input
 							type="text"
 							name="team_passwprd"
-							placeholder="Enter Team Password"
+							placeholder="Team Password"
 							value={teamPassword}
 							onChange={(e) => setTeamPassword(e.target.value)}
 							className="my-input-field"
